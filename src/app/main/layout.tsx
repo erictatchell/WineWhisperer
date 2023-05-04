@@ -23,11 +23,6 @@ const theme = createTheme({
   },
 });
 
-export const metadata = {
-  title: 'WineWhisperer',
-  description: 'Discover your next favourite wine',
-}
-
 export default function RootLayout({
   children,
 }: {
@@ -53,7 +48,7 @@ export default function RootLayout({
         </nav>
         {children}
 
-        <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-brendan-200 bg-brendan dark:border-brendan">
+        <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
           <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
           <IconButton href="/main/home">
 
@@ -92,7 +87,6 @@ export default function RootLayout({
 
           </div>
         </div>
-
       </body>
     </html>
   )
