@@ -1,5 +1,10 @@
 export default function Login() {
     return (
-        <h1>Login page</h1>
+        <div>
+        <h1 className="text-xl">Login page</h1>
+        <a href="../main/home">Login</a><br></br>
+        <a href="./signup">Sign Up</a>
+
+        </div>
     )
 }
