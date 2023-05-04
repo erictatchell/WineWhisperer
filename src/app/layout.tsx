@@ -1,8 +1,8 @@
 import './globals.css'
 
-import { Inter } from 'next/font/google'
+import { Lora } from 'next/font/google'
 
-const inter = Inter({ subsets: ['latin'] })
+const lora = Lora({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'WineWhisperer',
@@ -16,10 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <h1>Header</h1>
+      <body className={`flex flex-col min-h-screen ${lora.className}`}>
+        <div></div>
         {children}
-        <h1>Footer</h1>
+        <div></div>
       </body>
     </html>
   )
