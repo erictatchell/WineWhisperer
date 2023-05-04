@@ -6,7 +6,16 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
-
+    letterSpacing: {
+      tightest: '-.075em',
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: '0',
+      wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
+      widest2: '.4em',
+    },
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -17,6 +26,7 @@ module.exports = {
         transparent: 'transparent',
         current: 'currentColor',
         'brendan': '#8B3A62',
+        'dijon': '#FFDB9C',
         'white': '#ffffff',
         'purple': '#3f3cbb',
         'midnight': '#121063',
