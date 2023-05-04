@@ -27,6 +27,7 @@ module.exports = {
         current: 'currentColor',
         'brendan': '#8B3A62',
         'dijon': '#FFDB9C',
+        'lightdijon': '#FFF8DF',
         'white': '#ffffff',
         'purple': '#3f3cbb',
         'midnight': '#121063',
