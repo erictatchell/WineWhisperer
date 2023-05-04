@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className='overscroll-none'>
+    <main style={{ overscrollBehavior: "none" }} >
       <div className="grid justify-center">
         <div className="grid justify-center">
           <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="175" height="175"></Image>
