@@ -23,11 +23,13 @@ const theme = createTheme({
   },
 });
 
-export default function RootLayout({
-  children,
-}: {
+interface IProps {
   children: React.ReactNode
-}) {
+  session:any;
+}
+
+
+export default function RootLayout({ children, session }: IProps) {
   return (
     <html lang="en">
       <body className={`flex flex-col min-h-screen ${lora.className}`}>
@@ -37,15 +39,21 @@ export default function RootLayout({
               <img src="../logo.png" className="h-8 mr-3" alt="WW Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </a>
-            <div className="flex md:order-2">
-              <ThemeProvider theme={theme}>
-                <IconButton href="/main/profile">
-                  <AccountCircleIcon fontSize="large" color="primary" />
-                </IconButton>
-              </ThemeProvider>
-            </div>
+              {session?.user ? (
+                <div className="flex md:order-2">
+                  <ThemeProvider theme={theme}>
+                    <IconButton href="/main/profile">
+                      <AccountCircleIcon fontSize="large" color="primary" />
+                    </IconButton>
+                  </ThemeProvider>
+                </div>
+              ) : (
+                <div></div>
+              )}
           </div>
-        </nav>
+          </nav>
+              
+       
         {children}
 
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
