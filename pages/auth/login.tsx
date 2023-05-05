@@ -1,20 +1,30 @@
+import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router';
+import { FormEventHandler, useEffect, useState } from 'react';
+import { resolveTypeReferenceDirective } from 'typescript';
 
 export default function Login() {
+    const handleSignInClick = () => {
+        signIn("google", { callbackUrl: '/main/home' });
+    };
+
     return (
-        <main >
+        <main>
             <div className="grid justify-center">
                 <div className="grid justify-center">
-                    <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="175" height="175"></Image>
+                    <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="130" height="130"></Image>
                 </div>
                 <h1 className="drop-shadow-xl text-xl mt-5 text-brendan font-medium tracking-widest2 grid justify-center">LOG IN</h1>
 
-                <form action="../main/home" className="mt-5 grid">
+                <form className="mt-5 grid">
                     <div className="mb-6">
                         <input type="email" id="email" className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" required></input>
                     </div>
                     <div className="mb-6">
-                        <input type="password" id="password" className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required></input>
+                        <input
+                        type="password" id="password" className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Password" required></input>
                     </div>
                     {/* <div className="flex items-start mb-6">
                         <div className="flex items-center h-5">
@@ -29,11 +39,11 @@ export default function Login() {
                 <h1 className="mt-3 mb-5 grid justify-center">- or -</h1>
             </div>
             <div className='grid justify-center mb-3'>
-                <a href='/authentication/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
+                <Link href='/auth/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
                     <button type="button" className="tracking-widest2">
                         SIGN UP
                     </button>
-                </a>
+                </Link>
             </div>
 
             <div className='flex justify-center'>
@@ -44,7 +54,7 @@ export default function Login() {
                     <svg className="w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M459.4 151.7c.325 4.548 .325 9.097 .325 13.65 0 138.7-105.6 298.6-298.6 298.6-59.45 0-114.7-17.22-161.1-47.11 8.447 .974 16.57 1.299 25.34 1.299 49.06 0 94.21-16.57 130.3-44.83-46.13-.975-84.79-31.19-98.11-72.77 6.498 .974 12.99 1.624 19.82 1.624 9.421 0 18.84-1.3 27.61-3.573-48.08-9.747-84.14-51.98-84.14-102.1v-1.299c13.97 7.797 30.21 12.67 47.43 13.32-28.26-18.84-46.78-51.01-46.78-87.39 0-19.49 5.197-37.36 14.29-52.95 51.65 63.67 129.3 105.3 216.4 109.8-1.624-7.797-2.599-15.92-2.599-24.04 0-57.83 46.78-104.9 104.9-104.9 30.21 0 57.5 12.67 76.67 33.14 23.72-4.548 46.46-13.32 66.6-25.34-7.798 24.37-24.37 44.83-46.13 57.83 21.12-2.273 41.58-8.122 60.43-16.24-14.29 20.79-32.16 39.31-52.63 54.25z"></path></svg>
                 </button>
 
-                <button type="button" className="drop-shadow-xl justify-center text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-3 py-3 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
+                <button onClick={handleSignInClick}  className="drop-shadow-xl justify-center text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-3 py-3 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
                     <svg className="w-4 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
                 </button>
                 <button type="button" className="drop-shadow-xl justify-center text-white bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-3 py-3 text-center inline-flex items-center dark:focus:ring-[#050708]/50 mr-2 mb-2">
