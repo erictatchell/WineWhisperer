@@ -1,5 +1,4 @@
 import { getSession } from 'next-auth/react';
-import './globals.css'
 
 export default function Settings() {
     return (
