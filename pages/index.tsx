@@ -19,16 +19,16 @@ export default function Home() {
           <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="175" height="175"></Image>
         </div>
         <h1 className="drop-shadow-xl text-xl mt-5 text-brendan font-medium tracking-widest2 grid justify-center">WINE WHISPERER</h1>
-        <a href='/auth/login' className='justify-center text-center inline-flex items-center drop-shadow-xl text-xl  mt-12 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
+        <Link href='/auth/login' className='justify-center text-center inline-flex items-center drop-shadow-xl text-xl  mt-12 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
           <button type="button" className="tracking-widest2">
             LOG IN
           </button>
-        </a>
-        <a href='/auth/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
+        </Link>
+        <Link href='/auth/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
           <button type="button" className="tracking-widest2">
             SIGN UP
           </button>
-        </a>
+        </Link>
 
         <h1 className="mt-3 mb-5 grid justify-center">- or -</h1>
       </div>

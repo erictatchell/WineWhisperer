@@ -1,5 +1,6 @@
 import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { resolveTypeReferenceDirective } from 'typescript';
@@ -38,11 +39,11 @@ export default function Login() {
                 <h1 className="mt-3 mb-5 grid justify-center">- or -</h1>
             </div>
             <div className='grid justify-center mb-3'>
-                <a href='/auth/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
+                <Link href='/auth/signup' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
                     <button type="button" className="tracking-widest2">
                         SIGN UP
                     </button>
-                </a>
+                </Link>
             </div>
 
             <div className='flex justify-center'>

@@ -1,6 +1,8 @@
 import { log } from 'console';
 import { signIn } from 'next-auth/react';
 import Image from 'next/image';
+import Link from 'next/link'
+
 import { FormEventHandler, ChangeEvent, useState } from 'react';
 
 export default function SignUp() {
@@ -43,11 +45,11 @@ export default function SignUp() {
             </div>
 
             <div className='grid justify-center mb-3'>
-                <a href='/auth/login' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
+                <Link href='/auth/login' className='justify-center text-center inline-flex items-center drop-shadow-xl text-md text-black bg-lightdijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2'>
                     <button type="button" className="tracking-widest2">
                         LOG IN
                     </button>
-                </a>
+                </Link>
             </div>
             <div className='flex justify-center'>
 

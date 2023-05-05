@@ -8,6 +8,7 @@ import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import SearchIcon from '@mui/icons-material/Search';
 import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/router';
+import Link from 'next/link'
 
 const lora = Lora({ subsets: ['latin'] })
 
@@ -38,10 +39,10 @@ export default function Layout({ children }: Props) {
       <div className={`flex flex-col min-h-screen ${lora.className}`}>
         <nav className="bg-white dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="/main/home" className="flex items-center">
+            <Link href="/main/home" className="flex items-center">
               <img src="../logo.png" className="h-8 mr-3" alt="WW Logo" />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
-            </a>
+            </Link>
             <div className="flex md:order-2">
               <ThemeProvider theme={theme}>
                 <IconButton href="/main/profile">
