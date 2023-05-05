@@ -5,6 +5,7 @@ import { MongoClient } from "mongodb";
 const mongoDbConnectionString = process.env.MONGODB_URI;
 
 const authOptions = {
+  secret: process.env.SECRET,
   session: {
     strategy: "jwt",
   },
