@@ -1,8 +1,7 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { MongoClient } from "mongodb";
+import { connectToDatabase } from "../../../lib/mongodb";
 
 const authOptions = {
   secret: process.env.SECRET,
@@ -19,6 +18,28 @@ const authOptions = {
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     }),
   ],
+  callbacks: {
+    async jwt(token, user, account, profile, isNewUser) {
+      const db = await connectToDatabase();
+      const users = db.collection("users");
+      if (isNewUser) {
+        const userDoc = {
+          accountId: user.id,
+          name: user.name,
+          email: user.email,
+          image: user.image,
+        };
+        await users.insertOne(userDoc);
+      }
+      token.id = user.id;
+      return token;
+    },
+    async session(session, token) {
+      session.user.id = token.id;
+      return session;
+    },
+  },
   secret: process.env.JWT_SECRET,
 };
+
 export default NextAuth(authOptions);
