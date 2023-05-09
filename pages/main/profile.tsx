@@ -10,13 +10,12 @@ export default function Profile() {
         return (
             <div>
                 <h1>{!user ? 'No user' : `Hello, ${user.name}`}</h1>
-                <Image src='/${user.image}' width='100' height='100' alt='userimage'>
-                </Image>
+                {user && user.image &&
+                    <Image src={user.image} width={100} height={100} alt='User profile image' />
+                }
                 <a onClick={() => (signOut())}>Sign Out</a>
             </div>
         )
-    } else {
-
     }
 }
 
