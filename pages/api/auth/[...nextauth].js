@@ -2,7 +2,6 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
 import { connectToDatabase } from "../../../lib/mongodb";
-import { ObjectId } from 'mongodb';
 
 const authOptions = {
   secret: process.env.SECRET,
@@ -20,36 +19,35 @@ const authOptions = {
     }),
   ],
   callbacks: {
+    async session(session, user) {
+      session.user.id = user.id;
+      return session;
+    },
     async jwt(token, user) {
       if (user) {
         token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
-
-        const { db } = await connectToDatabase();
-        const collection = db.collection('users');
-
-        // Check if user already exists in the database
-        const existingUser = await collection.findOne({ _id: new ObjectId(user.id) });
-
-        // If user does not exist, add them
-        if (!existingUser) {
-          await collection.insertOne({
-            _id: new ObjectId(user.id),
-            email: user.email,
-            name: user.name,
-          });
-        }
       }
       return token;
     },
-    async session(session, token) {
-      session.user.id = token.id;
-      session.user.email = token.email;
-      session.user.name = token.name;
-      return session;
+    async signIn(user, account, profile) {
+      const { db } = await connectToDatabase();
+      if (db) {
+        await db.collection('users').updateOne(
+          { id: user.id },
+          {
+            $set: {
+              name: user.name,
+              email: user.email,
+              image: user.image,
+            },
+          },
+          { upsert: true }
+        );
+      }
+      return true;
     },
   },
+
   secret: process.env.JWT_SECRET,
 };
 
