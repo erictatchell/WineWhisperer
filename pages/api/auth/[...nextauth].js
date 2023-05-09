@@ -20,25 +20,30 @@ const authOptions = {
   ],
   callbacks: {
     async session(session, user) {
-      session.user.id = user.id;
+      if (user && user.sub) {
+        session.user.id = user.sub;
+      }
       return session;
     },
     async jwt(token, user) {
-      if (user) {
-        token.id = user.id;
+      if (user && user.sub) {
+        token.id = user.sub;
       }
       return token;
     },
     async signIn(user, account, profile) {
       const { db } = await connectToDatabase();
       if (db) {
+        const { id, name, email, image } = user.id ? user : profile;
+        const accountId = account?.id; // Access the account id if it exists
+        const userId = id || profile.sub || accountId; // Use the first defined value
         await db.collection('users').updateOne(
-          { id: profile.id },
+          { id: userId },
           {
             $set: {
-              name: profile.name,
-              email: profile.email,
-              image: profile.image,
+              name: name,
+              email: email,
+              image: image,
             },
           },
           { upsert: true }
@@ -47,7 +52,6 @@ const authOptions = {
       return true;
     },
   },
-
   secret: process.env.JWT_SECRET,
 };
 
