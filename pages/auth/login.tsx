@@ -3,10 +3,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useState } from 'react';
-import { resolveTypeReferenceDirective } from 'typescript';
+
 
 export default function Login() {
-
+    
     // social media providers
     const handleGoogle = () => {
         signIn("google", { callbackUrl: '/main/home' });
