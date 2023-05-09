@@ -1,18 +1,18 @@
 import { useState } from "react";
 
 export default function Search() {
-  const [wineTypes, setWineTypes] = useState([]);
-  const [grapeVarieties, setGrapeVarieties] = useState([]);
-  const [wineTaste, setWineTaste] = useState([]);
-  const [selectAll, setSelectAll] = useState(false);
+  const [wineTypes, setWineTypes] = useState<string[]>([]);
+  const [grapeVarieties, setGrapeVarieties] = useState<string[]>([]);
+  const [wineTaste, setWineTaste] = useState<string[]>([]);
+  const [selectAll, setSelectAll] = useState<boolean>(false);
 
-  const handleWineTypeChange = (event) => {
+  const handleWineTypeChange = (event: any) => {
     const wineType = event.target.value;
     const isChecked = event.target.checked;
 
     if (wineType === "all") {
       if (isChecked) {
-        setWineTypes(["red", "white", "rosé", "sparkling"]);
+        setWineTypes(['red', "white", "rosé", "sparkling"]);
       } else {
         setWineTypes([]);
       }
@@ -20,13 +20,13 @@ export default function Search() {
       if (isChecked) {
         setWineTypes([...wineTypes, wineType]);
       } else {
-        setWineTypes(wineTypes.filter((t) => t !== wineType));
+        setWineTypes(wineTypes.filter((t : any) => t !== wineType));
         setSelectAll(false);
       }
     }
   };
 
-  const handleGrapeVarietyChange = (event) => {
+  const handleGrapeVarietyChange = (event : any) => {
     const grapeVariety = event.target.value;
     const isChecked = event.target.checked;
 
@@ -40,13 +40,13 @@ export default function Search() {
           if (isChecked) {
             setGrapeVarieties([...grapeVarieties, grapeVariety]);
           } else {
-            setGrapeVarieties(grapeVarieties.filter((g) => g !== grapeVariety));
+            setGrapeVarieties(grapeVarieties.filter((g : any) => g !== grapeVariety));
             setSelectAll(false);
           }
         }
     };
 
-    const handleWineTasteChange = (event) => {
+    const handleWineTasteChange = (event : any) => {
         const wineTaste = event.target.value;
         const isChecked = event.target.checked;
     
@@ -60,13 +60,13 @@ export default function Search() {
           if (isChecked) {
             setWineTaste([...wineTaste, wineTaste]);
           } else {
-            setWineTaste(wineTaste.filter((t) => t !== wineTaste));
+            setWineTaste(wineTaste.filter((t: any) => t !== wineTaste));
             setSelectAll(false);
           }
         }
       };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event : any) => {
     event.preventDefault();
     console.log("Wine types:", wineTypes);
     console.log("Grape varieties:", grapeVarieties);
