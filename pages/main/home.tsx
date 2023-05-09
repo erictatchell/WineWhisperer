@@ -15,9 +15,9 @@ export default function Home() {
     };
 
     const handleSubmit = async (event: any) => {
-        // event.preventDefault();
-        // const recommendations = await getWineRecommendations(`${selectedPrompt}: ${description}`);
-        // console.log(recommendations); // display results in console for now
+        event.preventDefault();
+        const recommendations = await getWineRecommendations(`${selectedPrompt}: ${description}`);
+        console.log(recommendations); // display results in console for now
     };
 
     return (
