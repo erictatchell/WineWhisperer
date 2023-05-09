@@ -33,12 +33,12 @@ const authOptions = {
       const { db } = await connectToDatabase();
       if (db) {
         await db.collection('users').updateOne(
-          { id: user.id },
+          { id: profile.id },
           {
             $set: {
-              name: user.name,
-              email: user.email,
-              image: user.image,
+              name: profile.name,
+              email: profile.email,
+              image: profile.image,
             },
           },
           { upsert: true }
