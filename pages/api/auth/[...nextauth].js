@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
 import { connectToDatabase } from "../../../lib/mongodb";
+import MongoClient from 'mongodb'
 
 const authOptions = {
   secret: process.env.SECRET,
