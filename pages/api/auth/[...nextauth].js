@@ -19,28 +19,31 @@ const authOptions = {
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     }),
   ],
-  callbacks: {
-    async jwt(token, user, account, profile, isNewUser) {
-      const db = await connectToDatabase();
-      const users = db.collection("users");
-      if (isNewUser) {
-        const userDoc = {
-          accountId: user.id,
-          name: user.name,
-          email: user.email,
-          image: user.image,
-        };
-        await users.insertOne(userDoc);
-      }
-      token.id = user.id;
-      return token;
-    },
-    async session(session, token) {
-      session.user.id = token.id;
-      return session;
-    },
-  },
   secret: process.env.JWT_SECRET,
 };
 
 export default NextAuth(authOptions);
+
+/*
+callbacks: {
+  async jwt(token, user, account, profile, isNewUser) {
+    const db = await connectToDatabase();
+    const users = db.collection("users");
+    if (isNewUser) {
+      const userDoc = {
+        accountId: user.id,
+        name: user.name,
+        email: user.email,
+        image: user.image,
+      };
+      await users.insertOne(userDoc);
+    }
+    token.id = user.id;
+    return token;
+  },
+  async session(session, token) {
+    session.user.id = token.id;
+    return session;
+  },
+},
+*/
