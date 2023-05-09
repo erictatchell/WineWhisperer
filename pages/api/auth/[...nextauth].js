@@ -19,31 +19,33 @@ const authOptions = {
       clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     }),
   ],
+  callbacks: {
+    async jwt(token, user) {
+      if (user) { 
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+          
+        const { db } = await connectToDatabase();
+        const collection = db.collection('users');
+  
+        // Check if user already exists in the database
+        const existingUser = await collection.findOne({ _id: new ObjectId(user.id) });
+  
+        // If user does not exist, add them
+        if (!existingUser) {
+          await collection.insertOne({
+            _id: new ObjectId(user.id),
+            email: user.email,
+            name: user.name,
+          });
+        }
+      }
+      return token;
+    },
+  },
+  
   secret: process.env.JWT_SECRET,
 };
 
 export default NextAuth(authOptions);
-
-/*
-callbacks: {
-  async jwt(token, user, account, profile, isNewUser) {
-    const db = await connectToDatabase();
-    const users = db.collection("users");
-    if (isNewUser) {
-      const userDoc = {
-        accountId: user.id,
-        name: user.name,
-        email: user.email,
-        image: user.image,
-      };
-      await users.insertOne(userDoc);
-    }
-    token.id = user.id;
-    return token;
-  },
-  async session(session, token) {
-    session.user.id = token.id;
-    return session;
-  },
-},
-*/
