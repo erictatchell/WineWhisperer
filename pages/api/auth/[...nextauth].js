@@ -43,8 +43,13 @@ const authOptions = {
       }
       return token;
     },
+    async session(session, token) {
+      session.user.id = token.id;
+      session.user.email = token.email;
+      session.user.name = token.name;
+      return session;
+    },
   },
-  
   secret: process.env.JWT_SECRET,
 };
 
