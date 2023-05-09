@@ -14,26 +14,6 @@ export default function Login() {
     const handleInsta = () => {
         signIn("instagram");
     };
-
-    // for arbitrary user signup
-    const [formValues, setFormValues] = useState({ email: '', password: '' });
-    const handleSubmit = async (e: any) => {
-        e.preventDefault();
-        
-        const response: any = await signIn('credentials', {
-          redirect: false,
-          email: formValues.email,
-          password: formValues.password,
-        });
-        
-        if (response.error) {
-          console.log('you fucked up somewhere');
-          
-        } else {
-          // Redirect the user to the main/home page after successful login
-          useRouter().push('/main/home');
-        }
-      };
       
     return (
         <main>
@@ -43,14 +23,12 @@ export default function Login() {
                 </div>
                 <h1 className="drop-shadow-xl text-xl mt-5 text-brendan font-medium tracking-widest2 grid justify-center">LOG IN</h1>
 
-                <form className="mt-5 grid" onSubmit={handleSubmit}>
+                <form className="mt-5 grid">
                     <div className="mb-6">
                         <input
                             type="email"
                             id="email"
-                            value={formValues.email}
                             className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            onChange={(e) => setFormValues({ ...formValues, email: e.target.value })}
                             required
                         />
                     </div>
@@ -59,7 +37,6 @@ export default function Login() {
                             type="password"
                             id="password"
                             className="bg-white border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-gray-600 dark:placeholder-gray-500 dark:text-black dark:focus:ring-blue-500 dark:focus:border-blue-500"                            value={formValues.password}
-                            onChange={(e) => setFormValues({ ...formValues, password: e.target.value })}
                             required
                         />
                     </div>
