@@ -14,17 +14,11 @@ export default function Home() {
         setDescription(event.target.value);
     };
 
-    const handleSubmit = async (event: any) => {
-        // event.preventDefault();
-        // const recommendations = await getWineRecommendations(`${selectedPrompt}: ${description}`);
-        // console.log(recommendations); // display results in console for now
-    };
-
     return (
         <div>
             <h1>Home page</h1>
             {/* ugly ass form, can replace with a nice tailwind form but KEEP FN!*/}
-            <form onSubmit={handleSubmit}>
+            <form>
                 <select value={selectedPrompt} onChange={handleDropdownChange}>
                     <option value="list">List of 5 wines</option>
                     <option value="single">Single wine</option>

@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { MongoClient } from 'mongodb';
+const axios = require('axios');
+const { MongoClient } = require('mongodb');
 
-export const getWineRecommendations = async (userInput) => {
+const getWineRecommendations = async (userInput) => {
     const [selectedPrompt, ...descriptionParts] = userInput.split(': ');
     const description = descriptionParts.join(': ');
 
@@ -23,14 +23,14 @@ export const getWineRecommendations = async (userInput) => {
         temperature: 0.7,
     }, {
         headers: {
-            'Authorization': `Bearer ${process.env.OPENAI_KEY}`,
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
             'Content-Type': 'application/json',
         },
     });
 
     const wineRecommendations = response.data.choices[0].text.trim().split('\n');
 
-    const client = new MongoClient(process.env.MONGODB_HOST);
+    const client = new MongoClient(process.env.MONGODB_URI);
     let matchingWines = [];
 
     try {
@@ -51,3 +51,5 @@ export const getWineRecommendations = async (userInput) => {
 
     return matchingWines;
 };
+
+module.exports = { getWineRecommendations };
