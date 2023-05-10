@@ -35,7 +35,7 @@ export default async (req, res) => {
         try {
             await client.connect();
             const database = client.db();
-            const collection = database.collection('wine');
+            const collection = database.collection('wset');
 
             for (let wine of wineRecommendations) {
                 const wineName = new RegExp(wine.trim(), 'i');
