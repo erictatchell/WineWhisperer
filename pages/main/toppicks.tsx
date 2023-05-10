@@ -59,6 +59,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const wines = await db
         .collection('wset')
         .find({})
+        .sort({ points: -1 })
         .limit(10)
         .toArray();
 
