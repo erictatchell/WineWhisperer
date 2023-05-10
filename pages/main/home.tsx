@@ -16,7 +16,7 @@ export default function Home() {
     const handleSubmit = async (event: any) => {
         event.preventDefault();
 
-        const res = await fetch('/api/recommendations', {
+        const res = await fetch('/api/ai', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
