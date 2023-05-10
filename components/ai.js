@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { MongoClient } from 'mongodb';
+const axios = require('axios');
+const { MongoClient } = require('mongodb');
 
-export const getWineRecommendations = async (userInput) => {
+const getWineRecommendations = async (userInput) => {
     const [selectedPrompt, ...descriptionParts] = userInput.split(': ');
     const description = descriptionParts.join(': ');
 
@@ -51,3 +51,5 @@ export const getWineRecommendations = async (userInput) => {
 
     return matchingWines;
 };
+
+module.exports = { getWineRecommendations };

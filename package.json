@@ -1,4 +1,11 @@
 {
+  "browser": {
+    "fs": false,
+    "path": false,
+    "os": false,
+    "dns": false,
+    "tls": false
+  },
   "name": "winewhisperer",
   "version": "0.1.0",
   "private": true,
