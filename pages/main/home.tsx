@@ -1,49 +1,68 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
-    const [selectedPrompt, setSelectedPrompt] = useState('list');
-    const [description, setDescription] = useState('');
-    const [wineResults, setWineResults] = useState<Wine[]>([]);
+  const [selection, setSelection] = useState('list');
+  const [description, setDescription] = useState('');
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handleDropdownChange = (event: any) => {
-        setSelectedPrompt(event.target.value);
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
 
-    const handleInputChange = (event: any) => {
-        setDescription(event.target.value);
-    };
+    switch (value) {
+      case 'List 5 wines that match the description: ':
+        setSelection('List 5 wines that match the description: ');
+        setDescription(''); // clear description when option changes
+        break;
+      case 'List 1 wine that match the description: ':
+        setSelection('List 1 wine that match the description: ');
+        setDescription(''); // clear description when option changes
+        break;
+      case 'Staying on the topic of wine, suggest wines based on this prompt: ':
+        setSelection('Staying on the topic of wine, suggest wines based on this prompt: ');
+        break;
+      default:
+        setSelection('');
+        break;
+    }
+  };
 
-    const handleSubmit = async (event: any) => {
-        event.preventDefault();
+  const handleDescriptionChange = (e: any) => {
+    setDescription(e.target.value);
+  };
 
-        const res = await fetch('/api/ai', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ selectedPrompt, description }),
-        });
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
 
-        const wineData: Wine[] = await res.json();
-        setWineResults(wineData);
-    };
+    try {
+      const response = await fetch(`/api/ai?selection=${selection}&description=${description}`);
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <select value={selectedPrompt} onChange={handleDropdownChange}>
-                    <option value="list">List of 5 wines</option>
-                    <option value="single">Single wine</option>
-                    <option value="other">No option</option>
-                </select>
-                <textarea value={description} onChange={handleInputChange} />
-                <button type="submit">Get recommendations</button>
-            </form>
-            <div>
-                {wineResults.map((wine) => (
-                    <div key={wine._id}>{wine.title}</div>
-                ))}
-            </div>
-        </div>
-    );
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const responseData = await response.json();
+      setResult(responseData.choices[0].text);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <select value={selection} onChange={handleChange}>
+          <option value="List 5 wines that match the description: ">List of 5 wines</option>
+          <option value="List 1 wine that match the description: ">Single wine</option>
+          <option value="Staying on the topic of wine, suggest wines based on this prompt: ">No option</option>
+        </select>
+        <textarea value={description} onChange={handleDescriptionChange} />
+        <button type="submit">Get recommendations</button>
+      </form>
+      {loading ? <p>Thinking...</p> : <div>{result}</div>}
+    </div>
+  );
 }
