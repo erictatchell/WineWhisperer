@@ -23,14 +23,14 @@ export const getWineRecommendations = async (userInput) => {
         temperature: 0.7,
     }, {
         headers: {
-            'Authorization': `Bearer ${process.env.OPENAI_KEY}`,
+            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
             'Content-Type': 'application/json',
         },
     });
 
     const wineRecommendations = response.data.choices[0].text.trim().split('\n');
 
-    const client = new MongoClient(process.env.MONGODB_HOST);
+    const client = new MongoClient(process.env.MONGODB_URI);
     let matchingWines = [];
 
     try {
