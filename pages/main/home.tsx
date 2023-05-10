@@ -1,53 +1,68 @@
-import { getSession } from "next-auth/react";
-import { useState } from 'react';
-import { getWineRecommendations } from '../../components/ai';
+import { useState, useEffect } from 'react';
 
 export default function Home() {
-    const [selectedPrompt, setSelectedPrompt] = useState('list');
-    const [description, setDescription] = useState('');
+  const [selection, setSelection] = useState('list');
+  const [description, setDescription] = useState('');
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const handleDropdownChange = (event: any) => {
-        setSelectedPrompt(event.target.value);
-    };
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
 
-    const handleInputChange = (event: any) => {
-        setDescription(event.target.value);
-    };
+    switch (value) {
+      case 'List 5 wines that match the description: ':
+        setSelection('List 5 wines that match the description: ');
+        setDescription(''); // clear description when option changes
+        break;
+      case 'List 1 wine that match the description: ':
+        setSelection('List 1 wine that match the description: ');
+        setDescription(''); // clear description when option changes
+        break;
+      case 'Staying on the topic of wine, suggest wines based on this prompt: ':
+        setSelection('Staying on the topic of wine, suggest wines based on this prompt: ');
+        break;
+      default:
+        setSelection('');
+        break;
+    }
+  };
 
-    const handleSubmit = async (event: any) => {
-        // event.preventDefault();
-        // const recommendations = await getWineRecommendations(`${selectedPrompt}: ${description}`);
-        // console.log(recommendations); // display results in console for now
-    };
+  const handleDescriptionChange = (e: any) => {
+    setDescription(e.target.value);
+  };
 
-    return (
-        <div>
-            <h1>Home page</h1>
-            {/* ugly ass form, can replace with a nice tailwind form but KEEP FN!*/}
-            <form onSubmit={handleSubmit}>
-                <select value={selectedPrompt} onChange={handleDropdownChange}>
-                    <option value="list">List of 5 wines</option>
-                    <option value="single">Single wine</option>
-                    <option value="other">No option</option>
-                </select>
-                <textarea value={description} onChange={handleInputChange} />
-                <button type="submit">Get recommendations</button>
-            </form>
-        </div>
-    )
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch(`/api/ai?selection=${selection}&description=${description}`);
+
+      if (!response.ok) {
+        throw new Error(response.statusText);
+      }
+
+      const responseData = await response.json();
+      setResult(responseData.choices[0].text);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit}>
+        <select value={selection} onChange={handleChange}>
+          <option value="List 5 wines that match the description: ">List of 5 wines</option>
+          <option value="List 1 wine that match the description: ">Single wine</option>
+          <option value="Staying on the topic of wine, suggest wines based on this prompt: ">No option</option>
+        </select>
+        <textarea value={description} onChange={handleDescriptionChange} />
+        <button type="submit">Get recommendations</button>
+      </form>
+      {loading ? <p>Thinking...</p> : <div>{result}</div>}
+    </div>
+  );
 }
-
-// export const getServerSideProps = async (context: any) => {
-//     const session = await getSession(context);
-//     if (!session) {
-//         return {
-//             redirect: {
-//                 destination: '/',
-//                 permanent: false,
-//             },
-//         };
-//     }
-//     return {
-//         props: { session },
-//     };
-// }

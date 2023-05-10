@@ -58,3 +58,16 @@ export default function Profile() {
 //         props: { session }
 //     }
 // }
+// export const getServerSideProps = async (context: any) => {
+//     const session = await getSession(context);
+//     if (!session) {
+//         return {
+//             redirect: {
+//                 destination: '/'
+//             }
+//         }
+//     }
+//     return {
+//         props: { session }
+//     }
+// }
