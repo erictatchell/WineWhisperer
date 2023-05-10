@@ -18,6 +18,7 @@ export default function Login() {
     return (
         <main>
             <div className="grid justify-center">
+                
                 <div className="grid justify-center">
                     <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="130" height="130"></Image>
                 </div>
