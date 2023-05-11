@@ -35,6 +35,21 @@ const authOptions = {
     }),
   ],
   callbacks: {
+    async jwt(token, user, account, profile, isNewUser) {
+      // This callback is called whenever a new JWT is created. 
+      // You can add additional fields to the user object here. 
+      // These fields will be included in the JWT and will be available in the session object on the client side.
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session(session, token) {
+      // This callback is called whenever a new session is created. 
+      // The token parameter contains the fields added in the jwt callback.
+      session.user.id = token.id;
+      return session;
+    },
     async signIn(user, account, profile) {
       const client = await clientPromise;
       const db = client.db();
@@ -42,18 +57,10 @@ const authOptions = {
 
       const randomId = generateRandomString();
 
+      // Update the user document created by NextAuth instead of creating a new one
       await collection.updateOne(
-        { email: user.email },
-        {
-          $set: {
-            name: user.name,
-            email: user.email,
-            image: user.image,
-            emailVerified: user.emailVerified,
-            id: user.id
-          }
-        },
-        { upsert: true }
+        { _id: user.id }, // Use the user id returned by NextAuth
+        { $set: { customId: randomId, saved: [] } }
       );
 
       return true;
