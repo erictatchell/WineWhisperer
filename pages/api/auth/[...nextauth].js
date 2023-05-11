@@ -6,7 +6,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
 import clientPromise from "../../../lib/mongodb";
 
 function generateRandomString() {
-  const pattern = "W";
+  let pattern = "W";
   const min = 0;
   const max = 9;
 
