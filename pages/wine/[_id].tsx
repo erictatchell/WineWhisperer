@@ -67,7 +67,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const { _id } = context.params;
 
-  const res = await fetch(`http://localhost:3000/api/wine/${_id}`);
+  const res = await fetch(`http://2800-202310-bby-29.vercel.app/api/wine/${_id}`);
   const wine: Wine = await res.json();
 
   if (!wine) {
