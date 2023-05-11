@@ -15,7 +15,7 @@ function generateRandomString() {
   }
 
   return pattern;
-}  
+}
 
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -34,27 +34,30 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn(user) {
+    async signIn(user, account, profile) {
       const client = await clientPromise;
       const db = client.db();
       const collection = db.collection("users");
 
-      const existingUser = await collection.findOne({ email: user.email });
+      // Ensure we have an email to search with
+      if (user.email) {
+        const existingUser = await collection.findOne({ email: user.email });
 
-      if (existingUser) {
-        // If user exists, just update the name
-        await collection.updateOne(
-          { email: user.email },
-          { $set: { name: user.name } }
-        );
-      } else {
-        // If user does not exist, generate a new ID and create the user
-        const id = generateRandomString();
-        await collection.updateOne(
-          { email: user.email },
-          { $set: { name: user.name, id: id, saved: [] } },
-          { upsert: true }
-        );
+        if (existingUser) {
+          // If user exists, just update the name
+          await collection.updateOne(
+            { email: user.email },
+            { $set: { name: user.name } }
+          );
+        } else {
+          // If user does not exist, generate a new ID and create the user
+          const id = generateRandomString();
+          await collection.updateOne(
+            { email: user.email },
+            { $set: { name: user.name, id: id, saved: [] } },
+            { upsert: true }
+          );
+        }
       }
 
       return true;
