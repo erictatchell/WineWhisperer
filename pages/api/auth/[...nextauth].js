@@ -39,23 +39,26 @@ const authOptions = {
       const db = client.db();
       const collection = db.collection("users");
 
+      console.log(user);  // Log the user object for debugging purposes
+
       // Ensure we have an email to search with
       if (user.email) {
         const existingUser = await collection.findOne({ email: user.email });
 
-        if (existingUser) {
-          // If user exists, just update the name
-          await collection.updateOne(
-            { email: user.email },
-            { $set: { name: user.name } }
-          );
-        } else {
+        if (!existingUser) {
           // If user does not exist, generate a new ID and create the user
           const id = generateRandomString();
           await collection.updateOne(
             { email: user.email },
             { $set: { name: user.name, id: id, saved: [] } },
             { upsert: true }
+          );
+        }
+        // If user exists, just update the name
+        else {
+          await collection.updateOne(
+            { email: user.email },
+            { $set: { name: user.name } }
           );
         }
       }
