@@ -56,8 +56,6 @@ const authOptions = {
             name,
             image,
             id,
-            phoneNumber,
-            address,
             saved,
             // you can add more fields here as per your requirement
           },
