@@ -50,8 +50,7 @@ const authOptions = {
             email: user.email,
             image: user.image,
             emailVerified: user.emailVerified,
-            id: randomId,
-            saved: []
+            id: user.id
           }
         },
         { upsert: true }
