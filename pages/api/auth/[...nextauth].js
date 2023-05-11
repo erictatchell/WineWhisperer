@@ -44,13 +44,23 @@ const authOptions = {
 
       await collection.updateOne(
         { email: user.email },
-        { $set: { name: user.name, id: randomId, saved: [] } },
+        {
+          $set: {
+            name: user.name,
+            email: user.email,
+            image: user.image,
+            emailVerified: user.emailVerified,
+            id: randomId,
+            saved: []
+          }
+        },
         { upsert: true }
       );
 
       return true;
     },
   },
+
   secret: process.env.JWT_SECRET,
 };
 
