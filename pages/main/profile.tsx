@@ -2,6 +2,7 @@ import { IconButton, ThemeProvider } from '@mui/material';
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Link from 'next/link';
 
 
 
@@ -9,6 +10,22 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 export default function Profile() {
   const { data: session } = useSession()
   const user = session ? session.user : null;
+  //const [selectedImage, setSelectedImage] = useSession();
+
+
+  // const handleImageChange = (e) => {
+  //   if (e.target.files && e.target.files[0]) {
+  //     let img = e.target.files[0];
+  //     setSelectedImage(URL.createObjectURL(img));
+  //   }
+  // };
+
+
+  // const handleImageUpload = () => {
+  //   // here you would handle the actual upload to your server or cloud storage
+  //   // this might involve a fetch or axios POST request, for example
+  // };
+  
 
   return (
     // entire page
@@ -17,12 +34,20 @@ export default function Profile() {
       {/* top level grid */}
       <div className="flex items-start justify-between">
         {/* Profile pic */} 
+        {/* <div className="relative">
+          <input type='file' accept="image/*" name='image' onChange={handleImageChange} />
+          <input className="h-32 w-32 rounded-full" src={selectedImage} alt="Profile Picture" />
+          <button onClick={handleImageChange} className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
+        </div> */}
         <div className="relative">
           <img className="h-32 w-32 rounded-full" src="../purple_logo.png" alt="Profile" />
           <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
         </div>
+
         {/* Settings button */}
+        <Link href="/main/settings">
         <button className="p-2 drop-shadow-xl text-l mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Settings</button>
+        </Link>
       </div>
 
       {/* User info */}
@@ -44,8 +69,8 @@ export default function Profile() {
 
       <div className="mt-0">
         <h3 className="text-l font-bold">User ID:</h3>
-        {/** Insert User ID here! */}
-        <h1 className="text-m"></h1>
+        {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
+        <h1 className="text-m">1234567878</h1>
       </div>
 
       {/* Sign out button */}
@@ -55,3 +80,18 @@ export default function Profile() {
     </div>
   );
 }
+
+// // export const getServerSideProps = async (context: any) => {
+// //   const session = await getSession(context);
+// //   if (!session) {
+// //       return {
+// //           redirect: {
+// //               destination: '/'
+// //           }
+// //       }
+// //   }
+// //   return {
+// //       props: { session }
+// //   }
+// }
+
