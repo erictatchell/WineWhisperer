@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: `${req.query.selection}${req.query.description}`,
-            temperature: 0.5,
+            temperature: 0,
             max_tokens: 100,
         });
 
@@ -28,22 +28,22 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const collection = db.collection('wset'); // replace 'yourCollectionName' with your actual collection name
 
         let result = response.data.choices[0].text;
-        console.log("OpenAI's: ", result);
+        console.log(result);
 
-        // Remove numbers from the beginning of each entry and trim whitespace
+        // Split the string into an array of wines, remove leading numbers, and trim extra white space
         const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
-
+        console.log(wines);
         // Search for documents where 'title' or 'variety' field contains any of the wines
+        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
+        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
         const documents = await collection.find({
-            $or: wines.map(wine => ({
-                $or: [
-                    { title: { $in: wines } },
-                    { variety: { $in: wines } }
-                ]
-            }))
-        })
-            .limit(numWines)  // limit to top 5 documents
-            .toArray();
+            $and: wines.map(wine => {
+                const pattern = new RegExp(wine, 'i'); // create a case-insensitive regex pattern
+                return { $or: [{ title: pattern }, { variety: pattern }, { description: pattern }] };
+            })
+        }).limit(numWines).toArray();
+
+
         console.log("MongoDB documents: ", documents);
 
         res.status(200).json(documents);
