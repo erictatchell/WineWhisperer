@@ -2,11 +2,11 @@ import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
 import { connectToDatabase } from "../../../lib/mongodb";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "../../../lib/mongodb";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "../../../lib/mongodb"
 
 function generateRandomString() {
-  let pattern = "W";
+  let pattern = 'W';
   const min = 0;
   const max = 9;
 
@@ -18,6 +18,10 @@ function generateRandomString() {
   return pattern;
 }
 
+const randomString = generateRandomString();
+console.log(randomString);
+
+
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.SECRET,
@@ -27,46 +31,42 @@ const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
     }),
     InstagramProvider({
       clientId: process.env.INSTAGRAM_CLIENT_ID,
-      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
     }),
   ],
   callbacks: {
-    async jwt(token, user, account, profile, isNewUser) {
-      // This callback is called whenever a new JWT is created. 
-      // You can add additional fields to the user object here. 
-      // These fields will be included in the JWT and will be available in the session object on the client side.
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
-    },
-    async session(session, token) {
-      // This callback is called whenever a new session is created. 
-      // The token parameter contains the fields added in the jwt callback.
-      session.user.id = token.id;
-      return session;
-    },
     async signIn(user, account, profile) {
       const client = await clientPromise;
       const db = client.db();
       const collection = db.collection("users");
 
-      const randomId = generateRandomString();
+      const { email, name, image } = user;
+      const id = profile && profile.id ? profile.id : generateRandomString(); // using the function you provided
 
-      // Update the user document created by NextAuth instead of creating a new one
+      const saved = []; // your empty array
+
       await collection.updateOne(
-        { _id: user.id }, // Use the user id returned by NextAuth
-        { $set: { customId: randomId, saved: [] } }
+        { email },
+        {
+          $set: {
+            name,
+            image,
+            id,
+            phoneNumber,
+            address,
+            saved,
+            // you can add more fields here as per your requirement
+          },
+        },
+        { upsert: true }
       );
-
       return true;
     },
   },
-
   secret: process.env.JWT_SECRET,
 };
 
