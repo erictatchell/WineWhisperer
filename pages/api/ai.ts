@@ -2,6 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { Configuration, OpenAIApi } from 'openai';
+import clientPromise from '../../lib/mongodb';
 
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
@@ -12,6 +13,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
         return res.status(405).end(); // Method Not Allowed
     }
+    const numWines = Number(req.query.numWines) || 5;
 
     try {
         const response = await openai.createCompletion({
@@ -21,7 +23,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             max_tokens: 100,
         });
 
-        res.status(200).json(response.data);
+        const client = await clientPromise;
+        const db = client.db(); // replace 'yourDbName' with your actual database name
+        const collection = db.collection('wset'); // replace 'yourCollectionName' with your actual collection name
+
+        let result = response.data.choices[0].text;
+        console.log(result);
+
+        // Split the string into an array of wines, remove leading numbers, and trim extra white space
+        const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
+        console.log(wines);
+        // Search for documents where 'title' or 'variety' field contains any of the wines
+        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
+        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
+        const documents = await collection.find({
+            $and: wines.map(wine => {
+                const pattern = new RegExp(wine, 'i'); // create a case-insensitive regex pattern
+                return { $or: [{ title: pattern }, { variety: pattern }, { description: pattern }] };
+            })
+        }).limit(numWines).toArray();
+
+
+        console.log("MongoDB documents: ", documents);
+
+        res.status(200).json(documents);
     } catch (error: any) {
         console.error(error);  // print the error to console
         res.status(500).json({ error: error.message }); // send error message in response
