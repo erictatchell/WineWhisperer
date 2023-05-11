@@ -15,6 +15,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
     const numWines = Number(req.query.numWines) || 5;
 
+    console.log("SELECTION: ", req.query.selection);
+    console.log("DESCRIPTION: ", req.query.description);
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
@@ -24,34 +26,35 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         });
 
         const client = await clientPromise;
-        const db = client.db(); // replace 'yourDbName' with your actual database name
-        const collection = db.collection('wset'); // replace 'yourCollectionName' with your actual collection name
+        const db = client.db();
+        const collection = db.collection('wset'); 
 
         let result = response.data.choices[0].text;
-        console.log(result);
 
-        // Split the string into an array of wines, remove leading numbers, and trim extra white space
         const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
         console.log(wines);
 
+        const matches = wines.map(wine => {
+            const pattern = new RegExp(wine, 'i');
+            return {
+                $or: [
+                    {
+                        title: pattern,
+                        variety: { $not: pattern }
+                    },
+                    {
+                        title: { $not: pattern },
+                        variety: pattern
+                    }
+                ]
+            };
+        });
+
         const pipeline = [
-            {
-                $match: {
-                    $or: wines.map(wine => {
-                        const pattern = new RegExp(wine, 'i'); // create a case-insensitive regex pattern
-                        return { $or: [{ title: pattern }, { variety: pattern }] };
-                    }),
-                },
-            },
-            {
-                $sample: { size: numWines },
-            },
+            { $match: { $or: matches } },
+            { $sample: { size: numWines } }
         ];
-
         const documents = await collection.aggregate(pipeline).toArray();
-
-
-
         console.log("MongoDB documents: ", documents);
 
         res.status(200).json(documents);

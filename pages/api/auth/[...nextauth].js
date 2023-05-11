@@ -1,41 +1,71 @@
-  import NextAuth from "next-auth";
-  import GoogleProvider from "next-auth/providers/google";
-  import InstagramProvider from "next-auth/providers/instagram";
-  import { connectToDatabase } from "../../../lib/mongodb";
-  import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-  import clientPromise from "../../../lib/mongodb"
+import NextAuth from "next-auth";
+import GoogleProvider from "next-auth/providers/google";
+import InstagramProvider from "next-auth/providers/instagram";
+import { connectToDatabase } from "../../../lib/mongodb";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
+import clientPromise from "../../../lib/mongodb"
 
-  const authOptions = {
-    adapter: MongoDBAdapter(clientPromise),
-    secret: process.env.SECRET,
-    session: {
-      strategy: "jwt",
-    },
-    providers: [
-      GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET
-      }),
-      InstagramProvider({
-        clientId: process.env.INSTAGRAM_CLIENT_ID,
-        clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
-      }),
-    ],
-    callbacks: {
-      async signIn(user) {
-        const client = await clientPromise;
-        const db = client.db();
-        const collection = db.collection("users");
-  
-        await collection.updateOne(
-          { email: user.email },
-          { $set: { name: user.name } },
-          { upsert: true }
-        );
-        return true;
-      },
-    },
-    secret: process.env.JWT_SECRET,
-  };
+function generateRandomString() {
+  let pattern = 'W';
+  const min = 0;
+  const max = 9;
 
-  export default NextAuth(authOptions);
+  for (let i = 0; i < 7; i++) {
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    pattern += randomNumber;
+  }
+
+  return pattern;
+}
+
+const randomString = generateRandomString();
+console.log(randomString);
+
+
+const authOptions = {
+  adapter: MongoDBAdapter(clientPromise),
+  secret: process.env.SECRET,
+  session: {
+    strategy: "jwt",
+  },
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
+    InstagramProvider({
+      clientId: process.env.INSTAGRAM_CLIENT_ID,
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
+    }),
+  ],
+  callbacks: {
+    async signIn(user, account, profile) {
+      const client = await clientPromise;
+      const db = client.db();
+      const collection = db.collection("users");
+
+      const { email, name, image } = user;
+      const id = profile && profile.id ? profile.id : generateRandomString(); // using the function you provided
+
+      const saved = []; // your empty array
+
+      await collection.updateOne(
+        { email },
+        {
+          $set: {
+            name,
+            image,
+            id,
+            saved,
+            // you can add more fields here as per your requirement
+          },
+        },
+        { upsert: true }
+      );
+      return true;
+    },
+  },
+  secret: process.env.JWT_SECRET,
+};
+
+export default NextAuth(authOptions);

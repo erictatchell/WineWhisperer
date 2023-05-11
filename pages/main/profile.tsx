@@ -65,8 +65,13 @@ export default function Profile() {
 
       <div className="mt-0">
         <h3 className="text-l font-bold">User ID:</h3>
+<<<<<<< HEAD
         {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
         <h1 className="text-m">1234567878</h1>
+=======
+        {/** Insert User ID here! */}
+        <h1 className="text-m"></h1>
+>>>>>>> ad4e0344c0187ded2348812ae5da323e9b8b9795
       </div>
 
       {/* Sign out button */}
