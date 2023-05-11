@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 
 interface Wine {
@@ -26,6 +27,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [wines, setWines] = useState<Wine[]>([]);  // add this line
   const [numWines, setNumWines] = useState(5);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -76,18 +78,25 @@ export default function Home() {
     }
   };
 
+  function handleWineClick(wine: Wine) {
+    localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
+    router.push(`/wine/${wine._id}`);
+  }
+
+
   return (
     <div className="mt-6">
       <div className="grid justify-center">
         {/* Mapping over the wines array and creating a card for each wine */}
         {wines.map((wine: Wine, index: number) => (
           <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-            <a href="#" className="ml-3 mr-3 mt-3 mb-3">
+            <Link href='#' onClick={() => handleWineClick(wine)}  className="ml-3 mr-3 mt-3 mb-3">
               <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
               <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
               <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">${wine.price}</h5>
               <h5 className="mb-2 text-sm font-semibold tracking-tight text-white dark:text-lightdijon sm:text-xs">{wine.description}</h5>
-            </a>
+              <h5 className="btn btn-primary">View</h5>
+            </Link>
           </div>
         ))}
       </div>
