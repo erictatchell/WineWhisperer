@@ -1,73 +1,47 @@
+import { IconButton, ThemeProvider } from '@mui/material';
 import { getSession, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+
 
 
 export default function Profile() {
-
-    // changing user to dummy text while there is no sessions.
-    // const { data: session } = useSession()
-    // const user = session ? session.user : null;
-    // if (session) {
-    return (
-    //         <div>
-    //             <h1>{!user ? 'No user' : `Hello, ${user.name}`}</h1>
-    //             {user && user.image &&
-    //                 <Image src={user.image} width={100} height={100} alt='User profile image' />
-    //             }
-    //             <a onClick={() => (signOut())}>Sign Out</a>
+  return (
+    <div className="w-full h-full p-10">
+      <div className="flex justify-between">
         <div>
-          <div className="px-4 sm:px-0">
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <Image src='' width={100} height={100} alt='User profile image' />
-            </div>
-          </div>
-          <div className="mt-6 border-t border-gray-100">
-            <dl className="divide-y divide-gray-100">
-            <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <h3 className="text-base font-medium leading-7 text-gray-900">Full Name</h3>
-                <p className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Brendan Doyle</p>
-            </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">Email address</dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">Brendan@example.com</dd>           
-              </div>
-              <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                <dt className="text-sm font-medium leading-6 text-gray-900">Account ID</dt>
-                <dd className="mt-1 text-sm leading-6 text-gray-700 sm:col-span-2 sm:mt-0">12345678</dd>           
-              </div>
-            </dl>
-          </div>
+          <img className="w-24 h-24 rounded-full" src='/' alt='Profile Pic' />
+          <button className="mt-2 px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Change Picture
+          </button>
         </div>
-       //</div>
-        )
-    }
-//}
-
-
-
-// export const getServerSideProps = async (context: any) => {
-//     const session = await getSession(context);
-//     if (!session) {
-//         return {
-//             redirect: {
-//                 destination: '/'
-//             }
-//         }
-//     }
-//     return {
-//         props: { session }
-//     }
-// }
-// export const getServerSideProps = async (context: any) => {
-//     const session = await getSession(context);
-//     if (!session) {
-//         return {
-//             redirect: {
-//                 destination: '/'
-//             }
-//         }
-//     }
-//     return {
-//         props: { session }
-//     }
-// }
+        <button className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+          Settings
+        </button>
+      </div>
+      <div className="mt-10">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl font-bold">Brendan Doyle</h2>
+          <button className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Edit
+          </button>
+        </div>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-xl">Brendan@placehoder.com</h2>
+          <button className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Edit
+          </button>
+        </div>
+        <div className="mb-4">
+          <h2 className="text-xl">ID: 12345678</h2>
+        </div>
+      </div>
+      <div className="absolute bottom-10 right-10">
+        <button className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Sign Out
+        </button>
+      </div>
+    </div>
+  );
+}
