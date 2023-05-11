@@ -52,7 +52,8 @@ export default function Layout({ children }: Props) {
             </div>
           </div>
         </nav>
-        <main>{children}</main>
+        <main>
+          {children}</main>
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
           <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
             <IconButton href="/main/home">

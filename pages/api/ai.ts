@@ -33,15 +33,23 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         // Split the string into an array of wines, remove leading numbers, and trim extra white space
         const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
         console.log(wines);
-        // Search for documents where 'title' or 'variety' field contains any of the wines
-        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
-        // Search for documents where 'title', 'variety' or 'description' field contains any of the wines
-        const documents = await collection.find({
-            $and: wines.map(wine => {
-                const pattern = new RegExp(wine, 'i'); // create a case-insensitive regex pattern
-                return { $or: [{ title: pattern }, { variety: pattern }, { description: pattern }] };
-            })
-        }).limit(numWines).toArray();
+
+        const pipeline = [
+            {
+                $match: {
+                    $or: wines.map(wine => {
+                        const pattern = new RegExp(wine, 'i'); // create a case-insensitive regex pattern
+                        return { $or: [{ title: pattern }, { variety: pattern }] };
+                    }),
+                },
+            },
+            {
+                $sample: { size: numWines },
+            },
+        ];
+
+        const documents = await collection.aggregate(pipeline).toArray();
+
 
 
         console.log("MongoDB documents: ", documents);
