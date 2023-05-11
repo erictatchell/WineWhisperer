@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
-import clientPromise from "../../../lib/mongodb"
+import { connectToDatabase } from "../../../lib/mongodb";
+import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
+import clientPromise from "../../../lib/mongodb";
 
 function generateRandomString() {
-  let pattern = '';
+  let pattern = "W";
   const min = 0;
   const max = 9;
 
@@ -26,11 +27,11 @@ const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     InstagramProvider({
       clientId: process.env.INSTAGRAM_CLIENT_ID,
-      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET
+      clientSecret: process.env.INSTAGRAM_CLIENT_SECRET,
     }),
   ],
   callbacks: {
@@ -39,24 +40,13 @@ const authOptions = {
       const db = client.db();
       const collection = db.collection("users");
 
-      // Ensure we have an email to search with
-      if (user.email) {
-        const existingUser = await collection.findOne({ email: user.email });
+      const randomId = generateRandomString();
 
-        if (!existingUser) {
-          // If user does not exist, generate a new ID and create the user
-          const id = generateRandomString();
-          await collection.insertOne(
-            { email: user.email, name: user.name, id: id, saved: [] }
-          );
-        } else {
-          // If user exists, just update the name
-          await collection.updateOne(
-            { email: user.email },
-            { $set: { name: user.name } }
-          );
-        }
-      }
+      await collection.updateOne(
+        { email: user.email },
+        { $set: { name: user.name, id: randomId, saved: [] } },
+        { upsert: true }
+      );
 
       return true;
     },
