@@ -72,7 +72,7 @@ export default function Profile() {
       <div className="mt-0">
         <h3 className="text-l font-bold">User ID:</h3>
         {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
-        <h1 className="text-m">1234567878</h1>
+        <h1 className="text-m">{}</h1>
       </div>
 
       {/* Sign out button */}

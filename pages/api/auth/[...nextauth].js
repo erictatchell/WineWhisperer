@@ -51,16 +51,24 @@ const authOptions = {
       return true;
     },
     async jwt({ token, user, account, profile, isNewUser }) {
-      // Add the user's email to the token
-      if(user) {
-        token.email = user.email;
+      if (user) {
+        // Fetch the user's 'id' from the 'userExtras' collection
+        const client = await clientPromise;
+        const db = client.db();
+        const userExtraCollection = db.collection("userExtras");
+        const userExtra = await userExtraCollection.findOne({ email: user.email });
+
+        // Add the 'id' from 'userExtras' to the token
+        if (userExtra && userExtra.id) {
+          token.customId = userExtra.id;
+        }
       }
       return token;
     },
     async session({ session, user, token }) {
-      // Check if token exists and if it has an email property before assigning it
-      if(token && token.email) {
-        session.user.email = token.email;
+      // Check if token exists and if it has a 'customId' property before assigning it
+      if (token && token.customId) {
+        session.user.customId = token.customId;
       }
       return session;
     }
