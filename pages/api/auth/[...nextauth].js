@@ -57,6 +57,7 @@ const authOptions = {
       };
 
       await collection.updateOne(filter, updateDoc, options);
+      return true;
     },
   },
   secret: process.env.JWT_SECRET,
