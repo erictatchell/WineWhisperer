@@ -50,24 +50,23 @@ const authOptions = {
 
       return true;
     },
-    async jwt({ token, account, profile }) {
-      // Persist the OAuth access_token and or the user id to the token right after signin
-      if (account) {
-        token.accessToken = account.access_token
-        token.id = profile.id
+    async jwt({ token, user, account, profile, isNewUser }) {
+      // This is executed when signing in and there's a session in place already.
+      if(user) {
+        token.id = user.id;  // persist the id in the token
       }
-      return token
+
+      return token;
     },
-    
-    
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken
-      session.user.id = token.id
-      
-      return session
+    async session({ session, user, token }) {
+      // This is executed at every authenticated request
+      session.user.id = token.id;  // add the user id into the session
+
+      // You could also add other user info into the session
+      // session.user.extra = 'extra data';
+
+      return session;
     }
-    
   },
 };
 
