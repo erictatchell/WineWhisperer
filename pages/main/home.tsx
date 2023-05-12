@@ -98,13 +98,13 @@ export default function Home() {
             <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
               <button onClick={() => { setDescription('Red'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Red</button>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
               <button onClick={() => { setDescription('White'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">White</button>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
               <button onClick={() => { setDescription('Sweet'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Sweet</button>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
               <button onClick={() => { setDescription('Dry'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Dry</button>
             </div>
           </>
