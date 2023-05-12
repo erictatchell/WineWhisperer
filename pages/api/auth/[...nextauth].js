@@ -53,16 +53,20 @@ const authOptions = {
     async jwt({ token, user, account, profile, isNewUser }) {
       if (account) {
         token.id = profile.id;
+        token.accessToken = account.accessToken;
+      }
+      if (user) {
+        token.id = user.id;
       }
       return token;
     },
+
     async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken
-      session.user.id = token.id
-      
-      return session
+      session.accessToken = token.accessToken;
+      session.user.customId = token.id;
+      return session;
     },
+
   },
   secret: process.env.JWT_SECRET,
 };
