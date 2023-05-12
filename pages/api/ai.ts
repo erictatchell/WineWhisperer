@@ -33,6 +33,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const matches = wines.map(wine => {
             const pattern = new RegExp(wine, 'i');
+            // regex query, specify it vvv
             return {
                 $or: [
                     {
