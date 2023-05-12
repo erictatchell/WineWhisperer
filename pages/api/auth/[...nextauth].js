@@ -39,12 +39,24 @@ const authOptions = {
       const db = client.db();
       const collection = db.collection("users");
 
-      const { email, name, image } = user;
+      const filter = { email: user.email };
+
       const id = generateRandomString();
 
       const saved = []; // your empty array
 
-      await collection.updateOne({"email" : email}, {"$set": {"name": name, "image": image, "saved": saved, "id": id}})
+      const options = { upsert: false };
+
+      const updateDoc = {
+        $set: {
+          name: user.name,
+          image: user.image,
+          id: id,
+          saved: saved
+        },
+      };
+
+      await collection.updateOne(filter, updateDoc, options);
     },
   },
   secret: process.env.JWT_SECRET,
