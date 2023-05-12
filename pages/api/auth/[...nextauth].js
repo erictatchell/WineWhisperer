@@ -50,24 +50,20 @@ const authOptions = {
 
       return true;
     },
-    async signIn({ user, account, profile, email, credentials }) {
-      // ...
-    },
     async jwt({ token, user, account, profile, isNewUser }) {
       // Add the user's email to the token
-      if (user) {
+      if(user) {
         token.email = user.email;
       }
       return token;
     },
     async session({ session, user, token }) {
       // Check if token exists and if it has an email property before assigning it
-      if (token && token.email) {
+      if(token && token.email) {
         session.user.email = token.email;
       }
       return session;
     }
-
   },
 };
 
