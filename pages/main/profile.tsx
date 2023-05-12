@@ -5,9 +5,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { MongoClient } from "mongodb";
+import clientPromise from '../../lib/mongodb';
 
 
-
+const uri = process.env.MONGODB_URI;
 
 export default function Profile() {
   const { data: session } = useSession()
@@ -17,10 +18,10 @@ export default function Profile() {
   useEffect(() => {
     if (user) {
       const fetchCustomId = async () => {
-        const client = await MongoClient.connect(process.env.MONGODB_URI!);
+        const client = await clientPromise;
         const db = client.db();
-        const userExtras = db.collection('userExtras');
-        const userExtra = await userExtras.findOne({ email: user.email });
+        const userExtraCollection = db.collection("userExtras");
+        const userExtra = await userExtraCollection.findOne({ email: user.email });
         if (userExtra) {
           setCustomId(userExtra.id);
         }
