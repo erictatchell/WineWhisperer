@@ -20,6 +20,9 @@ function generateRandomString() {
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.SECRET,
+  session: {
+    strategy: "jwt",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -31,37 +34,29 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
+    async signIn(user, account, profile) {
       const client = await clientPromise;
       const db = client.db();
+      const collection = db.collection("users");
 
-      // Create a new document in the userExtras collection if it doesn't exist
-      const userExtraCollection = db.collection("userExtras");
-      const filter = { email: user.email };
-      const updateDoc = {
-        $setOnInsert: {
-          id: generateRandomString(),
-          email: user.email,
-          saved: [],
+      const { email, name, image } = user;
+      const id = profile && profile.id ? profile.id : generateRandomString();
+
+      const saved = []; // your empty array
+
+      await collection.updateOne(
+        { email },
+        {
+          $set: {
+            name,
+            image,
+            id,
+            saved
+          },
         },
-      };
-      const options = { upsert: true };
-      await userExtraCollection.updateOne(filter, updateDoc, options);
-
+        { upsert: true }
+      );
       return true;
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      if (account) {
-        token.id = profile.id;
-      }
-      return token;
-    },
-    async session({ session, token, user }) {
-      // Send properties to the client, like an access_token and user id from a provider.
-      session.accessToken = token.accessToken
-      session.user.id = token.id
-      
-      return session
     },
   },
   secret: process.env.JWT_SECRET,
