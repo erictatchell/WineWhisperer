@@ -4,12 +4,22 @@ import InstagramProvider from "next-auth/providers/instagram";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../lib/mongodb"
 
+function generateRandomString() {
+  let pattern = 'W';
+  const min = 0;
+  const max = 9;
+
+  for (let i = 0; i < 7; i++) {
+    const randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
+    pattern += randomNumber;
+  }
+
+  return pattern;
+}
+
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.SECRET,
-  session: {
-    strategy: "jwt",
-  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -21,7 +31,7 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn(user, account, profile) {
+    async signIn({ user, account, profile, email, credentials }) {
       const client = await clientPromise;
       const db = client.db();
 
@@ -30,7 +40,7 @@ const authOptions = {
       const filter = { email: user.email };
       const updateDoc = {
         $setOnInsert: {
-          id: user.id,
+          id: generateRandomString(),
           email: user.email,
           saved: [],
         },
@@ -40,26 +50,18 @@ const authOptions = {
 
       return true;
     },
-    async jwt(token, user) {
-      if (user) {
-        token.id = user.id;
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (account) {
+        token.id = profile.id;
       }
       return token;
     },
-    async session(session, user) {
-      if (user) {
-        const client = await clientPromise;
-        const db = client.db();
-        const collection = db.collection("userExtras");
-
-        const extraData = await collection.findOne({ email: user.email });
-
-        if (extraData) {
-          session.user.id = extraData.id;
-          session.user.saved = extraData.saved;
-        }
-      }
-      return session;
+    async session({ session, token, user }) {
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.accessToken = token.accessToken
+      session.user.id = token.id
+      
+      return session
     },
   },
   secret: process.env.JWT_SECRET,
