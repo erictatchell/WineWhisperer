@@ -87,6 +87,21 @@ export default function Home() {
   return (
     <div className="mt-6">
       <div className="grid justify-center">
+      <div className='grid justify-center mb-6'>
+          <h1>Examples:</h1>
+        </div>
+        <div className="grid max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <button onClick={() => {setDescription('Merlot'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Merlot</button>
+        </div>
+        <div className="grid max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <button onClick={() => {setDescription('Malbec'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Malbec</button>
+        </div>
+        <div className="grid max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <button onClick={() => {setDescription('Sweet'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Sweet</button>
+        </div>
+        <div className="grid max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <button onClick={() => {setDescription('Dry'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Dry</button>
+        </div>
         {/* Mapping over the wines array and creating a card for each wine */}
         {wines.map((wine: Wine, index: number) => (
           <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
