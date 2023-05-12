@@ -50,26 +50,25 @@ const authOptions = {
 
       return true;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    async jwt({ token, account, profile }) {
+      // Persist the OAuth access_token and or the user id to the token right after signin
       if (account) {
-        token.profileId = profile.id;
-        token.accessToken = account.accessToken;
+        token.accessToken = account.access_token
+        token.id = profile.id
       }
-      if (user) {
-        token.userId = user.id;
-      }
-      return token;
+      return token
     },
     
     
     async session({ session, token, user }) {
-      session.accessToken = token.accessToken;
-      session.user.customId = token.userId || token.profileId;  // use `userId` if it's available, otherwise use `profileId`
-      return session;
+      // Send properties to the client, like an access_token and user id from a provider.
+      session.accessToken = token.accessToken
+      session.user.id = token.id
+      
+      return session
     }
     
   },
-  secret: process.env.JWT_SECRET,
 };
 
 export default NextAuth(authOptions);
