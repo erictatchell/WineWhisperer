@@ -10,6 +10,8 @@ import Link from 'next/link';
 export default function Profile() {
   const { data: session } = useSession()
   const user = session ? session.user : null;
+
+  // Code for profile picture upload
   //const [selectedImage, setSelectedImage] = useSession();
 
 
@@ -74,24 +76,24 @@ export default function Profile() {
       </div>
 
       {/* Sign out button */}
-      <div className="flex justify-end mt-4">
-        <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>
+      <div className="flex justify-end mt-4">      
+        <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>     
       </div>
     </div>
   );
 }
 
-// // export const getServerSideProps = async (context: any) => {
-// //   const session = await getSession(context);
-// //   if (!session) {
-// //       return {
-// //           redirect: {
-// //               destination: '/'
-// //           }
-// //       }
-// //   }
-// //   return {
-// //       props: { session }
-// //   }
-// }
+ export const getServerSideProps = async (context: any) => {
+  const session = await getSession(context);
+  if (!session) {
+      return {
+           redirect: {
+              destination: '/'
+          }
+     }
+ }
+ return {
+      props: { session }
+  }
+}
 
