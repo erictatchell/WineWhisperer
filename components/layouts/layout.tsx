@@ -37,7 +37,7 @@ export default function Layout({ children }: Props) {
     return (
 
       <div className={`pb-16 flex flex-col min-h-screen ${lora.className}`}>
-        <nav className="bg-white dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-brendan dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="/main/home" className="flex items-center">
               <img src="../logo.png" className="h-8 mr-3" alt="WW Logo" />
