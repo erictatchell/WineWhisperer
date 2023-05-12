@@ -13,14 +13,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (req.method !== 'GET') {
         return res.status(405).end(); // Method Not Allowed
     }
-    const numWines = Number(req.query.numWines) || 5;
-
-    console.log("SELECTION: ", req.query.selection);
     console.log("DESCRIPTION: ", req.query.description);
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `${req.query.selection}${req.query.description}`,
+            prompt: `List 3 wines that matches the following description: ${req.query.description}`,
             temperature: 0,
             max_tokens: 100,
         });
@@ -32,7 +29,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         let result = response.data.choices[0].text;
 
         const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
-        console.log(wines);
+        console.log('OpenAI: ', wines);
 
         const matches = wines.map(wine => {
             const pattern = new RegExp(wine, 'i');
@@ -52,7 +49,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
         const pipeline = [
             { $match: { $or: matches } },
-            { $sample: { size: numWines } }
+            { $sample: { size: 3 } }
         ];
         const documents = await collection.aggregate(pipeline).toArray();
         console.log("MongoDB documents: ", documents);

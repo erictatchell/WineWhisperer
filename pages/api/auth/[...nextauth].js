@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import InstagramProvider from "next-auth/providers/instagram";
-import { connectToDatabase } from "../../../lib/mongodb";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../lib/mongodb"
 
@@ -17,10 +16,6 @@ function generateRandomString() {
 
   return pattern;
 }
-
-const randomString = generateRandomString();
-console.log(randomString);
-
 
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
@@ -45,24 +40,11 @@ const authOptions = {
       const collection = db.collection("users");
 
       const { email, name, image } = user;
-      const id = profile && profile.id ? profile.id : generateRandomString(); // using the function you provided
+      const id = generateRandomString();
 
       const saved = []; // your empty array
 
-      await collection.updateOne(
-        { email },
-        {
-          $set: {
-            name,
-            image,
-            id,
-            saved,
-            // you can add more fields here as per your requirement
-          },
-        },
-        { upsert: true }
-      );
-      return true;
+      await collection.updateOne({"email" : user.email}, {"$set": {"saved": saved, "id": id}})
     },
   },
   secret: process.env.JWT_SECRET,
