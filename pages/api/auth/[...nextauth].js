@@ -50,23 +50,24 @@ const authOptions = {
 
       return true;
     },
+    async signIn({ user, account, profile, email, credentials }) {
+      // ...
+    },
     async jwt({ token, user, account, profile, isNewUser }) {
-      // This is executed when signing in and there's a session in place already.
-      if(user) {
-        token.id = user.id;  // persist the id in the token
+      // Add the user's email to the token
+      if (user) {
+        token.email = user.email;
       }
-
       return token;
     },
     async session({ session, user, token }) {
-      // This is executed at every authenticated request
-      session.user.id = token.id;  // add the user id into the session
-
-      // You could also add other user info into the session
-      // session.user.extra = 'extra data';
-
+      // Check if token exists and if it has an email property before assigning it
+      if (token && token.email) {
+        session.user.email = token.email;
+      }
       return session;
     }
+
   },
 };
 
