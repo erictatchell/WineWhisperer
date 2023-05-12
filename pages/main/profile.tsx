@@ -75,7 +75,7 @@ export default function Profile() {
 
       {/* Sign out button */}
       <div className="flex justify-end mt-4">
-        <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>
+        <button onClick={() => (signOut({ callbackUrl: '/' }))} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>
       </div>
     </div>
   );
