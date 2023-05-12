@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import ThinkingDots from '../../components/dots';
 
 interface Wine {
   _id: string;
@@ -94,7 +95,7 @@ export default function Home() {
             <div className='grid justify-center mb-6'>
               <h1>Examples:</h1>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
               <button onClick={() => { setDescription('Red'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">Red</button>
             </div>
             <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
@@ -108,9 +109,8 @@ export default function Home() {
             </div>
           </>
         )}
-
-        {/* Mapping over the wines array and creating a card for each wine */}
-        {wines.map((wine: Wine, index: number) => (
+        {!loading ? 
+        wines.map((wine: Wine, index: number) => (
           <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
             <Link href='#' onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
               <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
@@ -120,7 +120,8 @@ export default function Home() {
               <h5 className="btn btn-primary">View</h5>
             </Link>
           </div>
-        ))}
+        ))
+        : <ThinkingDots></ThinkingDots>}
       </div>
       <div className="fixed bottom-0 left-0 z-50 w-full max-w-lg mx-auto p-4 mb-16">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
