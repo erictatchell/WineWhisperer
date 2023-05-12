@@ -3,6 +3,8 @@ import { getSession, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { MongoClient } from "mongodb";
 
 
 
@@ -10,8 +12,24 @@ import Link from 'next/link';
 export default function Profile() {
   const { data: session } = useSession()
   const user = session ? session.user : null;
-  //const [selectedImage, setSelectedImage] = useSession();
+  const [customId, setCustomId] = useState(null);
 
+  useEffect(() => {
+    if (user) {
+      const fetchCustomId = async () => {
+        const client = await MongoClient.connect(process.env.MONGODB_URI!);
+        const db = client.db();
+        const userExtras = db.collection('userExtras');
+        const userExtra = await userExtras.findOne({ email: user.email });
+        if (userExtra) {
+          setCustomId(userExtra.id);
+        }
+        client.close();
+      };
+
+      fetchCustomId();
+    }
+  }, [user]);
 
   // const handleImageChange = (e) => {
   //   if (e.target.files && e.target.files[0]) {
@@ -69,7 +87,7 @@ export default function Profile() {
 
       <div className="mt-0">
         <h3 className="text-l font-bold">User ID:</h3>
-        <h1 className="text-l">{user ? (user as any).customId : 'No ID'}</h1>
+        <h1 className="text-l">{customId ? customId : 'No ID'}</h1>
       </div>
 
 
