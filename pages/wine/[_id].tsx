@@ -37,10 +37,22 @@ export default function WinePage() {
       }
     }
   }, [router.isReady, router.query._id]);
-  
+
+  const saveWine = async (wineId: string, userId: string) => {
+    const response = await fetch('/api/save-wine', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ wineId, userId })
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to save wine');
+    }
+  }
 
   if (!wine) {
-    // Render some kind of loading or error state...
     return <div>Loading...</div>;
   }
   return (
@@ -50,9 +62,7 @@ export default function WinePage() {
         <h2 className='mt-3 tracking-wide uppercase font-bold text-sm'>{wine.variety}</h2>
       </div>
       <div>
-        <Link href={''} className='mt-3 flex justify-center'>
-          <button>Save</button>
-        </Link>
+        <button onClick={() => saveWine(wine._id, 'userId')}>Save</button>
       </div>
     </div>
   );
@@ -78,4 +88,5 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   return { props: { wine } };
 };
+
 
