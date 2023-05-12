@@ -44,7 +44,7 @@ const authOptions = {
 
       const saved = []; // your empty array
 
-      await collection.updateOne({"email" : user.email}, {"$set": {"saved": saved, "id": id}})
+      await collection.updateOne({"email" : user.email}, {"$set": {"name": user.name, "image": user.image, "saved": saved, "id": id}})
     },
   },
   secret: process.env.JWT_SECRET,
