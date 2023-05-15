@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Image from 'next/image'
 import { Lora } from 'next/font/google'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
@@ -40,9 +41,21 @@ export default function Layout({ children }: Props) {
         <nav className="bg-brendan dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="/main/home" className="flex items-center">
-              <img src="../logo.png" className="h-8 mr-3" alt="WW Logo" />
+              <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </Link>
+            <div className='text-lightdijon text-2xl font-semibold tracking-widest uppercase'>
+              -
+              {path == '/main/home' ? ' Home ' : ''}
+              {path == '/main/toppicks' ? ' Top Picks ' : ''}
+              {path == '/main/aboutus' ? ' About Us ' : ''}
+              {path == '/main/profile' ? ' Profile ' : ''}
+              {path == '/main/saved' ? ' Saved ' : ''}
+              {path.startsWith('/wine/') ? ' view ' : ''}
+              {path == '/main/settings' ? ' Settings ' : ''}
+              -
+
+            </div>
             <div className="flex md:order-2">
               <ThemeProvider theme={theme}>
                 <IconButton href="/main/profile">
