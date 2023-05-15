@@ -104,7 +104,7 @@ export default function Home() {
 
   return (
     <div className="mt-6">
-      <div className="grid justify-center">
+      <div className="grid justify-center mb-48">
         {showExamples && (  // conditional rendering based on showExamples state
           <>
             <div className='grid justify-center mb-6'>
@@ -152,7 +152,7 @@ export default function Home() {
           ))
           : <ThinkingDots></ThinkingDots>}
       </div>
-      <div className="fixed bottom-0 left-0 z-50 w-full max-w-lg mx-auto p-4 mb-16">
+      <div className="fixed bottom-0 left-0 z-50 w-full max-w-lg mx-auto p-4 mb-16 bg-dijon/90">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold" htmlFor="wine-description">
             Briefly describe your desired wine
