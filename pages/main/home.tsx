@@ -111,7 +111,7 @@ export default function Home() {
         )}
         {!loading ? 
         wines.map((wine: Wine, index: number) => (
-          <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <div key={index} className="grid w-xxs ml-6 mr-6 mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700">
             <Link href='#' onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
               <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
               <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
@@ -123,19 +123,22 @@ export default function Home() {
         ))
         : <ThinkingDots></ThinkingDots>}
       </div>
-      <div className="fixed bottom-0 left-0 z-50 w-full max-w-lg mx-auto p-4 mb-16 bg-dijon/90">
-        <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold" htmlFor="wine-description">
-            Briefly describe your desired wine
-          </label>
-          <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center">
-            <input required value={description} onChange={handleDescriptionChange} className="text-sm block w-full p-2.5 dark:bg-white dark:text-black hover:bg-gray-100 focus:bg-gray-200 focus:outline-none mt-2 md:mt-0 md:ml-2" id="wine-description" type="text" placeholder='Type here' />
-          </div>
-          <button type="submit" className="md:col-start-2 md:col-end-3 uppercase tracking-widest grid justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mt-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
-            Send
-          </button>
-        </form>
+      <div className="fixed bottom-0 left-0 z-50 w-full">
+        <div className="max-w-lg mx-auto p-4 mb-16 bg-dijon/90">
+          <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold" htmlFor="wine-description">
+              Briefly describe your desired wine
+            </label>
+            <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center">
+              <input required value={description} onChange={handleDescriptionChange} className="text-sm block w-full p-2.5 dark:bg-white dark:text-black hover:bg-gray-100 focus:bg-gray-200 focus:outline-none mt-2 md:mt-0 md:ml-2" id="wine-description" type="text" placeholder='Type here' />
+            </div>
+            <button type="submit" className="md:col-start-1 md:col-end-3 uppercase tracking-widest grid justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mt-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
+              Send
+            </button>
+          </form>
+        </div>
       </div>
+      
 
 
 
