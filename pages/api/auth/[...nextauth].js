@@ -20,9 +20,6 @@ function generateRandomString() {
 const authOptions = {
   adapter: MongoDBAdapter(clientPromise),
   secret: process.env.SECRET,
-  session: {
-    strategy: "jwt",
-  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID,
@@ -34,32 +31,48 @@ const authOptions = {
     }),
   ],
   callbacks: {
-    async signIn(user, account, profile) {
+    async signIn({ user, account, profile, email, credentials }) {
       const client = await clientPromise;
       const db = client.db();
-      const collection = db.collection("users");
 
-      const { email, name, image } = user;
-      const id = profile && profile.id ? profile.id : generateRandomString();
-
-      const saved = []; // your empty array
-
-      await collection.updateOne(
-        { email },
-        {
-          $set: {
-            name,
-            image,
-            id,
-            saved
-          },
+      // Create a new document in the userExtras collection if it doesn't exist
+      const userExtraCollection = db.collection("userExtras");
+      const filter = { email: user.email };
+      const updateDoc = {
+        $setOnInsert: {
+          id: generateRandomString(),
+          email: user.email,
+          saved: [],
         },
-        { upsert: true }
-      );
+      };
+      const options = { upsert: true };
+      await userExtraCollection.updateOne(filter, updateDoc, options);
+
       return true;
     },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      if (user) {
+        // Fetch the user's 'id' from the 'userExtras' collection
+        const client = await clientPromise;
+        const db = client.db();
+        const userExtraCollection = db.collection("userExtras");
+        const userExtra = await userExtraCollection.findOne({ email: user.email });
+
+        // Add the 'id' from 'userExtras' to the token
+        if (userExtra && userExtra.id) {
+          token.customId = userExtra.id;
+        }
+      }
+      return token;
+    },
+    async session({ session, user, token }) {
+      // Check if token exists and if it has a 'customId' property before assigning it
+      if (token && token.customId) {
+        session.user.customId = token.customId;
+      }
+      return session;
+    }
   },
-  secret: process.env.JWT_SECRET,
 };
 
 export default NextAuth(authOptions);

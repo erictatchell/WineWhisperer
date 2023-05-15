@@ -3,15 +3,17 @@ import { getSession, signOut, useSession } from 'next-auth/react';
 import Image from 'next/image'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Link from 'next/link';
+import clientPromise from '../../lib/mongodb';
+
+interface ProfileProps {
+  userId?: string;
+}
 
 
-
-
-export default function Profile() {
+export default function Profile({ userId }: ProfileProps) {
   const { data: session } = useSession()
   const user = session ? session.user : null;
 
-  // Code for profile picture upload
   //const [selectedImage, setSelectedImage] = useSession();
 
 
@@ -42,7 +44,7 @@ export default function Profile() {
           <button onClick={handleImageChange} className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
         </div> */}
         <div className="relative">
-          <img className="h-32 w-32 rounded-full" src="../purple_logo.png" alt="Profile" />
+          <Image className="h-32 w-32 rounded-full" src={user && user.image ? user.image : ''} alt="Profile" />
           <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
         </div>
 
@@ -72,28 +74,41 @@ export default function Profile() {
       <div className="mt-0">
         <h3 className="text-l font-bold">User ID:</h3>
         {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
-        <h1 className="text-m">1234567878</h1>
+        <h1 className="text-m">{userId}</h1>
       </div>
 
       {/* Sign out button */}
-      <div className="flex justify-end mt-4">      
-        <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>     
+      <div className="flex justify-end mt-4">
+        <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Sign Out</button>
       </div>
     </div>
   );
 }
 
- export const getServerSideProps = async (context: any) => {
+export async function getServerSideProps(context: any) {
   const session = await getSession(context);
-  if (!session) {
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
       return {
-           redirect: {
-              destination: '/'
-          }
-     }
- }
- return {
-      props: { session }
+        props: {
+          userId: userExtra.id,
+        },
+      };
+    }
   }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
 }
-
