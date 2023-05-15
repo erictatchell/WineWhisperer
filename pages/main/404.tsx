@@ -35,7 +35,7 @@ const NotFoundPage: React.FC = () => {
             }
           }
         `}</style>
-        <Link href="/main/home">
+        <Link href="/main/brazil" className='cursor-default'>
             <h1 className="next-error-h1" style={{
             display: 'inline-block',
             margin: '0 20px 0 0',
