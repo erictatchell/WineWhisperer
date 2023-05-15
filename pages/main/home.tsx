@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import ThinkingDots from '../../components/dots';
+import { IconButton, ThemeProvider, createTheme,  } from '@mui/material';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 interface Wine {
   _id: string;
@@ -20,6 +23,18 @@ interface Wine {
   variety: string;
   winery: string;
 }
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#F5E6CC',
+    },
+    secondary: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  },
+});
 
 export default function Home() {
   const [selection, setSelection] = useState('list');
@@ -109,19 +124,33 @@ export default function Home() {
             </div>
           </>
         )}
-        {!loading ? 
-        wines.map((wine: Wine, index: number) => (
-          <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-            <Link href='#' onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
-              <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
-              <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
-              <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">${wine.price}</h5>
-              <h5 className="mb-2 text-sm font-semibold tracking-tight text-white dark:text-lightdijon sm:text-xs">{wine.description}</h5>
-              <h5 className="btn btn-primary">View</h5>
-            </Link>
-          </div>
-        ))
-        : <ThinkingDots></ThinkingDots>}
+        {!loading ?
+          wines.map((wine: Wine, index: number) => (
+            <>
+              <div key={index} className="p-5 mb-4 max-w-sm mx-auto bg-dijon rounded-xl shadow-xl flex items-center space-x-4">
+
+                <div className="flex-shrink-0">
+                  <Image src="/white-sauvignon.png" alt="Wine image" width={60} height={60} />
+                </div>
+                <div>
+                  <div className="text-xl font-semibold text-black">{wine.title}</div>
+                  <p className="uppercase tracking-widest font-medium text-gray-500">{wine.variety}</p>
+                  <p className="text-gray-500 tracking-widest">${wine.price}</p>
+                  <p className="uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
+                </div>
+                <div>
+                  <IconButton href="/main/home">
+                    <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
+                      <ThemeProvider theme={theme}>
+                        <ArrowCircleRightIcon fontSize="large" color="primary" />
+                      </ThemeProvider>
+                    </button>
+                  </IconButton>
+                </div>
+              </div>
+            </>
+          ))
+          : <ThinkingDots></ThinkingDots>}
       </div>
       <div className="fixed bottom-0 left-0 z-50 w-full max-w-lg mx-auto p-4 mb-16">
         <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
