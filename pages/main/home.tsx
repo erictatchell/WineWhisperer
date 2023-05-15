@@ -111,7 +111,7 @@ export default function Home() {
         )}
         {!loading ? 
         wines.map((wine: Wine, index: number) => (
-          <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
+          <div key={index} className="grid w-xxs ml-6 mr-6 mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
             <Link href='#' onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
               <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
               <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
