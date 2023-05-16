@@ -117,7 +117,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   };
 
   return (
-    <div className="grid justify-center mt-5">
+    <div className="grid justify-center mt-5 mb-14">
       {wines.map((wine: Wine, index: number) => (
         <>
           <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
@@ -144,9 +144,12 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
         </>
       ))}
 
-      <div className="flex justify-center">
+<div className='fixed bottom-0 left-0 z-50 w-full'>
+<div className="max-w-lg mx-auto p-4 mb-16 flex justify-center">
         {renderPaginationButtons()}
       </div>
+</div>
+      
 
     </div>
   )
