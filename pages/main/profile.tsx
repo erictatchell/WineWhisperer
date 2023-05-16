@@ -14,6 +14,8 @@ export default function Profile({ userId }: ProfileProps) {
   const { data: session } = useSession()
   const user = session ? session.user : null;
 
+  console.log(user?.image);
+
   //const [selectedImage, setSelectedImage] = useSession();
 
 
@@ -44,7 +46,7 @@ export default function Profile({ userId }: ProfileProps) {
           <button onClick={handleImageChange} className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
         </div> */}
         <div className="relative">
-          <Image className="h-32 w-32 rounded-full" src={`${user ? user.image : ''}`} alt="Profile" />
+          <img className="rounded-full" src={user && user.image ? user.image : '/logo.png'} alt="Profile" />
           <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
         </div>
 
