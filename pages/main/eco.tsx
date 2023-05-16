@@ -63,10 +63,8 @@ export default function Eco({ ecowines }: EcoProps) {
         <div className="grid justify-center mt-5">
             {ecowines.map((wine: Wine, index: number) => (
                 <div key={index} className={`relative p-5 mb-4 max-w-sm
-                ${index + 1 > 3 ? 'bg-dijon' : ''}
-                ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88] from-10% via-[#F3EFB8] via-30% to-[#D0C863]' : ''}
-                ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2] from-10% via-[#EAEAEA] via-30% to-[#848484]' : ''}
-                ${index + 1 == 3 ? 'bg-gradient-to-r from-[#C97B49] from-10% via-[#DB9E76] via-30% to-[#946A4F]' : ''}
+                ${index + 1 > 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
+                ${index + 1 == 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
                 rounded-xl shadow-xl flex items-center mx-5 space-x-4`}>
                     <div className="flex-shrink-0">
                         <Image src="/white-sauvignon.png" alt="Wine image" width='50' height='50' />
