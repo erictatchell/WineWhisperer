@@ -65,6 +65,7 @@ export default function Layout({ children }: Props) {
               {path == '/main/aboutus' ? ' About Us ' : ''}
               {path == '/main/profile' ? ' Profile ' : ''}
               {path == '/main/saved' ? ' Saved ' : ''}
+              {path == '/main/search' ? ' Cellar ' : ''}
               {path.startsWith('/wine/') ? ' view ' : ''}
               {path == '/main/settings' ? ' Settings ' : ''}
               -
