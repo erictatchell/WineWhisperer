@@ -71,7 +71,7 @@ export default function Eco({ ecowines }: EcoProps) {
                 },
                 body: JSON.stringify({ wineId: wine._id }),
             });
-    
+
             if (res.ok) {
                 console.log('Wine saved successfully');
             } else {
@@ -81,12 +81,12 @@ export default function Eco({ ecowines }: EcoProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
-    
+
 
     return (
         <div className="grid justify-center mt-5">
             {ecowines.map((wine: Wine, index: number) => (
-                <div key={index} className={`relative p-5 mb-4 max-w-sm
+                <div onClick={() => handleWineClick(wine)} key={index} className={`relative p-5 mb-4 max-w-sm
                 ${index + 1 > 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
                 rounded-xl shadow-xl flex items-center mx-5 space-x-4`}>
@@ -103,15 +103,15 @@ export default function Eco({ ecowines }: EcoProps) {
                         <IconButton href="/">
                             <button>
                                 <ThemeProvider theme={theme}>
-                                <FaLeaf size="2em" color="darkgreen" />
+                                    <FaLeaf size="2em" color="darkgreen" />
                                 </ThemeProvider>
                             </button>
                         </IconButton>
                         <IconButton onClick={() => handleSaveClick(wine)}>
-    <ThemeProvider theme={theme}>
-        <SaveIcon fontSize="large" style={{ color: 'black' }} />
-    </ThemeProvider>
-</IconButton>
+                            <ThemeProvider theme={theme}>
+                                <SaveIcon fontSize="large" style={{ color: 'black' }} />
+                            </ThemeProvider>
+                        </IconButton>
 
                     </div>
                 </div>
