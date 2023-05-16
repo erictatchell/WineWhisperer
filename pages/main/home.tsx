@@ -155,7 +155,7 @@ export default function Home() {
 
           wines.map((wine: Wine, index: number) => (
             <>
-              <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
+              <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
 
                 <div className="flex-shrink-0">
                   <Image src="/white-sauvignon.png" alt="Wine image" width={50} height={50} />

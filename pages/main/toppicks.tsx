@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 // Defining a TypeScript interface for the structure of a wine object
@@ -53,11 +54,16 @@ export default function TopPicks({ wines }: TopPicksProps) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
+    function handleSaveClick() {
+        // Add your save logic here
+        console.log('Save button clicked!');
+    }
+    
 
     return (
         <div className="grid justify-center mt-5">
             {wines.map((wine: Wine, index: number) => (
-                <div key={index} className={`relative p-5 mb-4 max-w-sm
+                <div onClick={() => handleWineClick(wine)} key={index} className={`relative p-5 mb-4 max-w-sm
                 ${index + 1 > 3 ? 'bg-dijon' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88] from-10% via-[#F3EFB8] via-30% to-[#D0C863]' : ''}
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2] from-10% via-[#EAEAEA] via-30% to-[#848484]' : ''}
@@ -79,7 +85,13 @@ export default function TopPicks({ wines }: TopPicksProps) {
                                     <ArrowCircleRightIcon fontSize="large" color="primary" />
                                 </ThemeProvider>
                             </button>
+                            
                         </IconButton>
+                        <IconButton onClick={handleSaveClick}>
+        <ThemeProvider theme={theme}>
+            <SaveIcon fontSize="large" style={{ color: 'black' }} />
+        </ThemeProvider>
+    </IconButton>
                     </div>
                 </div>
             ))}
