@@ -1,5 +1,6 @@
 import type { AppProps } from 'next/app'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Image from 'next/image'
 import { Lora } from 'next/font/google'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
@@ -36,13 +37,25 @@ export default function Layout({ children }: Props) {
   if (!isSpecialRoute) {
     return (
 
-      <div className={`pb-16 flex flex-col min-h-screen ${lora.className}`}>
-        <nav className="bg-brendan dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <div className={`pb-16 flex flex-col ${lora.className} bg-gradient-to-b from-[#f5e6cc] to-[#c3b49a] min-h-screen`}>
+        <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="/main/home" className="flex items-center">
-              <img src="../logo.png" className="h-8 mr-3" alt="WW Logo" />
+              <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </Link>
+            <div className='text-lightdijon text-2xl font-semibold tracking-widest uppercase'>
+              -
+              {path == '/main/home' ? ' Home ' : ''}
+              {path == '/main/toppicks' ? ' Top Picks ' : ''}
+              {path == '/main/aboutus' ? ' About Us ' : ''}
+              {path == '/main/profile' ? ' Profile ' : ''}
+              {path == '/main/saved' ? ' Saved ' : ''}
+              {path.startsWith('/wine/') ? ' view ' : ''}
+              {path == '/main/settings' ? ' Settings ' : ''}
+              -
+
+            </div>
             <div className="flex md:order-2">
               <ThemeProvider theme={theme}>
                 <IconButton href="/main/profile">
@@ -52,10 +65,12 @@ export default function Layout({ children }: Props) {
             </div>
           </div>
         </nav>
-        <main>
-          {children}</main>
+        <main className=''>
+          {children}
+        </main>
+
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
-          <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+          <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
             <IconButton href="/main/home">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
@@ -70,13 +85,6 @@ export default function Layout({ children }: Props) {
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/search">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <SearchIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
             <IconButton href="/main/saved">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
@@ -86,7 +94,7 @@ export default function Layout({ children }: Props) {
             </IconButton>
           </div>
         </div>
-      </div>
+      </div >
     )
   } else {
     return (

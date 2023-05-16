@@ -1,11 +1,13 @@
-// Importing necessary modules and functions from Next.js and next-auth
 import { GetServerSideProps } from 'next';
 import { getSession } from "next-auth/react";
-
-// Importing the MongoClient Promise that was set up in the mongodb.tsx file
 import clientPromise from '../../lib/mongodb';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image'
+import { useState, useEffect } from 'react';
+import ThinkingDots from '../../components/dots';
+import { IconButton, ThemeProvider, createTheme, } from '@mui/material';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 
 // Defining a TypeScript interface for the structure of a wine object
 interface Wine {
@@ -31,6 +33,17 @@ interface SavedProps {
     wines: Wine[];
 }
 
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: '#a89471',
+        },
+        secondary: {
+            main: '#64748B',
+            contrastText: '#fff',
+        },
+    },
+});
 
 // The main TopPicks component which receives an array of wine objects as a prop
 /** TODO */
@@ -43,16 +56,28 @@ export default function Saved({ wines }: SavedProps) {
     }
 
     return (
-        <div className="grid justify-center">
-            <h1>Saved page</h1>
+        <div className="mt-5 grid justify-center">
             {/* Mapping over the wines array and creating a card for each wine */}
             {wines.map((wine: Wine, index: number) => (
-                <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-                    <div onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
-                        <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
-                        <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
-                        <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">${wine.price}</h5>
-                        
+                <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
+
+                    <div className="flex-shrink-0">
+                        <Image src="/white-sauvignon.png" alt="Wine image" width={50} height={50} />
+                    </div>
+                    <div>
+                        <div className="text-md font-semibold text-black">{wine.title}</div>
+                        <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
+                        <p className="text-sm text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
+                        <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
+                    </div>
+                    <div className="absolute bottom-0 right-3 mb-4">
+                        <IconButton href="/">
+                            <button>
+                                <ThemeProvider theme={theme}>
+                                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                                </ThemeProvider>
+                            </button>
+                        </IconButton>
                     </div>
                 </div>
             ))}

@@ -19,8 +19,10 @@ module.exports = {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'vineyard': "url('/bg.png')",
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+          
       },
       colors: {
         transparent: 'transparent',
@@ -36,7 +38,7 @@ module.exports = {
         'silver': '#ecebff',
         'bubble-gum': '#ff77e9',
         'bermuda': '#78dcca',
-      }
+      },
     },
   },
   plugins: [],
