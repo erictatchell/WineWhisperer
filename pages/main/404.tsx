@@ -15,7 +15,7 @@ const NotFoundPage: React.FC = () => {
     setClickCount(clickCount + 1);
     const audio = new Audio('/eastereggSound.mp3');
     audio.play();
-    if (clickCount < 2) {
+    if (clickCount < 3) {
       e.preventDefault();
     }
   };
