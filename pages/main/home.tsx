@@ -27,7 +27,7 @@ interface Wine {
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#F5E6CC',
+      main: '#a89471',
     },
     secondary: {
       main: '#64748B',
@@ -105,26 +105,54 @@ export default function Home() {
 
 
   return (
-    <div className="mt-6">
-      <div className="grid justify-center mb-48">
+    <div className="mt-5">
+      <div className="grid justify-center mb-40">
         {showExamples && (  // conditional rendering based on showExamples state
-          <>
+          <div className='mx-6'>
             <div className='grid justify-center mb-6'>
-              <h1>Examples:</h1>
+              <h1>What wine are you looking for?</h1>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-              <button onClick={() => { setPageDesc('A wine that tastes good'); setDescription('A wine that tastes good'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">A wine that tastes good</button>
+            <div onClick={() => { setPageDesc('A wine that tastes good'); setDescription('A wine that tastes good'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
+              <button className="col-span-3">A wine that tastes good</button>
+              <div className="justify-center grid">
+                <button>
+                  <ThemeProvider theme={theme}>
+                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </div>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-              <button onClick={() => { setPageDesc('A crisp and refreshing white that will impress my boss'); setDescription('A crisp and refreshing white that will impress my boss'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">A crisp and refreshing white wine that will impress my boss</button>
+            <div onClick={() => { setPageDesc('A crisp and refreshing white that will impress my boss'); setDescription('A crisp and refreshing white that will impress my boss'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
+              <button className="col-span-3">A crisp and refreshing white wine that will impress my boss</button>
+              <div className="justify-center grid">
+                <button>
+                  <ThemeProvider theme={theme}>
+                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </div>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-              <button onClick={() => { setPageDesc('A dry rose that tastes like fruit, citrus and melon'); setDescription('A dry rose that tastes like fruit, citrus and melon'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">A dry rose that tastes like fruit, citrus and melon</button>
+            <div onClick={() => { setPageDesc('A dry rose that tastes like fruit, citrus and melon'); setDescription('A dry rose that tastes like fruit, citrus and melon'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
+              <button className="col-span-3">A dry rose that tastes like fruit, citrus and melon</button>
+              <div className="justify-center grid">
+                <button>
+                  <ThemeProvider theme={theme}>
+                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </div>
             </div>
-            <div className="grid text-lightdijon max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-brendan/90 dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-              <button onClick={() => { setPageDesc('A medium-bodied red with complex flavours of dark fruits and hints of oak'); setDescription('A medium-bodied red with complex flavours of dark fruits and hints of oak'); handleSubmit; }} onChange={handleDescriptionChange} className="grid justify-center">A medium-bodied red with complex flavours of dark fruits and hints of oak</button>
+            <div  onClick={() => { setPageDesc('A medium-bodied red with complex flavours of dark fruits and hints of oak'); setDescription('A medium-bodied red with complex flavours of dark fruits and hints of oak'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
+              <button className="col-span-3 justify-center">A medium-bodied red with complex flavours of dark fruits and hints of oak</button>
+              <div className="justify-center grid">
+                <button>
+                  <ThemeProvider theme={theme}>
+                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </div>
             </div>
-          </>
+          </div>
         )}
         {!loading && wines.length != 0 ?
           <div className='text-center'>
@@ -137,16 +165,16 @@ export default function Home() {
 
           wines.map((wine: Wine, index: number) => (
             <>
-              <div key={index} className={`relative p-5 mb-4 max-w-sm mx-auto bg-dijon rounded-xl shadow-xl flex items-center space-x-4`}>
+              <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
 
                 <div className="flex-shrink-0">
-                  <Image src="/white-sauvignon.png" alt="Wine image" width={60} height={60} />
+                  <Image src="/white-sauvignon.png" alt="Wine image" width={50} height={50} />
                 </div>
                 <div>
-                  <div className="text-xl font-semibold text-black">{wine.title}</div>
-                  <p className="uppercase tracking-widest font-medium text-gray-500">{wine.variety}</p>
-                  <p className="text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
-                  <p className="uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
+                  <div className="text-md font-semibold text-black">{wine.title}</div>
+                  <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
+                  <p className="text-sm text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
+                  <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
                   <IconButton href="/">
@@ -163,25 +191,18 @@ export default function Home() {
           : <ThinkingDots></ThinkingDots>}
       </div>
       <div className="fixed bottom-0 left-0 z-50 w-full">
-        <div className="max-w-lg mx-auto p-4 mb-16 bg-dijon/90">
+        <div className="max-w-lg mx-auto p-4 mb-16 bg-black/10 backdrop-blur-md">
           <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <label className="block uppercase tracking-wide text-gray-700 text-sm font-bold" htmlFor="wine-description">
-              Briefly describe your desired wine
-            </label>
             <div className="md:col-span-2 flex flex-col md:flex-row items-start md:items-center">
               <input required value={description} onChange={handleDescriptionChange} className="text-sm block w-full p-2.5 dark:bg-white dark:text-black hover:bg-gray-100 focus:bg-gray-200 focus:outline-none mt-2 md:mt-0 md:ml-2" id="wine-description" type="text" placeholder='Type here' />
             </div>
             <button type="submit" className="md:col-start-1 md:col-end-3 uppercase tracking-widest grid justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mt-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
-              Send
+              Discover
             </button>
           </form>
         </div>
       </div>
-      
-
-
-
-    </div>
+    </div >
   );
 
 

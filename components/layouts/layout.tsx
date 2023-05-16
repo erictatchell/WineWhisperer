@@ -37,8 +37,8 @@ export default function Layout({ children }: Props) {
   if (!isSpecialRoute) {
     return (
 
-      <div className={`pb-16 flex flex-col min-h-screen ${lora.className}`}>
-        <nav className="bg-brendan dark:bg-brendan sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <div className={`pb-16 flex flex-col ${lora.className} bg-gradient-to-b from-[#f5e6cc] to-[#c3b49a] min-h-screen`}>
+        <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="/main/home" className="flex items-center">
               <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
@@ -65,10 +65,12 @@ export default function Layout({ children }: Props) {
             </div>
           </div>
         </nav>
-        <main>
-          {children}</main>
+        <main className=''>
+          {children}
+        </main>
+
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
-          <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
+          <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
             <IconButton href="/main/home">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
@@ -83,13 +85,6 @@ export default function Layout({ children }: Props) {
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/search">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <SearchIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
             <IconButton href="/main/saved">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
@@ -99,7 +94,7 @@ export default function Layout({ children }: Props) {
             </IconButton>
           </div>
         </div>
-      </div>
+      </div >
     )
   } else {
     return (
