@@ -32,7 +32,7 @@ interface Wine {
 
 // Defining a TypeScript interface for the props that the TopPicks component will receive
 interface EcoProps {
-    wines: Wine[];
+    ecowines: Wine[];
 }
 
 const theme = createTheme({
@@ -49,8 +49,10 @@ const theme = createTheme({
 
 // The main TopPicks component which receives an array of wine objects as a prop
 /** TODO */
-export default function Eco({ wines }: EcoProps) {
+export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
+
+
 
     function handleWineClick(wine: Wine) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
@@ -59,7 +61,7 @@ export default function Eco({ wines }: EcoProps) {
 
     return (
         <div className="grid justify-center mt-5">
-            {wines.map((wine: Wine, index: number) => (
+            {ecowines.map((wine: Wine, index: number) => (
                 <div key={index} className={`relative p-5 mb-4 max-w-sm
                 ${index + 1 > 3 ? 'bg-dijon' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88] from-10% via-[#F3EFB8] via-30% to-[#D0C863]' : ''}
@@ -96,16 +98,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const client = await clientPromise;
     const db = client.db('Wine1');
 
-    const wines = await db
+    const ecowines = await db
         .collection('wset')
-        .find({ eco: true })    // Filter for eco wines
-        .sort({ points: -1 })
-        .limit(10)
+        .find({ eco: "true" })    // Filter for eco wines
+        .limit(4)
         .toArray();
 
     return {
         props: {
-            wines: JSON.parse(JSON.stringify(wines)),
+            ecowines: JSON.parse(JSON.stringify(ecowines)),
         },
     };
 };
