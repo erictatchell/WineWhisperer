@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import { FaLeaf } from 'react-icons/fa';
 
 
 // Defining a TypeScript interface for the structure of a wine object
@@ -79,7 +80,7 @@ export default function Eco({ ecowines }: EcoProps) {
                         <IconButton href="/">
                             <button>
                                 <ThemeProvider theme={theme}>
-                                    <ArrowCircleRightIcon fontSize="large" color="primary" />
+                                <FaLeaf size="2em" color="darkgreen" />
                                 </ThemeProvider>
                             </button>
                         </IconButton>
