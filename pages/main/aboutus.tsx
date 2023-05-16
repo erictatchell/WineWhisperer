@@ -14,6 +14,7 @@ const teamMembers = [
 
 export default function aboutUs() {
   return (
+    // Easter egg link
 <div className="mx-auto p-4 sm:p-6 lg:p-8">
   <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
     <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">About our project</p>
@@ -24,6 +25,7 @@ export default function aboutUs() {
       By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
     </p>
   </div>
+  
   <Link href="/main/404" className='cursor-default'>
     <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
       <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
