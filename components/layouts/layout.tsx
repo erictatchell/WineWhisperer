@@ -6,7 +6,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import IconButton from '@mui/material/IconButton';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
-import SearchIcon from '@mui/icons-material/Search';
+import LayersIcon from '@mui/icons-material/Layers';
 import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/router';
 import Link from 'next/link'
@@ -70,7 +70,7 @@ export default function Layout({ children }: Props) {
         </main>
 
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
-          <div className="grid h-full max-w-lg grid-cols-3 mx-auto font-medium">
+          <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
             <IconButton href="/main/home">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
@@ -85,7 +85,14 @@ export default function Layout({ children }: Props) {
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/saved">
+            <IconButton href="/main/toppicks">
+              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
+                <ThemeProvider theme={theme}>
+                  <LayersIcon fontSize="large" color="primary" />
+                </ThemeProvider>
+              </button>
+            </IconButton>
+            <IconButton href="/main/search">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
                   <BookmarkIcon fontSize="large" color="primary" />
