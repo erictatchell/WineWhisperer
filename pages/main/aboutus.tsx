@@ -25,15 +25,14 @@ export default function aboutUs() {
     </p>
   </div>
   <Link href="/main/404" className='cursor-default'>
-
-  <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
-    <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
-    <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
-      Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
-      group from the British Columbia Institute of Technology. We share a passion for software development and aspire
-      to make a positive impact on society through our knowledge and hard work.
-    </p>
-  </div>
+    <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
+      <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
+      <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
+        Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
+        group from the British Columbia Institute of Technology. We share a passion for software development and aspire
+        to make a positive impact on society through our knowledge and hard work.
+      </p>
+    </div>
   </Link>
 
 

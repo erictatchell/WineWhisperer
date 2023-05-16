@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import clientPromise from '../../lib/mongodb';
 import { getSession } from 'next-auth/react';
+import { isAnyArrayBuffer } from 'util/types';
 
 const NotFoundPage: React.FC = () => {
   return (
