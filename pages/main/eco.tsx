@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from "next-auth/react";  // Add useSession
 import clientPromise from '../../lib/mongodb';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -9,8 +9,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { FaLeaf } from 'react-icons/fa';
 import SaveIcon from '@mui/icons-material/Save';
 
-
-// Defining a TypeScript interface for the structure of a wine object
+// Rest of the import and interface code...
 interface Wine {
     _id: string;
     id: number;
@@ -27,11 +26,8 @@ interface Wine {
     title: string;
     variety: string;
     winery: string;
-    eco: boolean;    // New field
-    blurb: string;   // New field
-    saved: boolean;
+    
 }
-
 
 // Defining a TypeScript interface for the props that the TopPicks component will receive
 interface EcoProps {
@@ -50,37 +46,41 @@ const theme = createTheme({
     },
 });
 
-// The main TopPicks component which receives an array of wine objects as a prop
-/** TODO */
 export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
+    const { data: session } = useSession();
+    const user = session ? session.user : null;
 
-
-
-    function handleWineClick(wine: Wine) {
-        localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
-        router.push(`/wine/${wine._id}`);
-    }
+    
 
     async function handleSaveClick(wine: Wine) {
         try {
-            const res = await fetch('/api/saveWine', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ wineId: wine._id }),
-            });
-    
-            if (res.ok) {
-                console.log('Wine saved successfully');
+            if (user) {
+                const res = await fetch('/api/wine/saveWine', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ wineId: wine._id, email: user.email }),
+                });
+
+                if (res.ok) {
+                    console.log('Wine saved successfully');
+                } else {
+                    console.log('Failed to save wine');
+                }
             } else {
-                console.log('Failed to save wine');
+                console.log('User is not logged in');
             }
         } catch (error) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+
+    // Rest of your code...
+
+
+
     
 
     return (
@@ -118,7 +118,7 @@ export default function Eco({ ecowines }: EcoProps) {
             ))}
         </div>
     )
-}
+} 
 
 // The getServerSideProps function runs on the server side before the page is rendered
 // It fetches the data that the page needs to render
