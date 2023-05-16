@@ -99,7 +99,7 @@ export default function Layout({ children }: Props) {
                     <div className="py-1 ">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
+                          <Link
                             href="/main/settings"
                             className={classNames(
                               active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
@@ -107,7 +107,7 @@ export default function Layout({ children }: Props) {
                             )}
                           >
                             Settings
-                          </a>
+                          </Link>
                         )}
                       </Menu.Item>
                       <form method="POST">
