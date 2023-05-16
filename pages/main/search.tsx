@@ -3,10 +3,9 @@ import { getSession } from "next-auth/react";
 import clientPromise from '../../lib/mongodb';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { IconButton, ThemeProvider, createTheme } from '@mui/material';
+import { IconButton, ThemeProvider, createTheme, MenuItem, Select } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { useState, useEffect } from 'react';
-import { MenuItem, Select } from '@mui/material';
 
 // Defining a TypeScript interface for the structure of a wine object
 interface Wine {
