@@ -71,13 +71,11 @@ export default function Saved({ wines }: SavedProps) {
                         <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                     </div>
                     <div className="absolute bottom-0 right-3 mb-4">
-                        <IconButton href="/">
-                            <button>
-                                <ThemeProvider theme={theme}>
-                                    <ArrowCircleRightIcon fontSize="large" color="primary" />
-                                </ThemeProvider>
-                            </button>
-                        </IconButton>
+                        <button>
+                            <ThemeProvider theme={theme}>
+                                <ArrowCircleRightIcon fontSize="large" color="primary" />
+                            </ThemeProvider>
+                        </button>
                     </div>
                 </div>
             ))}
