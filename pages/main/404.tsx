@@ -1,10 +1,25 @@
 import React from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 import clientPromise from '../../lib/mongodb';
 import { getSession } from 'next-auth/react';
 import { isAnyArrayBuffer } from 'util/types';
+//import clickSound from '/eastereggSound.mp3';
+
 
 const NotFoundPage: React.FC = () => {
+
+  const [clickCount, setClickCount] = useState(0);
+
+  const handleClick = (e: React.MouseEvent) => {
+    setClickCount(clickCount + 1);
+    const audio = new Audio('/eastereggSound.mp3');
+    audio.play();
+    if (clickCount < 2) {
+      e.preventDefault();
+    }
+  };
+
   return (
     <div style={{
       fontFamily: 'system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji"',
@@ -16,6 +31,7 @@ const NotFoundPage: React.FC = () => {
       justifyContent: 'center'
     }}>
       <div>
+        <p>The thing you are looking for is not found.</p>
         <style>{`
           body {
             color: #000;
@@ -47,7 +63,8 @@ const NotFoundPage: React.FC = () => {
             fontWeight: 500,
             verticalAlign: 'top',
             lineHeight: '49px'
-            }}>
+            }}
+            onClick={handleClick}>
             404
             </h1>
         </Link>
