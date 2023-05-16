@@ -56,22 +56,22 @@ export default function aboutUs() {
 };
 
 // Checking session and redirecting if not logged in
-// export async function getServerSideProps(context: any) {
-//   const session = await getSession(context);
-//   const userEmail = session && session.user ? session.user.email : null;
-//   if (userEmail) {
-//     const client = await clientPromise;
-//     const db = client.db();
-//     const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
-//     if (userExtra) {
-//       return {
-//         props: {
-//           userId: userExtra.id,
-//         },
-//       };
-//     }
-//   }
-//   return {
-//     props: {},
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
+      return {
+        props: {
+          userId: userExtra.id,
+        },
+      };
+    }
+  }
+  return {
+    props: {},
+  };
+}
