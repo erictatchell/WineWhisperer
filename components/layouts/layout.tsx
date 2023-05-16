@@ -166,14 +166,14 @@ export default function Layout({ children }: Props) {
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/toppicks">
+            <IconButton href="/main/search">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
                   <LayersIcon fontSize="large" color="primary" />
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/search">
+            <IconButton href="/main/saved">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
                   <BookmarkIcon fontSize="large" color="primary" />
