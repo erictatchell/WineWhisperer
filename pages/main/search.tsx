@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import clientPromise from '../../lib/mongodb';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { IconButton, ThemeProvider, createTheme } from '@mui/material';
+import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { useState, useEffect } from 'react';
 
@@ -52,6 +52,8 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   const [page, setPage] = useState(currentPage);
 
+  const [sortOption, setSortOption] = useState('points_desc');
+
   useEffect(() => {
     setPage(currentPage);
   }, [currentPage]);
@@ -63,12 +65,24 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   const handlePageChange = (pageNumber: number) => {
     setPage(pageNumber);
-    if (pageNumber === 1) {
-      router.push(`/main/search`);
+    if (pageNumber === 1 || pageNumber === undefined) {
+      router.push(`/main/search?sort=${sortOption}`);
     } else {
-      router.push(`/main/search?page=${pageNumber}`);
+      router.push(`/main/search?page=${pageNumber}&sort=${sortOption}`);
     }
   };
+
+  const handleSortChange = (event: SelectChangeEvent<string>) => {
+    const selectedOption = event.target.value as string;
+    setSortOption(selectedOption);
+  
+    if (page === 1 || page === undefined) {
+      router.push(`/main/search?sort=${selectedOption}`);
+    } else {
+      router.push(`/main/search?page=${page}&sort=${selectedOption}`);
+    }
+  };
+
 
   const renderPaginationButtons = () => {
     const buttons = [];
@@ -118,6 +132,14 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   return (
     <div className="grid justify-center mt-5 mb-14">
+      <div>
+        <Select value={sortOption} onChange={handleSortChange}>
+          <MenuItem value="asc">Price: Low to High</MenuItem>
+          <MenuItem value="desc">Price: High to Low</MenuItem>
+          <MenuItem value="points_asc">Points: Low to High</MenuItem>
+          <MenuItem value="points_desc">Points: High to Low</MenuItem>
+        </Select>
+      </div>
       {wines.map((wine: Wine, index: number) => (
         <>
           <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
@@ -144,12 +166,12 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
         </>
       ))}
 
-<div className='fixed bottom-0 left-0 z-50 w-full'>
-<div className="max-w-lg mx-auto p-4 mb-16 flex justify-center">
-        {renderPaginationButtons()}
+      <div className='fixed bottom-0 left-0 z-50 w-full'>
+        <div className="max-w-lg mx-auto p-4 mb-16 flex justify-center">
+          {renderPaginationButtons()}
+        </div>
       </div>
-</div>
-      
+
 
     </div>
   )
@@ -166,11 +188,32 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of wines to skip
 
+  const sortOption = context.query.sort || 'asc'; // Get the sort option from the query parameters
+
+  let sortField;
+  switch (sortOption) {
+    case 'asc':
+      sortField = 'price';
+      break;
+    case 'desc':
+      sortField = 'price';
+      break;
+    case 'points_asc':
+      sortField = 'points';
+      break;
+    case 'points_desc':
+      sortField = 'points';
+      break;
+    default:
+      sortField = 'points';
+  }
+
+  const sortDirection = sortOption === 'asc' || sortOption === 'points_asc' ? 1 : -1;
 
   const wines = await db
     .collection('wset')
     .find({})
-    .sort({ points: -1 })
+    .sort({ [sortField]: sortDirection }) // Sort the wines
     .skip(skip)
     .limit(ITEMS_PER_PAGE)
     .toArray();
