@@ -133,7 +133,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   return (
     <div className="grid justify-center mt-5 mb-14">
       <div className='mb-4'>
-        <Select value={sortOption} onChange={handleSortChange}>
+        <Select value={sortOption} onChange={handleSortChange} className=' bg-gradient-to-t from-dijon to-dijon/50'>
           <MenuItem value="asc">Price: Low to High</MenuItem>
           <MenuItem value="desc">Price: High to Low</MenuItem>
           <MenuItem value="points_asc">Points: Low to High</MenuItem>
