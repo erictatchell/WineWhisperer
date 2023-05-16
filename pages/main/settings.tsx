@@ -6,6 +6,8 @@ import NightlightRoundOutlinedIcon from '@mui/icons-material/NightlightRoundOutl
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Link from 'next/link';
 import Card from '../../components/card';
+import clientPromise from '../../lib/mongodb';
+
 
 
 export default function Settings() {
@@ -51,16 +53,30 @@ export default function Settings() {
     };
 
 
-export const getServerSideProps = async (context: any) => {
-    const session = await getSession(context);
-    if (!session) {
-        return {
-            redirect: {
-                destination: '/'
-            }
+    export async function getServerSideProps(context: any) {
+      const session = await getSession(context);
+      const userEmail = session && session.user ? session.user.email : null;
+      if (userEmail) {
+        const client = await clientPromise;
+        const db = client.db();
+        const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+        if (userExtra) {
+          return {
+            props: {
+              userId: userExtra.id,
+            },
+          };
         }
+      }
+      if (!session) {
+        return {
+          redirect: {
+            destination: '/',
+            permanent: false,
+          },
+        };
+      }
+      return {
+        props: {},
+      };
     }
-    return {
-        props: { session }
-    }
-}
