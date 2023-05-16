@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { FaLeaf } from 'react-icons/fa';
+import SaveIcon from '@mui/icons-material/Save';
 
 
 // Defining a TypeScript interface for the structure of a wine object
@@ -28,6 +29,7 @@ interface Wine {
     winery: string;
     eco: boolean;    // New field
     blurb: string;   // New field
+    saved: boolean;
 }
 
 
@@ -60,6 +62,27 @@ export default function Eco({ ecowines }: EcoProps) {
         router.push(`/wine/${wine._id}`);
     }
 
+    async function handleSaveClick(wine: Wine) {
+        try {
+            const res = await fetch('/api/saveWine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ wineId: wine._id }),
+            });
+    
+            if (res.ok) {
+                console.log('Wine saved successfully');
+            } else {
+                console.log('Failed to save wine');
+            }
+        } catch (error) {
+            console.log('An error occurred while trying to save the wine', error);
+        }
+    }
+    
+
     return (
         <div className="grid justify-center mt-5">
             {ecowines.map((wine: Wine, index: number) => (
@@ -84,6 +107,12 @@ export default function Eco({ ecowines }: EcoProps) {
                                 </ThemeProvider>
                             </button>
                         </IconButton>
+                        <IconButton onClick={() => handleSaveClick(wine)}>
+    <ThemeProvider theme={theme}>
+        <SaveIcon fontSize="large" style={{ color: 'black' }} />
+    </ThemeProvider>
+</IconButton>
+
                     </div>
                 </div>
             ))}
