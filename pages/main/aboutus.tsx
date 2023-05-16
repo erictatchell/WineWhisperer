@@ -4,33 +4,33 @@ import clientPromise from '../../lib/mongodb';
 
 
 const teamMembers = [
-    { name: "Eric Tatchell", image: "/victor1.jpg", description: "Eric is a passionate developer with a love for music." },
-    { name: "Brendan Doyle", image: "/victor2.jpg", description: "Brendan is a passionate developer with a love for golf." },
-    { name: "Noor Sangha", image: "/victor1.jpg", description: "Noor is a passionate developer with a love for cars." },
-    { name: "Victor Vasconcellos", image: "/victor2.jpg", description: "Victor is a passionate developer with a love for soccer." },
-    // add more team members as needed
-  ];
+  { name: "Eric Tatchell", image: "/victor1.jpg", description: "Eric is a passionate developer with a love for music." },
+  { name: "Brendan Doyle", image: "/victor2.jpg", description: "Brendan is a passionate developer with a love for golf." },
+  { name: "Noor Sangha", image: "/victor1.jpg", description: "Noor is a passionate developer with a love for cars." },
+  { name: "Victor Vasconcellos", image: "/victor2.jpg", description: "Victor is a passionate developer with a love for soccer." },
+  // add more team members as needed
+];
 
 
 export default function aboutUs() {
-return (
+  return (
     <div className="mx-auto p-4 sm:p-6 lg:p-8">
       <div className="text-center">
         <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">About our project</p>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Our team Code and Cork, is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers, 
-            vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious 
-            wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines. 
-            By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
+          Our team Code and Cork, is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers,
+          vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
+          wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines.
+          By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
         </p>
       </div>
 
       <div className="text-center mt-10">
         <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Meet our amazing team</p>
         <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-            Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, Code and Cork is a highly motivated and cohesive 
-            group from the British Columbia Institute of Technology. We share a passion for software development and aspire 
-            to make a positive impact on society through our knowledge and hard work.
+          Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, Code and Cork is a highly motivated and cohesive
+          group from the British Columbia Institute of Technology. We share a passion for software development and aspire
+          to make a positive impact on society through our knowledge and hard work.
         </p>
       </div>
 
@@ -55,29 +55,21 @@ return (
 
 // Checking session and redirecting if not logged in
 export async function getServerSideProps(context: any) {
-    const session = await getSession(context);
-    const userEmail = session && session.user ? session.user.email : null;
-    if (userEmail) {
-      const client = await clientPromise;
-      const db = client.db();
-      const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
-      if (userExtra) {
-        return {
-          props: {
-            userId: userExtra.id,
-          },
-        };
-      }
-    }
-    if (!session) {
+  const session = await getSession(context);
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
       return {
-        redirect: {
-          destination: '/',
-          permanent: false,
+        props: {
+          userId: userExtra.id,
         },
       };
     }
-    return {
-      props: {},
-    };
   }
+  return {
+    props: {},
+  };
+}
