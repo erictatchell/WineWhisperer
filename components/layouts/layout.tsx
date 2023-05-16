@@ -10,10 +10,10 @@ import LayersIcon from '@mui/icons-material/Layers';
 import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/router';
 import Link from 'next/link'
-import { useSession } from 'next-auth/react';
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 const lora = Lora({ subsets: ['latin'] })
 
@@ -35,12 +35,16 @@ interface Props {
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
+const handleGoogle = () => {
+  signIn("google", { callbackUrl: '/main/home' });
+};
+
 export default function Layout({ children }: Props) {
   const router = useRouter();
   const path = router.pathname;
   const { data: session } = useSession()
   const user = session ? session.user : null;
-
+  
   const isSpecialRoute = path === '/' || path === '/auth/login' || path === '/auth/signup';
   if (!isSpecialRoute) {
 
@@ -92,34 +96,36 @@ export default function Layout({ children }: Props) {
                   leaveTo="transform opacity-0 scale-95"
                 >
                   <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-lightdijon shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none">
-                    <div className="py-1">
+                    <div className="py-1 ">
                       <Menu.Item>
                         {({ active }) => (
                           <a
                             href="/main/settings"
                             className={classNames(
                               active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                              'block px-4 py-2 text-sm'
+                              'block px-4 py-2 text-sm hover:bg-dijon '
                             )}
                           >
                             Settings
                           </a>
                         )}
                       </Menu.Item>
-                      <form method="POST" action="#">
+                      <form method="POST">
                         <Menu.Item>
                           {({ active }) => (
                             <button
-                              type="submit"
+                              type="button"
+                              onClick={handleGoogle}
                               className={classNames(
                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                'block w-full px-4 py-2 text-left text-sm'
+                                'block w-full px-4 py-2 text-left text-sm hover:bg-dijon'
                               )}
                             >
-                              <div className='grid grid-cols-4'>
-                                <svg className="w-4 mr-3 h-4" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
-
-                                <h1 className='cols-span-3'>Log in</h1>
+                              <div className='grid grid-cols-7'>
+                                <div className='justify-center'>
+                                  <svg className="w-4 mr-3 h-4 " aria-hidden="true" focusable="false" data-prefix="fab" data-icon="google" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512"><path fill="currentColor" d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"></path></svg>
+                                </div>
+                                <div className='col-span-6 text-start'>Log In</div>
                               </div>
                             </button>
                           )}

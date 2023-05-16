@@ -46,37 +46,29 @@ export default function Settings() {
               focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-3 py-2  
               text-center inline-flex items- dark:focus:ring-[#3b5998]/55 mr-2 mb-2"><InfoOutlinedIcon />About Us</button>
           </Link>
-          </div>
         </div>
-        </div>
-      );
-    };
+      </div>
+    </div>
+  );
+};
 
 
-    export async function getServerSideProps(context: any) {
-      const session = await getSession(context);
-      const userEmail = session && session.user ? session.user.email : null;
-      if (userEmail) {
-        const client = await clientPromise;
-        const db = client.db();
-        const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
-        if (userExtra) {
-          return {
-            props: {
-              userId: userExtra.id,
-            },
-          };
-        }
-      }
-      if (!session) {
-        return {
-          redirect: {
-            destination: '/',
-            permanent: false,
-          },
-        };
-      }
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
       return {
-        props: {},
+        props: {
+          userId: userExtra.id,
+        },
       };
     }
+  }
+  return {
+    props: {},
+  };
+}
