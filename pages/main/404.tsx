@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import clientPromise from '../../lib/mongodb';
+import { getSession } from 'next-auth/react';
 
 const NotFoundPage: React.FC = () => {
   return (
@@ -62,5 +64,34 @@ const NotFoundPage: React.FC = () => {
     </div>
   );
 };
+
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
+      return {
+        props: {
+          userId: userExtra.id,
+        },
+      };
+    }
+  }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}
 
 export default NotFoundPage;
