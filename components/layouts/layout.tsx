@@ -169,7 +169,7 @@ export default function Layout({ children }: Props) {
                 </ThemeProvider>
               </button>
             </IconButton>
-            <IconButton href="/main/search">
+            <IconButton href="/main/search?sort=points_desc">
               <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
                 <ThemeProvider theme={theme}>
                   <LayersIcon fontSize="large" color="primary" />
