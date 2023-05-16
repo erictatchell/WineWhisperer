@@ -132,17 +132,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
-            <div onClick={() => { setPageDesc('A dry rose that tastes like fruit, citrus and melon'); setDescription('A dry rose that tastes like fruit, citrus and melon'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
-              <button className="col-span-3">A dry rose that tastes like fruit, citrus and melon</button>
-              <div className="justify-center grid">
-                <button>
-                  <ThemeProvider theme={theme}>
-                    <ArrowCircleRightIcon fontSize="large" color="primary" />
-                  </ThemeProvider>
-                </button>
-              </div>
-            </div>
-            <div  onClick={() => { setPageDesc('A medium-bodied red with complex flavours of dark fruits and hints of oak'); setDescription('A medium-bodied red with complex flavours of dark fruits and hints of oak'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
+            <div onClick={() => { setPageDesc('A medium-bodied red with complex flavours of dark fruits and hints of oak'); setDescription('A medium-bodied red with complex flavours of dark fruits and hints of oak'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 text-black max-w-sm ml- mr- mb-6 border-brendan rounded-lg shadow bg-dijon/50 dark:border-gray-700 sm:max-w-full">
               <button className="col-span-3 justify-center">A medium-bodied red with complex flavours of dark fruits and hints of oak</button>
               <div className="justify-center grid">
                 <button>
