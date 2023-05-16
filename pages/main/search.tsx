@@ -132,7 +132,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   return (
     <div className="grid justify-center mt-5 mb-14">
-      <div>
+      <div className='mb-4'>
         <Select value={sortOption} onChange={handleSortChange}>
           <MenuItem value="asc">Price: Low to High</MenuItem>
           <MenuItem value="desc">Price: High to Low</MenuItem>
@@ -167,7 +167,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
       ))}
 
       <div className='fixed bottom-0 left-0 z-50 w-full'>
-        <div className="max-w-lg mx-auto p-4 mb-16 flex justify-center">
+        <div className="max-w-lg mx-auto p-4 mb-16 flex justify-center bg-black/10 backdrop-blur-md">
           {renderPaginationButtons()}
         </div>
       </div>
