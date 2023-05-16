@@ -3,7 +3,7 @@ import { getSession } from "next-auth/react";
 import clientPromise from '../../lib/mongodb';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
-import { IconButton, ThemeProvider, createTheme, MenuItem, Select } from '@mui/material';
+import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { useState, useEffect } from 'react';
 
@@ -72,10 +72,10 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
     }
   };
 
-  const handleSortChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleSortChange = (event: SelectChangeEvent<string>) => {
     const selectedOption = event.target.value as string;
     setSortOption(selectedOption);
-    
+  
     if (page === 1 || page === undefined) {
       router.push(`/main/search?sort=${selectedOption}`);
     } else {
