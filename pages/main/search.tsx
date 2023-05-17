@@ -188,19 +188,15 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of wines to skip
 
-  const sortOption = context.query.sort || 'asc'; // Get the sort option from the query parameters
+  const sortOption = context.query.sort || 'points_desc'; // Get the sort option from the query parameters
 
   let sortField;
   switch (sortOption) {
     case 'asc':
-      sortField = 'price';
-      break;
     case 'desc':
       sortField = 'price';
       break;
     case 'points_asc':
-      sortField = 'points';
-      break;
     case 'points_desc':
       sortField = 'points';
       break;
