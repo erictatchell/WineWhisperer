@@ -77,11 +77,16 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
     const selectedOption = event.target.value as string;
     setSortOption(selectedOption);
 
-    if (page === 1 || page === undefined) {
-      router.push(`/main/search?sort=${selectedOption}`);
+    if (selectedOption === "eco") {
+      router.push(`/main/eco`);
     } else {
-      router.push(`/main/search?page=${page}&sort=${selectedOption}`);
+      if (page === 1 || page === undefined) {
+        router.push(`/main/search?sort=${selectedOption}`);
+      } else {
+        router.push(`/main/search?page=${page}&sort=${selectedOption}`);
+      }
     }
+    
   };
 
 

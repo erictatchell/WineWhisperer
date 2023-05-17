@@ -70,6 +70,7 @@ export default function Layout({ children }: Props) {
               {path == '/main/settings' ? ' Settings ' : ''}
               {path == '/main/404' ? ' Lost? ' : ''}
               {path == '/main/brazil' ? ' Fun in the Sun ' : ''}
+              {path == '/main/eco' ? ' Eco ' : ''}
               -
             </div>
 
