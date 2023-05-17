@@ -134,8 +134,8 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
     <div className="grid justify-center mt-5 mb-14">
       <div className='mb-4'>
         <Select value={sortOption} onChange={handleSortChange} className=' bg-gradient-to-t from-dijon to-dijon/50'>
-          <MenuItem value="asc">Price: Low to High</MenuItem>
-          <MenuItem value="desc">Price: High to Low</MenuItem>
+          <MenuItem value="price_asc">Price: Low to High</MenuItem>
+          <MenuItem value="price_desc">Price: High to Low</MenuItem>
           <MenuItem value="points_asc">Points: Low to High</MenuItem>
           <MenuItem value="points_desc">Points: High to Low</MenuItem>
         </Select>
@@ -192,8 +192,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
   let sortField;
   switch (sortOption) {
-    case 'asc':
-    case 'desc':
+    case 'price_asc':
+    case 'price_desc':
       sortField = 'price';
       break;
     case 'points_asc':
@@ -204,7 +204,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       sortField = 'points';
   }
 
-  const sortDirection = sortOption === 'asc' || sortOption === 'points_asc' ? 1 : -1;
+  const sortDirection = sortOption === 'price_asc' || sortOption === 'points_asc' ? 1 : -1;
 
   const wines = await db
     .collection('wset')
