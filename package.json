@@ -29,6 +29,7 @@
     "eslint": "8.39.0",
     "eslint-config-next": "^13.4.0",
     "express-session": "^1.17.3",
+    "framer-motion": "^10.12.12",
     "headlessui": "^0.0.0",
     "heroicons": "^2.0.18",
     "material-icons": "^1.13.6",

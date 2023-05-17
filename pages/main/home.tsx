@@ -143,6 +143,8 @@ export default function Home() {
               </div>
             </div>
           </div>
+
+
         )}
         {!loading && wines.length != 0 ?
           <div className='text-center'>

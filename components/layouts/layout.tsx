@@ -44,7 +44,7 @@ export default function Layout({ children }: Props) {
   const path = router.pathname;
   const { data: session } = useSession()
   const user = session ? session.user : null;
-  
+
   const isSpecialRoute = path === '/' || path === '/auth/login' || path === '/auth/signup';
   if (!isSpecialRoute) {
 
@@ -149,43 +149,51 @@ export default function Layout({ children }: Props) {
           </div>
 
         </nav>
-        <main className=''>
+        <main>
           {children}
         </main>
 
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-brendan border-t border-brendan-200 bg-brendan dark:border-brendan">
-          <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
-            <IconButton href="/main/home">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <HomeIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
-            <IconButton href="/main/toppicks">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <LeaderboardIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
-            <IconButton href="/main/search?sort=points_desc">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <LayersIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
-            <IconButton href="/main/saved">
-              <button type="button" className="inline-flex flex-col items-center justify-center px-5 group">
-                <ThemeProvider theme={theme}>
-                  <BookmarkIcon fontSize="large" color="primary" />
-                </ThemeProvider>
-              </button>
-            </IconButton>
+          <div className="grid max-w-md grid-cols-4 mx-auto font-medium">
+            <Link href='/main/home' className="flex items-center justify-center px-5 group">
+              <IconButton>
+                <button type="button" >
+                  <ThemeProvider theme={theme}>
+                    <HomeIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </IconButton>
+            </Link>
+            <Link href='/main/toppicks'  className="flex items-center justify-center px-5 group">
+              <IconButton>
+                <button type="button" >
+                  <ThemeProvider theme={theme}>
+                    <LeaderboardIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </IconButton>
+            </Link>
+            <Link href='/main/search?sort=points_desc'  className="flex items-center justify-center px-5 group">
+              <IconButton>
+                <button type="button" >
+                  <ThemeProvider theme={theme}>
+                    <LayersIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </IconButton>
+            </Link>
+            <Link href='/main/saved'  className="flex items-center justify-center px-5 group">
+              <IconButton>
+                <button type="button">
+                  <ThemeProvider theme={theme}>
+                    <BookmarkIcon fontSize="large" color="primary" />
+                  </ThemeProvider>
+                </button>
+              </IconButton>
+            </Link>
           </div>
         </div>
-      </div >
+      </div>
     )
   } else {
     return (

@@ -1,11 +1,12 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from "next-auth/react";
+import { getSession, useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
 import clientPromise from '../../lib/mongodb';
 import { useRouter } from 'next/router';
 import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { useState, useEffect } from 'react';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 // Defining a TypeScript interface for the structure of a wine object
 interface Wine {
@@ -75,7 +76,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   const handleSortChange = (event: SelectChangeEvent<string>) => {
     const selectedOption = event.target.value as string;
     setSortOption(selectedOption);
-  
+
     if (page === 1 || page === undefined) {
       router.push(`/main/search?sort=${selectedOption}`);
     } else {
@@ -132,12 +133,13 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   return (
     <div className="grid justify-center mt-5 mb-14">
-      <div className='mb-4'>
+      <div className='mb-4 text-center'>
         <Select value={sortOption} onChange={handleSortChange} className=' bg-gradient-to-t from-dijon to-dijon/50'>
           <MenuItem value="asc">Price: Low to High</MenuItem>
           <MenuItem value="desc">Price: High to Low</MenuItem>
           <MenuItem value="points_asc">Points: Low to High</MenuItem>
           <MenuItem value="points_desc">Points: High to Low</MenuItem>
+          <MenuItem value="eco">Eco</MenuItem>
         </Select>
       </div>
       {wines.map((wine: Wine, index: number) => (
@@ -160,6 +162,12 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
                     <ArrowCircleRightIcon fontSize="large" color="primary" />
                   </ThemeProvider>
                 </button>
+              </IconButton>
+              {/* handleSaveClick */}
+              <IconButton>
+                <ThemeProvider theme={theme}>
+                  <BookmarkBorderIcon fontSize="large" color='primary' />
+                </ThemeProvider>
               </IconButton>
             </div>
           </div>
