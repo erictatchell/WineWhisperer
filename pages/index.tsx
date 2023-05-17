@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
 import { useSession, signIn, signOut } from 'next-auth/react'
-import DefLayout from '../components/layouts/homelayout'
 import { redirect } from 'next/navigation'
 const inter = Inter({ subsets: ['latin'] })
 
