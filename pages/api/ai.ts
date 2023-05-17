@@ -32,8 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('OpenAI: ', wines);
 
         const matches = wines.map(wine => {
-            const pattern = new RegExp(wine, 'i');
-            // regex query, specify it vvv
+            const pattern = new RegExp("\\b"+wine+"\\b", 'i');
             return {
                 $or: [
                     {
