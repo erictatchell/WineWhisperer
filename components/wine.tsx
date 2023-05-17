@@ -1,3 +1,7 @@
+interface TopPicksProps {
+    wines: Wine[];
+}
+
 interface Wine {
     _id: string;
     id: number;

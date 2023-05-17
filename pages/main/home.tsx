@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import ThinkingDots from '../../components/dots';
 import { IconButton, ThemeProvider, createTheme, } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import WineCard from '../../components/winecard';
 
 const theme = createTheme({
   palette: {
@@ -22,37 +23,9 @@ export default function Home() {
   const [selection, setSelection] = useState('list');
   const [description, setDescription] = useState('');
   const [pageDesc, setPageDesc] = useState('');
-
-  const [result, setResult] = useState('');
   const [loading, setLoading] = useState(false);
   const [wines, setWines] = useState<Wine[]>([]);  // add this line
-  const [numWines, setNumWines] = useState(5);
-  const router = useRouter();
   const [showExamples, setShowExamples] = useState(true);
-
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-
-    switch (value) {
-      case 'List 5 wines that match the description: ':
-        setSelection('List 5 wines that match the description: ');
-        setDescription(''); // clear description when option changes
-        setNumWines(5);
-        break;
-      case 'List 1 wine that match the description: ':
-        setSelection('List 1 wine that match the description: ');
-        setDescription(''); // clear description when option changes
-        setNumWines(1);
-        break;
-      case 'Staying on the topic of wine, suggest wines based on this prompt: ':
-        setSelection('Staying on the topic of wine, suggest wines based on this prompt: ');
-        break;
-      default:
-        setSelection('');
-        break;
-    }
-  };
-
 
   const handleDescriptionChange = (e: any) => {
     setDescription(e.target.value);
@@ -64,27 +37,18 @@ export default function Home() {
     setShowExamples(false);  // hide the example divs
     setPageDesc(pageDesc);
     try {
-      const response = await fetch(`/api/ai?selection=${selection}&description=${description}&numWines=${numWines}`);
-
+      const response = await fetch(`/api/ai?selection=${selection}&description=${description}&numWines=3`);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-
       const documents = await response.json();
-      setWines(documents);  // set the state here
-      // setResult(documents.map((doc: { title: any; }) => doc.title).join(', ')); // remove this line
+      setWines(documents);
     } catch (error) {
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
-
-  function handleWineClick(wine: Wine) {
-    localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
-    router.push(`/wine/${wine._id}`);
-  }
-
 
   return (
     <div className="mt-5">
@@ -125,8 +89,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-
-
         )}
         {!loading && wines.length != 0 ?
           <div className='text-center'>
@@ -134,34 +96,11 @@ export default function Home() {
             <div className=' mx-10 mb-5 font-medium'>{pageDesc}</div>
           </div>
           : <div></div>}
-
         {!loading ?
-
           wines.map((wine: Wine, index: number) => (
-            <>
-              <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
-
-                <div className="flex-shrink-0">
-                  <Image src="/white-sauvignon.png" alt="Wine image" width={50} height={50} />
-                </div>
-                <div>
-                  <div className="text-md font-semibold text-black">{wine.title}</div>
-                  <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
-                  <p className="text-sm text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
-                  <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
-                </div>
-                <div className="absolute bottom-0 right-3 mb-4">
-                  <IconButton href="/">
-                    <button>
-                      <ThemeProvider theme={theme}>
-                        <ArrowCircleRightIcon fontSize="large" color="primary" />
-                      </ThemeProvider>
-                    </button>
-                  </IconButton>
-                </div>
-              </div>
-            </>
+            <WineCard key={index} wine={wine} index={index} />
           ))
+
           : <ThinkingDots></ThinkingDots>}
       </div>
       <div className="fixed bottom-0 left-0 z-50 w-full">
