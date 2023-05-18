@@ -30,7 +30,7 @@ interface Wine {
     winery: string;
     eco: boolean;    // New field
     blurb: string;   // New field
-    saved: boolean;
+    saved: Array<string>;
 }
 
 
