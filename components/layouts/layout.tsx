@@ -51,7 +51,7 @@ export default function Layout({ children }: Props) {
     return (
       // playsInline for iOS
       <div className={`pb-16 flex flex-col ${lora.className}min-h-screen`}>
-        <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover">
+        <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic2.png">
           <source src="/bgvid.mp4" type="video/mp4" />
         </video>
         <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0">
