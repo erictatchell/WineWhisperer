@@ -57,10 +57,6 @@ export default function Eco({ ecowines }: EcoProps) {
         const { data: session } = useSession();
     const user = session ? session.user : null;
 
-
-
-    
-
     async function saveWineId(wine: Wine) {
         try {
             if (user) {
