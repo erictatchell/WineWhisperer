@@ -26,6 +26,7 @@ interface Wine {
     title: string;
     variety: string;
     winery: string;
+
 }
 
 // Defining a TypeScript interface for the props that the TopPicks component will receive
