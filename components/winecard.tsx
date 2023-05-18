@@ -7,6 +7,8 @@ import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+
 
 const theme = createTheme({
     palette: {
@@ -34,6 +36,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
     const topPicks = '/main/toppicks';
     const { data: session } = useSession();
     const user = session ? session.user : null;
+    const [isSaved, setIsSaved] = useState(false);
+
     let [wineimg, setWineImg] = useState('');
     function handleWineClick(wine: Wine) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
@@ -52,6 +56,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
 
                 if (res.ok) {
                     console.log('Wine saved successfully');
+                    setIsSaved(true);
                 } else {
                     console.log('Failed to save wine');
                 }
@@ -86,10 +91,11 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-                        <ThemeProvider theme={theme}>
-                            <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
-                        </ThemeProvider>
-                    </IconButton>
+    <ThemeProvider theme={theme}>
+        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+    </ThemeProvider>
+</IconButton>
+
 
                 </div>
             </div>
