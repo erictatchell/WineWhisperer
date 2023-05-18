@@ -70,10 +70,10 @@ export default function WinePage() {
             <h1 className='mr-2 uppercase tracking-widest text-xs'>winery:</h1>
             {wine.winery}
           </div>
-          <h1 className='mr-2 mt-3 uppercase tracking-widest text-sm'>{wine.points} / 100 from {wine.taster_twitter_handle}:</h1>
+          <h1 className='ml-4 mr-2 mt-3 font-bold uppercase tracking-widest text-sm'>{wine.points} / 100 from {wine.taster_twitter_handle}:</h1>
 
           <div>
-            <div className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-brendan">
+            <div className="relative inline-flex items-center w-full px-4 py-4 text-md font-medium border-b border-brendan">
               {wine.description}
             </div>
           </div>
