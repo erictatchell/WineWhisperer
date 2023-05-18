@@ -33,7 +33,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         router.push(`/wine/${wine._id}`);
     }
     const saveWineId = async () => {
-        const response = await fetch('/api/saveWine', {
+        const response = await fetch('/api/wine/saveWine', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
