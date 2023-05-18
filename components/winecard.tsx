@@ -6,6 +6,7 @@ import { FaLeaf } from 'react-icons/fa';
 import SaveIcon from '@mui/icons-material/Save';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 
 const theme = createTheme({
     palette: {
@@ -29,29 +30,39 @@ export default function WineCard({ wine, index }: WineCardProps) {
     const router = useRouter();
     const path = router.pathname;
     const topPicks = '/main/toppicks';
-
+    const { data: session } = useSession();
+    const user = session ? session.user : null;
     function handleWineClick(wine: Wine) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
     async function saveWineId(wine: Wine) {
-        const response = await fetch('/api/wine/saveWine', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ wineId: wine._id }),  // make sure to have wine._id
-        });
-
-        if (!response.ok) {
-            // handle error
-            console.error('Failed to save wine');
+        try {
+            if (user) {
+                const res = await fetch('/api/wine/saveWine', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ wineId: wine._id, email: user.email }),
+                });
+    
+                if (res.ok) {
+                    console.log('Wine saved successfully');
+                } else {
+                    console.log('Failed to save wine');
+                }
+            } else {
+                console.log('User is not logged in');
+            }
+        } catch (error) {
+            console.log('An error occurred while trying to save the wine', error);
         }
-    };
+    }
     if (path === topPicks) {
         return (
 
-            <div onClick={() => handleWineClick(wine)} key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
+            <div  key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
                 ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88]/70 from-10% via-[#F3EFB8]/90 via-30% to-[#D0C863]/50' : ''}
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2]/70 from-10% via-[#EAEAEA]/90 via-30% to-[#848484]/50' : ''}
