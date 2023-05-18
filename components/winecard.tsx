@@ -126,10 +126,11 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+    useEffect(() => {
+        getWine(wine.variety);
+    }, [wine.variety]);
     if (path === topPicks) {
-        useEffect(() => {
-            getWine(wine.variety);
-        }, [wine.variety]);
+
         return (
             <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
                 ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
@@ -161,9 +162,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
             </div>
         )
     } else if (path != '/main/eco') {
-        useEffect(() => {
-            getWine(wine.variety);
-        }, [wine.variety]);
         return (
 
             <div key={index} onClick={() => handleWineClick(wine)} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110'>
@@ -192,9 +190,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
             </div>
         )
     } else {
-        useEffect(() => {
-            getWine(wine.variety);
-        }, [wine.variety]);
         return (
             <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
                 ${index + 1 > 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}
