@@ -10,17 +10,8 @@ import { useSession } from 'next-auth/react';
 // The main TopPicks component which receives an array of wine objects as a prop
 /** TODO */
 export default function TopPicks({ wines }: TopPicksProps) {
-    return (
-        <div className="grid justify-center mt-5">
-            {wines.map((wine: Wine, index: number) => (
-                <WineCard key={index} wine={wine} index={index} />
-            ))}
-        </div>
-    )
-}
-const { data: session } = useSession();
+    const { data: session } = useSession();
 const user = session ? session.user : null;
-
 async function saveWineId(wine: Wine) {
     try {
         if (user) {
@@ -44,6 +35,17 @@ async function saveWineId(wine: Wine) {
         console.log('An error occurred while trying to save the wine', error);
     }
 }
+    return (
+        <div className="grid justify-center mt-5">
+            {wines.map((wine: Wine, index: number) => (
+                <WineCard key={index} wine={wine} index={index} />
+            ))}
+        </div>
+    )
+}
+
+
+
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     // Waiting for the MongoDB client connection to be ready
