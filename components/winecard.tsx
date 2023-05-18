@@ -46,19 +46,37 @@ export default function WineCard({ wine, index }: WineCardProps) {
     async function saveWineId(wine: Wine) {
         try {
             if (user) {
-                const res = await fetch('/api/wine/saveWine', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ wineId: wine._id, email: user.email }),
-                });
-
-                if (res.ok) {
-                    console.log('Wine saved successfully');
-                    setIsSaved(true);
+                if (isSaved) {
+                    // Call unsaveWine API when isSaved is true
+                    const res = await fetch('/api/wine/unsaveWine', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ wineId: wine._id, email: user.email }),
+                    });
+                    
+                    if (res.ok) {
+                        console.log('Wine unsaved successfully');
+                        setIsSaved(false);
+                    } else {
+                        console.log('Failed to unsave wine');
+                    }
                 } else {
-                    console.log('Failed to save wine');
+                    const res = await fetch('/api/wine/saveWine', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ wineId: wine._id, email: user.email }),
+                    });
+    
+                    if (res.ok) {
+                        console.log('Wine saved successfully');
+                        setIsSaved(true);
+                    } else {
+                        console.log('Failed to save wine');
+                    }
                 }
             } else {
                 console.log('User is not logged in');
@@ -67,6 +85,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+    
     if (path === topPicks) {
 
         return (
