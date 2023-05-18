@@ -120,10 +120,11 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-                        <ThemeProvider theme={theme}>
-                            <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
-                        </ThemeProvider>
-                    </IconButton>
+    <ThemeProvider theme={theme}>
+        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+    </ThemeProvider>
+</IconButton>
+
 
                 </div>
             </div>
@@ -149,10 +150,11 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-                        <ThemeProvider theme={theme}>
-                            <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
-                        </ThemeProvider>
-                    </IconButton>
+    <ThemeProvider theme={theme}>
+        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+    </ThemeProvider>
+</IconButton>
+
 
                 </div>
             </div>
