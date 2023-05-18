@@ -10,7 +10,7 @@ import { getSession } from 'next-auth/react';
 
 // The main TopPicks component which receives an array of wine objects as a prop
 /** TODO */
-export default function TopPicks({ wines }: TopPicksProps) {
+export default function Saved({ wines }: SavedProps) {
     const { data: session } = useSession();
 const user = session ? session.user : null;
 

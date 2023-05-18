@@ -1,6 +1,9 @@
 interface TopPicksProps {
     wines: Wine[];
 }
+interface SavedProps{
+    wines: Wine[];
+}
 
 interface Wine {
     _id: string;
