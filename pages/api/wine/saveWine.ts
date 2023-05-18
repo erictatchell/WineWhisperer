@@ -3,11 +3,12 @@ import { MongoClient, Db } from 'mongodb';
 import clientPromise from '../../../lib/mongodb';
 import { useSession } from 'next-auth/react';
 
+const { data: session } = useSession();
+const user = session ? session.user : null;
+
 const saveWine = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === 'POST') {
         const { wineId } = req.body;
-        const { data: session } = useSession()
-        const user = session ? session.user : null;
 
         try {
             // connect to the database
