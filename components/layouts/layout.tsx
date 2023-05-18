@@ -50,7 +50,7 @@ export default function Layout({ children }: Props) {
 
     return (
       // playsInline for iOS
-      <div className={`pb-16 flex flex-col ${lora.className}min-h-screen`}>
+      <div className={`pb-16 flex flex-col ${lora.className} min-h-screen`}>
         <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover">
           <source src="/bgvid.mp4" type="video/mp4" />
         </video>

@@ -101,7 +101,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
       buttons.push(
         <button
           key="previous"
-          className="mx-1 px-2 py-1 rounded-md bg-gray-200 text-gray-600"
+          className="mx-1 px-2 py-1 rounded-md bg-brendan/80   backdrop-blur-md text-lightdijon"
           onClick={() => handlePageChange(currentPage - 1)}
         >
           Previous
@@ -113,7 +113,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
       buttons.push(
         <button
           key={i}
-          className={`mx-1 px-2 py-1 rounded-md ${currentPage === i ? 'bg-gray-500 text-white' : 'bg-gray-200 text-gray-600'
+          className={`mx-1 px-2 py-1 rounded-md ${currentPage === i ? 'bg-lightdijon text-black' : 'bg-brendan/50 backdrop-blur-md text-lightdijon'
             }`}
           onClick={() => handlePageChange(i)}
         >
@@ -126,7 +126,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
       buttons.push(
         <button
           key="next"
-          className="mx-1 px-2 py-1 rounded-md bg-gray-200 text-gray-600"
+          className="mx-1 px-2 py-1 rounded-md bg-brendan/80 backdrop-blur-md text-lightdijon"
           onClick={() => handlePageChange(currentPage + 1)}
         >
           Next
