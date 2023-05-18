@@ -32,13 +32,13 @@ export default function WineCard({ wine, index }: WineCardProps) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
-    const saveWineId = async () => {
+    async function saveWineId(wine: Wine) {
         const response = await fetch('/api/wine/saveWine', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ wineId: wine ? wine._id : null }),  // make sure to have wine._id
+            body: JSON.stringify({ wineId: wine._id }),  // make sure to have wine._id
         });
 
         if (!response.ok) {
@@ -71,7 +71,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton onClick={() => saveWineId}>
+                    <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.5' color='primary' />
                         </ThemeProvider>
@@ -100,7 +100,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton onClick={() => saveWineId}>
+                    <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
                         </ThemeProvider>
@@ -132,7 +132,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton onClick={() => saveWineId}>
+                    <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
                         </ThemeProvider>

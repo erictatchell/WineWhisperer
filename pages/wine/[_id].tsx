@@ -54,8 +54,8 @@ export default function WinePage() {
         <h1 className="text-2xl font-bold mb-2">{wine.title}</h1>
         <p className="text-xl mb-2 ">{wine.variety}</p>
         <p className="text-lg mb-4">${wine.price}</p>
-        <button onClick={() => saveWineId} type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
-          Save
+        <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
+          Save - WIP
         </button>
         <div className="w-100 text-gray-900 bg-lightdijon shadow-xl border border-brendan rounded-lg ">
           <div className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-brendan">
