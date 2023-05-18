@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <main>
       <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover">
-         <source src="/bgvid3.mp4" type="video/mp4" />
+         <source src="/bgvid2.mp4" type="video/mp4" />
       </video>
       <div className="grid justify-center">
         <div className="grid justify-center">
