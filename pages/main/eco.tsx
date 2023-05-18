@@ -7,7 +7,7 @@ import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import { FaLeaf } from 'react-icons/fa';
-import SaveIcon from '@mui/icons-material/Save';
+import WineCard from '../../components/winecard';
 
 
 // Defining a TypeScript interface for the structure of a wine object
@@ -62,59 +62,13 @@ export default function Eco({ ecowines }: EcoProps) {
         router.push(`/wine/${wine._id}`);
     }
 
-    async function handleSaveClick(wine: Wine) {
-        try {
-            const res = await fetch('/api/saveWine', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ wineId: wine._id }),
-            });
-    
-            if (res.ok) {
-                console.log('Wine saved successfully');
-            } else {
-                console.log('Failed to save wine');
-            }
-        } catch (error) {
-            console.log('An error occurred while trying to save the wine', error);
-        }
-    }
-    
+
+
 
     return (
         <div className="grid justify-center mt-5">
             {ecowines.map((wine: Wine, index: number) => (
-                <div key={index} className={`relative p-5 mb-4 max-w-sm
-                ${index + 1 > 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
-                ${index + 1 == 1 ? 'bg-gradient-to-r from-[#C1D5A6] to-[#FFFFFF]' : ''}
-                rounded-xl shadow-xl flex items-center mx-5 space-x-4`}>
-                    <div className="flex-shrink-0">
-                        <Image src="/white-sauvignon.png" alt="Wine image" width='50' height='50' />
-                    </div>
-                    <div>
-                        <div className="text-md font-semibold text-black">{wine.title}</div>
-                        <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
-                        <p className="text-sm text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
-                        <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
-                    </div>
-                    <div className="absolute bottom-0 right-3 mb-4">
-                        <IconButton href="/">
-                            <button>
-                                <ThemeProvider theme={theme}>
-                                <FaLeaf size="2em" color="darkgreen" />
-                                </ThemeProvider>
-                            </button>
-                        </IconButton>
-                        <IconButton onClick={() => handleSaveClick(wine)}>
-    <ThemeProvider theme={theme}>
-        <SaveIcon fontSize="large" style={{ color: 'black' }} />
-    </ThemeProvider>
-</IconButton>
-
-                    </div>
-                </div>
+                <WineCard key={index} wine={wine} index={index} />
             ))}
         </div>
     )
