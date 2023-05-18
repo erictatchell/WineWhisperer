@@ -65,7 +65,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     if (path === topPicks) {
 
         return (
-            <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
+            <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
                 ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88]/70 from-10% via-[#F3EFB8]/90 via-30% to-[#D0C863]/50' : ''}
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2]/70 from-10% via-[#EAEAEA]/90 via-30% to-[#848484]/50' : ''}
@@ -97,7 +97,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     } else if (path != '/main/eco') {
         return (
 
-            <div key={index} onClick={() => handleWineClick(wine)} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110'>
+            <div key={index} onClick={() => handleWineClick(wine)} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4'>
                 <div className="flex-shrink-0">
                     <img src={wine.image} alt="Wine image" width='50' height='50' />
                 </div>
@@ -124,7 +124,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         )
     } else {
         return (
-            <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4 transform transition duration-200 ease-in-out hover:scale-110
+            <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
                 ${index + 1 > 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}`}>
                 <div className="flex-shrink-0">
