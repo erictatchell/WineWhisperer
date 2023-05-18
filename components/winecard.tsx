@@ -23,6 +23,7 @@ interface WineCardProps {
     index: number;
 }
 
+
 export default function WineCard({ wine, index }: WineCardProps) {
     const router = useRouter();
     const path = router.pathname;
@@ -31,25 +32,20 @@ export default function WineCard({ wine, index }: WineCardProps) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
-    async function handleSaveClick(wine: Wine) {
-        try {
-            const res = await fetch('/api/saveWine', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ wineId: wine._id }),
-            });
+    const saveWineId = async () => {
+        const response = await fetch('/api/saveWine', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ wineId: wine ? wine._id : null }),  // make sure to have wine._id
+        });
 
-            if (res.ok) {
-                console.log('Wine saved successfully');
-            } else {
-                console.log('Failed to save wine');
-            }
-        } catch (error) {
-            console.log('An error occurred while trying to save the wine', error);
+        if (!response.ok) {
+            // handle error
+            console.error('Failed to save wine');
         }
-    }
+    };
     if (path === topPicks) {
         return (
             <div onClick={() => handleWineClick(wine)} key={index} className={`relative p-5 mb-4 max-w-sm
@@ -75,7 +71,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={() => saveWineId}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.5' color='primary' />
                         </ThemeProvider>
@@ -104,7 +100,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton>
+                    <IconButton onClick={() => saveWineId}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
                         </ThemeProvider>
@@ -136,7 +132,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             </ThemeProvider>
                         </button>
                     </IconButton>
-                    <IconButton onClick={() => handleSaveClick(wine)}>
+                    <IconButton onClick={() => saveWineId}>
                         <ThemeProvider theme={theme}>
                             <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />
                         </ThemeProvider>

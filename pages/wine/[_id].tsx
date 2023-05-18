@@ -2,6 +2,7 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import saveWineId from '../../components/winecard'
 
 interface Wine {
   _id: string;
@@ -38,19 +39,8 @@ export default function WinePage() {
     }
   }, [router.isReady, router.query._id]);
 
-  const saveWine = async (wineId: string, userId: string) => {
-    const response = await fetch('/api/save-wine', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ wineId, userId })
-    });
+  
 
-    if (!response.ok) {
-      throw new Error('Failed to save wine');
-    }
-  }
 
   if (!wine) {
     return <div>Loading...</div>;
@@ -64,7 +54,7 @@ export default function WinePage() {
         <h1 className="text-2xl font-bold mb-2">{wine.title}</h1>
         <p className="text-xl mb-2 ">{wine.variety}</p>
         <p className="text-lg mb-4">${wine.price}</p>
-        <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
+        <button onClick={() => saveWineId} type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
           Save
         </button>
         <div className="w-100 text-gray-900 bg-lightdijon shadow-xl border border-brendan rounded-lg ">
