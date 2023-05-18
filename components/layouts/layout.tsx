@@ -51,7 +51,7 @@ export default function Layout({ children }: Props) {
     return (
 
       <div className={`pb-16 flex flex-col ${lora.className}min-h-screen`}>
-        <video autoPlay muted loop id="myVideo" className="fixed z-0 w-full h-full object-cover">
+        <video autoPlay muted loop id="myVideo" className="fixed w-full h-full object-cover">
           <source src="/bgvid.mp4" type="video/mp4" />
         </video>
         <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
@@ -147,7 +147,7 @@ export default function Layout({ children }: Props) {
           </div>
 
         </nav>
-        <main>
+        <main style={{ zIndex: 10 }}>
           {children}
         </main>
 
