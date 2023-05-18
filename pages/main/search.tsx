@@ -125,14 +125,14 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   return (
     <div className="grid justify-center mt-5 mb-14">
       <div className='mb-4 text-center grid grid-cols-2'> {/* Add gap-4 for space between Select and Button */}
-        <Select value={sortOption} onChange={handleSortChange} className={`${lora.className} rounded-lg bg-gradient-to-t from-dijon to-dijon/50`}>
+        <Select value={sortOption} onChange={handleSortChange} className={`${lora.className} ml-5 border border-lightdijon/50 text-lightdijon backdrop-blur-md  rounded-lg bg-gradient-to-t from-dijon/60 to-dijon/30`}>
           <MenuItem className={`${lora.className}`} value="asc">Price: Low to High</MenuItem>
           <MenuItem className={`${lora.className}`} value="desc">Price: High to Low</MenuItem>
           <MenuItem className={`${lora.className}`} value="points_asc">Points: Low to High</MenuItem>
           <MenuItem className={`${lora.className}`} value="points_desc">Points: High to Low</MenuItem>
         </Select>
         <Link href='/main/eco'>
-          <button className='p-4 mx-5 rounded-lg text-black bg-gradient-to-t from-dijon to-[#68a678]/50'>
+          <button className='p-4 mx-5 rounded-lg border border-white/50 text-center text-white backdrop-blur-md bg-gradient-to-r from-white/30 to-[#68a678]/30'>
             Eco-friendly Wines
           </button>
         </Link>
