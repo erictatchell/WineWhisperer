@@ -58,25 +58,25 @@ export default function Profile({ userId }: ProfileProps) {
 
       {/* User info */}
       <div className="mt-4">
-        <h3 className="text-l font-bold">Username</h3>
+        <h3 className="text-l font-bold text-white">Username</h3>
         <div className="flex items-top justify-between">
-          <h1 className="text-m">{user ? user.name : 'No name'}</h1>
+          <h1 className="text-m text-white">{user ? user.name : 'No name'}</h1>
           <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-1 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Edit</button>
         </div>
       </div>
 
       <div className="mt-0">
-        <h3 className="text-l font-bold">Email</h3>
+        <h3 className="text-l font-bold text-white">Email</h3>
         <div className="flex items-top justify-between">
-        <h1 className="text-m">{user ? user.email : 'No email'}</h1>
+        <h1 className="text-m text-white">{user ? user.email : 'No email'}</h1>
           <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-1 py-1  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Edit</button>
         </div>
       </div>
 
       <div className="mt-0">
-        <h3 className="text-l font-bold">User ID:</h3>
+        <h3 className="text-l font-bold text-white">User ID:</h3>
         {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
-        <h1 className="text-m">{userId}</h1>
+        <h1 className="text-m text-white">{userId}</h1>
       </div>
 
       {/* Sign out button */}
