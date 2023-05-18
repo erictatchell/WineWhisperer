@@ -18,4 +18,7 @@ interface Wine {
     title: string;
     variety: string;
     winery: string;
+    eco: boolean;
+    blurb: string;
+    image: string;
 }

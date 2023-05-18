@@ -10,29 +10,6 @@ import { FaLeaf } from 'react-icons/fa';
 import WineCard from '../../components/winecard';
 import { useSession } from 'next-auth/react';
 
-
-// Defining a TypeScript interface for the structure of a wine object
-interface Wine {
-    _id: string;
-    id: number;
-    country: string;
-    description: string;
-    designation: string;
-    points: number;
-    price: number;
-    province: string;
-    region_1: string;
-    region_2: string;
-    taster_name: string;
-    taster_twitter_handle: string;
-    title: string;
-    variety: string;
-    winery: string;
-    eco: boolean;    // New field
-    blurb: string;   // New field
-}
-
-
 // Defining a TypeScript interface for the props that the TopPicks component will receive
 interface EcoProps {
     ecowines: Wine[];
