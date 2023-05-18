@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import WineCard from '../../components/winecard';
+import { useSession } from 'next-auth/react';
 
 // The main TopPicks component which receives an array of wine objects as a prop
 /** TODO */
@@ -16,6 +17,32 @@ export default function TopPicks({ wines }: TopPicksProps) {
             ))}
         </div>
     )
+}
+const { data: session } = useSession();
+const user = session ? session.user : null;
+
+async function saveWineId(wine: Wine) {
+    try {
+        if (user) {
+            const res = await fetch('/api/wine/saveWine', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ wineId: wine._id, email: user.email }),
+            });
+
+            if (res.ok) {
+                console.log('Wine saved successfully');
+            } else {
+                console.log('Failed to save wine');
+            }
+        } else {
+            console.log('User is not logged in');
+        }
+    } catch (error) {
+        console.log('An error occurred while trying to save the wine', error);
+    }
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
