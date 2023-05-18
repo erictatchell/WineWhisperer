@@ -2,25 +2,7 @@ import { GetServerSideProps } from 'next';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import saveWineId from '../../components/winecard'
-
-interface Wine {
-  _id: string;
-  id: number;
-  country: string;
-  description: string;
-  designation: string;
-  points: number;
-  price: number;
-  province: string;
-  region_1: string;
-  region_2: string;
-  taster_name: string;
-  taster_twitter_handle: string;
-  title: string;
-  variety: string;
-  winery: string;
-}
+import WineCard from '../../components/winecard'
 
 interface WinePageProps {
   wine: Wine;
@@ -48,7 +30,7 @@ export default function WinePage() {
   return (
     <div className="flex flex-col md:flex-row mx-8 items-center mb-12 justify-center">
       <div className="md:w-1/2 flex justify-center">
-        <img src={'/white-sauvignon.png'} alt={wine.title} className="w-32 md:w-64" />
+        <img src={wine.image} alt={wine.title} className="w-32 md:w-64" />
       </div>
       <div className='bg-white/20 backdrop-blur-md py-3 rounded-xl'>
         <div className="md:w-1/2 text-center md:text-left px-4">
