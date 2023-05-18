@@ -29,7 +29,7 @@ const saveWine = async (req: NextApiRequest, res: NextApiResponse) => {
       // add the wine ID to the saved array
       await db.collection('userExtras').updateOne(
         { email: userEmail },
-        { $addToSet: { saved: wineId } }
+        { $push: { saved: wineId } }
       );
 
       res.status(200).json({ message: 'Wine saved successfully' });
