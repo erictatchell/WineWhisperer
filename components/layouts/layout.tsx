@@ -54,7 +54,7 @@ export default function Layout({ children }: Props) {
         <video autoPlay muted loop id="myVideo" className="fixed w-full h-full object-cover">
           <source src="/bgvid.mp4" type="video/mp4" />
         </video>
-        <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+        <nav className="bg-vineyard bg-cover sticky w-full z-20 top-0 left-0">
           <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <Link href="/main/home" className="flex items-center">
               <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
@@ -151,7 +151,7 @@ export default function Layout({ children }: Props) {
           {children}
         </main>
 
-        <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-vineyard bg-cover border-t border-brendan-200 bg-brendan dark:border-brendan">
+        <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-vineyard bg-cover bg-brendan ">
           <div className="grid max-w-md grid-cols-4 mx-auto font-medium">
             <Link href='/main/home' className="flex items-center justify-center px-5 group">
               <IconButton>
