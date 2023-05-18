@@ -8,6 +8,10 @@ import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeE
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import WineCard from '../../components/winecard';
+import { Lora } from 'next/font/google'
+import Link from 'next/link';
+
+const lora = Lora({ subsets: ['latin'] })
 
 interface SearchProps {
   wines: Wine[];
@@ -120,14 +124,18 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   return (
     <div className="grid justify-center mt-5 mb-14">
-      <div className='mb-4 text-center'>
-        <Select value={sortOption} onChange={handleSortChange} className=' bg-gradient-to-t from-dijon to-dijon/50'>
-          <MenuItem value="asc">Price: Low to High</MenuItem>
-          <MenuItem value="desc">Price: High to Low</MenuItem>
-          <MenuItem value="points_asc">Points: Low to High</MenuItem>
-          <MenuItem value="points_desc">Points: High to Low</MenuItem>
-          <MenuItem value="eco">Eco</MenuItem>
+      <div className='mb-4 text-center grid grid-cols-2'> {/* Add gap-4 for space between Select and Button */}
+        <Select value={sortOption} onChange={handleSortChange} className={`${lora.className} rounded-lg bg-gradient-to-t from-dijon to-dijon/50`}>
+          <MenuItem className={`${lora.className}`} value="asc">Price: Low to High</MenuItem>
+          <MenuItem className={`${lora.className}`} value="desc">Price: High to Low</MenuItem>
+          <MenuItem className={`${lora.className}`} value="points_asc">Points: Low to High</MenuItem>
+          <MenuItem className={`${lora.className}`} value="points_desc">Points: High to Low</MenuItem>
         </Select>
+        <Link href='/main/eco'>
+          <button className='p-4 mx-5 rounded-lg text-black bg-gradient-to-t from-dijon to-[#68a678]/50'>
+            Eco-friendly Wines
+          </button>
+        </Link>
       </div>
       {wines.map((wine: Wine, index: number) => (
         <WineCard key={index} wine={wine} index={index} />
@@ -138,9 +146,8 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
           {renderPaginationButtons()}
         </div>
       </div>
-
-
     </div>
+
   )
 }
 
