@@ -58,7 +58,7 @@ export default function aboutUs() {
   )
 };
 
-// Checking session and redirecting if not logged in
+//Checking session and redirecting if not logged in
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   const userEmail = session && session.user ? session.user.email : null;
