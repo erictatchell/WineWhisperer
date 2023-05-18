@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import WineCard from '../../components/winecard';
 
 // Defining a TypeScript interface for the structure of a wine object
 interface Wine {
@@ -86,7 +87,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
         router.push(`/main/search?page=${page}&sort=${selectedOption}`);
       }
     }
-    
+
   };
 
 
@@ -148,35 +149,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
         </Select>
       </div>
       {wines.map((wine: Wine, index: number) => (
-        <>
-          <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 bg-gradient-to-t from-dijon to-dijon/50 rounded-xl shadow-xl flex items-center space-x-4`}>
-
-            <div className="flex-shrink-0">
-              <Image src="/white-sauvignon.png" alt="Wine image" width={50} height={50} />
-            </div>
-            <div>
-              <div className="text-md font-semibold text-black">{wine.title}</div>
-              <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
-              <p className="text-sm text-gray-500 tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
-              <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
-            </div>
-            <div className="absolute bottom-0 right-3 mb-4">
-              <IconButton href="/">
-                <button>
-                  <ThemeProvider theme={theme}>
-                    <ArrowCircleRightIcon fontSize="large" color="primary" />
-                  </ThemeProvider>
-                </button>
-              </IconButton>
-              {/* handleSaveClick */}
-              <IconButton>
-                <ThemeProvider theme={theme}>
-                  <BookmarkBorderIcon fontSize="large" color='primary' />
-                </ThemeProvider>
-              </IconButton>
-            </div>
-          </div>
-        </>
+        <WineCard key={index} wine={wine} index={index} />
       ))}
 
       <div className='fixed bottom-0 left-0 z-50 w-full'>

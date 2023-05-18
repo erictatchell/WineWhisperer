@@ -30,7 +30,6 @@ interface Wine {
     winery: string;
     eco: boolean;    // New field
     blurb: string;   // New field
-    saved: Array<string>;
 }
 
 
@@ -57,10 +56,6 @@ export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
         const { data: session } = useSession();
     const user = session ? session.user : null;
-
-
-
-    
 
     async function saveWineId(wine: Wine) {
         try {

@@ -27,7 +27,7 @@ module.exports = {
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        'brendan': '#8B3A62',
+        'brendan': '#55233c',
         'dijon': '#FFDB9C',
         'lightdijon': '#FFF8DF',
         'white': '#ffffff',
