@@ -86,10 +86,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
     useEffect(() => {
-        async function checkSavedWine() {
+        async function checksavedWine() {
             if (user) {
                 // Fetch saved wines from your API
-                const res = await fetch('/api/wine/getSavedWines', {
+                const res = await fetch('/api/wine/getsavedWines', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -107,7 +107,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             }
         }
     
-        checkSavedWine();
+        checksavedWine();
     }, [user, wine._id]);
     
     
