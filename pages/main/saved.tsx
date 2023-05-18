@@ -7,25 +7,7 @@ import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import WineCard from '../../components/winecard';
 import { useSession } from 'next-auth/react';
 import { getSession } from 'next-auth/react';
-
-// The main TopPicks component which receives an array of wine objects as a prop
-/** TODO */
-export default function Saved({ wines }: SavedProps) {
-    const { data: session } = useSession();
-const user = session ? session.user : null;
-
-    return (
-        <div className="grid justify-center mt-5">
-            {wines.map((wine: Wine, index: number) => (
-                <WineCard key={index} wine={wine} index={index} />
-            ))}
-        </div>
-    )
-}
-
-
-
-
+import { ObjectId } from 'mongodb';
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
     // Get the user's session based on the request
@@ -54,7 +36,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         };
     }
 
-    const savedWinesIds = userExtras.saved || [];
+    // Convert saved wine IDs from string to ObjectId
+    const savedWinesIds = (userExtras.saved || []).map((id: string) => new ObjectId(id));
 
     // Fetching the documents from the 'wset' collection in the 'Wine1' database that are in the user's saved array
     const wines = await db
