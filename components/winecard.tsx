@@ -85,6 +85,31 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+    useEffect(() => {
+        async function checkSavedWine() {
+            if (user) {
+                // Fetch saved wines from your API
+                const res = await fetch('/api/wine/getSavedWines', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email: user.email }),
+                });
+                const { savedWines } = await res.json();
+    
+                // Check if the current wine is in the saved wines list
+                if (savedWines.includes(wine._id)) {
+                    setIsSaved(true);
+                } else {
+                    setIsSaved(false);
+                }
+            }
+        }
+    
+        checkSavedWine();
+    }, [user, wine._id]);
+    
     
     if (path === topPicks) {
 
