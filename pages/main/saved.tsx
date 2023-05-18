@@ -9,6 +9,20 @@ import { useSession } from 'next-auth/react';
 import { getSession } from 'next-auth/react';
 import { ObjectId } from 'mongodb';
 
+
+export default function Saved({ wines }: SavedProps) {
+    const { data: session } = useSession();
+const user = session ? session.user : null;
+
+    return (
+        <div className="grid justify-center mt-5">
+            {wines.map((wine: Wine, index: number) => (
+                <WineCard key={index} wine={wine} index={index} />
+            ))}
+        </div>
+    )
+}
+
 export const getServerSideProps: GetServerSideProps = async (context) => {
     // Get the user's session based on the request
     const session = await getSession(context);
