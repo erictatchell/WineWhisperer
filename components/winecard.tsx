@@ -86,10 +86,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
     useEffect(() => {
-        async function checksavedWine() {
+        async function checkSavedWine() {
             if (user) {
                 // Fetch saved wines from your API
-                const res = await fetch('/api/wine/getsavedWines', {
+                const res = await fetch('/api/wine/getSavedWines', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -98,17 +98,23 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 });
                 const { savedWines } = await res.json();
     
+                // Log the savedWines
+                console.log("Saved Wines: ", savedWines);
+        
                 // Check if the current wine is in the saved wines list
                 if (savedWines.includes(wine._id)) {
+                    console.log("Wine is saved: ", wine._id);
                     setIsSaved(true);
                 } else {
+                    console.log("Wine is not saved: ", wine._id);
                     setIsSaved(false);
                 }
             }
         }
     
-        checksavedWine();
+        checkSavedWine();
     }, [user, wine._id]);
+    
     
     
     if (path === topPicks) {
