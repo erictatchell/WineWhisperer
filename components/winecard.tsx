@@ -166,7 +166,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     } else if (path != '/main/eco') {
         return (
 
-            <div key={index} onClick={() => handleWineClick(wine)} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4'>
+            <div key={index} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4'>
                 <div className="flex-shrink-0">
                     <img src={wine.image} alt="Wine image" width='50' height='50' />
                 </div>
@@ -194,7 +194,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         )
     } else {
         return (
-            <div key={index} onClick={() => handleWineClick(wine)} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
+            <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
                 ${index + 1 > 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}`}>
                 <div className="flex-shrink-0">
