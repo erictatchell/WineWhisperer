@@ -86,34 +86,47 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
     useEffect(() => {
-        async function checkSavedWine() {
+        async function checkSaveWine() {
             if (user) {
                 // Fetch saved wines from your API
-                const res = await fetch('/api/wine/getSavedWines', {
+                const res = await fetch('/api/wine/getsaveWines', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({ email: user.email }),
                 });
-                const { savedWines } = await res.json();
+                const { saveWines } = await res.json();
     
                 // Log the savedWines
-                console.log("Saved Wines: ", savedWines);
+                console.log("Saved Wines: ", saveWines);
         
                 // Check if the current wine is in the saved wines list
-                if (savedWines.includes(wine._id)) {
+                if (saveWines.includes(wine._id)) {
                     console.log("Wine is saved: ", wine._id);
                     setIsSaved(true);
+                    // Persist the state in local storage
+                    localStorage.setItem('WINE_SAVED_' + wine._id, 'true');
                 } else {
                     console.log("Wine is not saved: ", wine._id);
                     setIsSaved(false);
+                    // If not saved, remove the entry from local storage
+                    localStorage.removeItem('WINE_SAVED_' + wine._id);
                 }
             }
         }
     
-        checkSavedWine();
+        // Check the state in local storage first
+        const savedInLocalStorage = localStorage.getItem('WINE_SAVED_' + wine._id);
+        if(savedInLocalStorage) {
+            setIsSaved(true);
+        } else {
+            // If not present in local storage, check in the database
+            checkSaveWine();
+        }
     }, [user, wine._id]);
+    
+    
     
     
     
