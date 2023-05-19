@@ -1,84 +1,67 @@
-// Importing necessary modules and functions from Next.js and next-auth
 import { GetServerSideProps } from 'next';
-import { getSession } from "next-auth/react";
-
-// Importing the MongoClient Promise that was set up in the mongodb.tsx file
 import clientPromise from '../../lib/mongodb';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-// Defining a TypeScript interface for the structure of a wine object
-interface Wine {
-    _id: string;
-    id: number;
-    country: string;
-    description: string;
-    designation: string;
-    points: number;
-    price: number;
-    province: string;
-    region_1: string;
-    region_2: string;
-    taster_name: string;
-    taster_twitter_handle: string;
-    title: string;
-    variety: string;
-    winery: string;
-}
-
-// Defining a TypeScript interface for the props that the TopPicks component will receive
-interface SavedProps {
-    wines: Wine[];
-}
+import Image from 'next/image'
+import { IconButton, ThemeProvider, createTheme } from '@mui/material';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import WineCard from '../../components/winecard';
+import { useSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react';
+import { ObjectId } from 'mongodb';
 
 
-// The main TopPicks component which receives an array of wine objects as a prop
-/** TODO */
 export default function Saved({ wines }: SavedProps) {
-    const router = useRouter();
-
-    function handleWineClick(wine: Wine) {
-        localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
-        router.push(`/wine/${wine._id}`);
-    }
+    const { data: session } = useSession();
+const user = session ? session.user : null;
 
     return (
-        <div className="grid justify-center">
-            <h1>Saved page</h1>
-            {/* Mapping over the wines array and creating a card for each wine */}
+        <div className="grid justify-center mt-5">
             {wines.map((wine: Wine, index: number) => (
-                <div key={index} className="grid max-w-sm ml-6 mr-6 mb-6 border-brendan rounded-lg shadow dark:bg-brendan/90 dark:border-gray-700 sm:max-w-full">
-                    <div onClick={() => handleWineClick(wine)} className="ml-3 mr-3 mt-3 mb-3">
-                        <h5 className="mb-2 text-xl font-bold tracking-tight text-dijon dark:text-dijon sm:text-lg">{wine.title}</h5>
-                        <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">{wine.variety}</h5>
-                        <h5 className="mb-2 text-sm uppercase tracking-widest font-semibold tracking-tight text-lightdijon dark:text-lightdijon sm:text-xs">${wine.price}</h5>
-                        
-                    </div>
-                </div>
+                <WineCard key={index} wine={wine} index={index} />
             ))}
         </div>
     )
 }
 
-// The getServerSideProps function runs on the server side before the page is rendered
-// It fetches the data that the page needs to render
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    // Waiting for the MongoDB client connection to be ready
-    const client = await clientPromise;
+    // Get the user's session based on the request
+    const session = await getSession(context);
+    const email = session?.user?.email;
 
-    // Selecting the 'Wine1' database
+    if (!email) {
+        return {
+            props: {
+                wines: [],
+            },
+        };
+    }
+
+    const client = await clientPromise;
     const db = client.db('Wine1');
 
-    // Fetching the first 10 documents from the 'wset' collection in the 'Wine1' database
+    // Fetch the user's saved wines array
+    const userExtras = await db.collection('userExtras').findOne({ email });
+
+    if (!userExtras) {
+        return {
+            props: {
+                wines: [],
+            },
+        };
+    }
+
+    // Convert saved wine IDs from string to ObjectId
+    const savedWinesIds = (userExtras.saved || []).map((id: string) => new ObjectId(id));
+
+    // Fetching the documents from the 'wset' collection in the 'Wine1' database that are in the user's saved array
     const wines = await db
         .collection('wset')
-        .find({})
-        .sort({ points: 1 })
-        .limit(2)
+        .find({ _id: { $in: savedWinesIds } })
+        .sort({ points: -1 })
+        .limit(10)
         .toArray();
 
     // Returning the fetched data as props to the TopPicks component
-    // The data is stringified and parsed to ensure it is serializable
     return {
         props: {
             wines: JSON.parse(JSON.stringify(wines)),

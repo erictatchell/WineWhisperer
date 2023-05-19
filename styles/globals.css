@@ -26,3 +26,29 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  position: relative;
+  min-height: 100%;
+}
+
+.max-w-lg {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fixed.bottom-0 {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+.no-scroll {
+  overflow: hidden;
+}
+
+

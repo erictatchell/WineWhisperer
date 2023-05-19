@@ -19,13 +19,15 @@ module.exports = {
     extend: {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'vineyard': "url('/bg.png')",
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+          
       },
       colors: {
         transparent: 'transparent',
         current: 'currentColor',
-        'brendan': '#8B3A62',
+        'brendan': '#55233c',
         'dijon': '#FFDB9C',
         'lightdijon': '#FFF8DF',
         'white': '#ffffff',
@@ -36,8 +38,12 @@ module.exports = {
         'silver': '#ecebff',
         'bubble-gum': '#ff77e9',
         'bermuda': '#78dcca',
-      }
+      },
+      zIndex: {
+        '-10': '-10',
+
     },
   },
   plugins: [],
+}
 }

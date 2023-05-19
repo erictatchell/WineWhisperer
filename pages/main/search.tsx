@@ -1,312 +1,202 @@
-import { useState } from "react";
+import { GetServerSideProps } from 'next';
+import { getSession, useSession } from 'next-auth/react';
+import { useState, useEffect } from 'react';
+import clientPromise from '../../lib/mongodb';
+import { useRouter } from 'next/router';
+import Image from 'next/image'
+import { IconButton, ThemeProvider, createTheme, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import WineCard from '../../components/winecard';
+import { Lora } from 'next/font/google'
+import Link from 'next/link';
 
-export default function Search() {
-  const [wineTypes, setWineTypes] = useState<string[]>([]);
-  const [grapeVarieties, setGrapeVarieties] = useState<string[]>([]);
-  const [wineTaste, setWineTaste] = useState<string[]>([]);
-  const [selectAll, setSelectAll] = useState<boolean>(false);
+const lora = Lora({ subsets: ['latin'] })
 
-  const handleWineTypeChange = (event: any) => {
-    const wineType = event.target.value;
-    const isChecked = event.target.checked;
+interface SearchProps {
+  wines: Wine[];
+  totalPages: number;
+  currentPage: number;
+}
 
-    if (wineType === "all") {
-      if (isChecked) {
-        setWineTypes(['red', "white", "rosé", "sparkling"]);
-      } else {
-        setWineTypes([]);
-      }
+const ITEMS_PER_PAGE = 10;
+const MAX_BUTTONS = 5;
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#00000',
+    },
+    secondary: {
+      main: '#64748B',
+      contrastText: '#fff',
+    },
+  },
+});
+
+export default function Search({ wines, totalPages, currentPage }: SearchProps) {
+  const router = useRouter();
+
+  const [page, setPage] = useState(currentPage);
+
+  const [sortOption, setSortOption] = useState('points_desc');
+
+  useEffect(() => {
+    setPage(currentPage);
+  }, [currentPage]);
+
+  function handleWineClick(wine: Wine) {
+    localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
+    router.push(`/wine/${wine._id}`);
+  }
+
+  const handlePageChange = (pageNumber: number) => {
+    setPage(pageNumber);
+    if (pageNumber === 1 || pageNumber === undefined) {
+      router.push(`/main/search?sort=${sortOption}`);
     } else {
-      if (isChecked) {
-        setWineTypes([...wineTypes, wineType]);
-      } else {
-        setWineTypes(wineTypes.filter((t : any) => t !== wineType));
-        setSelectAll(false);
-      }
+      router.push(`/main/search?page=${pageNumber}&sort=${sortOption}`);
     }
   };
 
-  const handleGrapeVarietyChange = (event : any) => {
-    const grapeVariety = event.target.value;
-    const isChecked = event.target.checked;
+  const handleSortChange = (event: SelectChangeEvent<string>) => {
+    const selectedOption = event.target.value as string;
+    setSortOption(selectedOption);
 
-    if (grapeVariety === "all") {
-        if (isChecked) {
-            setGrapeVarieties(["cabernet_sauvignon", "merlot", "pinot_noir", "chardonnay", "sauvignon_blanc", "riesling"]);
-          } else {
-            setGrapeVarieties([]);
-          }
-        } else {
-          if (isChecked) {
-            setGrapeVarieties([...grapeVarieties, grapeVariety]);
-          } else {
-            setGrapeVarieties(grapeVarieties.filter((g : any) => g !== grapeVariety));
-            setSelectAll(false);
-          }
-        }
-    };
+    if (selectedOption === "eco") {
+      router.push(`/main/eco`);
+    } else {
+      if (page === 1 || page === undefined) {
+        router.push(`/main/search?sort=${selectedOption}`);
+      } else {
+        router.push(`/main/search?page=${page}&sort=${selectedOption}`);
+      }
+    }
 
-    const handleWineTasteChange = (event : any) => {
-        const wineTaste = event.target.value;
-        const isChecked = event.target.checked;
-    
-        if (wineTaste === "all") {
-          if (isChecked) {
-            setWineTaste(["dry", "crisp", "full-bodied", "sweet", "fruity", "tannic", "acidic", "herbal"]);
-          } else {
-            setWineTaste([]);
-          }
-        } else {
-          if (isChecked) {
-            setWineTaste([...wineTaste, wineTaste]);
-          } else {
-            setWineTaste(wineTaste.filter((t: any) => t !== wineTaste));
-            setSelectAll(false);
-          }
-        }
-      };
+  };
 
-  const handleSubmit = (event : any) => {
-    event.preventDefault();
-    console.log("Wine types:", wineTypes);
-    console.log("Grape varieties:", grapeVarieties);
-    console.log("Wine taste:", wineTaste);
+
+  const renderPaginationButtons = () => {
+    const buttons = [];
+
+    const startPage = Math.max(1, currentPage - Math.floor(MAX_BUTTONS / 2));
+    const endPage = Math.min(totalPages, startPage + MAX_BUTTONS - 1);
+
+    if (currentPage > 1) {
+      buttons.push(
+        <button
+          key="previous"
+          className="mx-1 px-2 py-1 rounded-md bg-brendan/80   backdrop-blur-md text-lightdijon"
+          onClick={() => handlePageChange(currentPage - 1)}
+        >
+          Previous
+        </button>
+      );
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      buttons.push(
+        <button
+          key={i}
+          className={`mx-1 px-2 py-1 rounded-md ${currentPage === i ? 'bg-lightdijon text-black' : 'bg-brendan/50 backdrop-blur-md text-lightdijon'
+            }`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (currentPage < totalPages) {
+      buttons.push(
+        <button
+          key="next"
+          className="mx-1 px-2 py-1 rounded-md bg-brendan/80 backdrop-blur-md text-lightdijon"
+          onClick={() => handlePageChange(currentPage + 1)}
+        >
+          Next
+        </button>
+      );
+    }
+
+    return buttons;
   };
 
   return (
-    <div>
-      <h1>Search page</h1>
+    <div className="grid justify-center mt-5 mb-14">
+      <div className='mb-4 text-center grid grid-cols-2'> {/* Add gap-4 for space between Select and Button */}
+        <Select value={sortOption} onChange={handleSortChange} className={`${lora.className} ml-5 border border-lightdijon/50 text-lightdijon backdrop-blur-md  rounded-lg bg-gradient-to-t from-dijon/60 to-dijon/30`}>
+          <MenuItem className={`${lora.className}`} value="asc">Price: Low to High</MenuItem>
+          <MenuItem className={`${lora.className}`} value="desc">Price: High to Low</MenuItem>
+          <MenuItem className={`${lora.className}`} value="points_asc">Points: Low to High</MenuItem>
+          <MenuItem className={`${lora.className}`} value="points_desc">Points: High to Low</MenuItem>
+        </Select>
+        <Link href='/main/eco'>
+          <button className='p-4 mx-5 rounded-lg border border-white/50 text-center text-white backdrop-blur-md bg-gradient-to-r from-white/30 to-[#68a678]/30'>
+            Eco-friendly Wines
+          </button>
+        </Link>
+      </div>
+      {wines.map((wine: Wine, index: number) => (
+        <WineCard key={index} wine={wine} index={index} />
+      ))}
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          Wine Types:
-        </label>
-        <br />
-        
-        <label>
-          <input
-            type="checkbox"
-            value="red"
-            checked={wineTypes.includes("red")}
-            onChange={handleWineTypeChange}
-          />
-          Red
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="white"
-            checked={wineTypes.includes("white")}
-            onChange={handleWineTypeChange}
-          />
-          White
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="rosé"
-            checked={wineTypes.includes("rosé")}
-            onChange={handleWineTypeChange}
-          />
-          Rosé
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="sparkling"
-            checked={wineTypes.includes("sparkling")}
-            onChange={handleWineTypeChange}
-          />
-          Sparkling
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="all"
-            checked={selectAll}
-            onChange={handleWineTypeChange}
-          />
-          Select all
-        </label>
-        <br />
-        <br />
+      <div className='fixed bottom-0 left-0 z-50 w-full'>
+        <div className="max-w-lg mx-auto p-4 mb-16 flex justify-center bg-black/10 backdrop-blur-md">
+          {renderPaginationButtons()}
+        </div>
+      </div>
+    </div>
 
-        <label>Grape Varieties:</label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="cabernet_sauvignon"
-            checked={grapeVarieties.includes("cabernet_sauvignon")}
-            onChange={handleGrapeVarietyChange}
-          />
-          Cabernet Sauvignon
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="merlot"
-            checked={grapeVarieties.includes("merlot")}
-            onChange={handleGrapeVarietyChange}
-          />
-          Merlot
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="pinot_noir"
-            checked={grapeVarieties.includes("pinot_noir")}
-            onChange={handleGrapeVarietyChange}
-          />
-          Pinot Noir
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="chardonnay"
-            checked={grapeVarieties.includes("chardonnay")}
-            onChange={handleGrapeVarietyChange}
-          />
-          Chardonnay
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="sauvignon_blanc"
-            checked={grapeVarieties.includes("sauvignon_blanc")}
-            onChange={handleGrapeVarietyChange}
-          />
-          Sauvignon Blanc
-        </label>
-        <br />
-    <label>
-      <input
-        type="checkbox"
-        value="riesling"
-        checked={grapeVarieties.includes("riesling")}
-        onChange={handleGrapeVarietyChange}
-      />
-      Riesling
-    </label>
-    <br />
-    <label>
-      <input
-        type="checkbox"
-        value="all"
-        checked={selectAll}
-        onChange={handleGrapeVarietyChange}
-      />
-      Select all
-    </label>
-    <br />
-    <br />
-
-    <label>
-          Wine Taste:
-        </label>
-        <br />
-        
-        <label>
-          <input
-            type="checkbox"
-            value="dry"
-            checked={wineTaste.includes("dry")}
-            onChange={handleWineTasteChange}
-          />
-          Dry
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="crisp"
-            checked={wineTaste.includes("crisp")}
-            onChange={handleWineTasteChange}
-          />
-          Crisp
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="full-bodied"
-            checked={wineTaste.includes("full-bodied")}
-            onChange={handleWineTasteChange}
-          />
-          Full-bodied
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="sweet"
-            checked={wineTaste.includes("sweet")}
-            onChange={handleWineTasteChange}
-          />
-          Sweet
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="fruity"
-            checked={wineTaste.includes("fruity")}
-            onChange={handleWineTasteChange}
-          />
-          Fruity
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="tannic"
-            checked={wineTaste.includes("tannic")}
-            onChange={handleWineTasteChange}
-          />
-          Tannic
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="acidic"
-            checked={wineTaste.includes("acidic")}
-            onChange={handleWineTasteChange}
-          />
-          Acidic
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="herbal"
-            checked={wineTaste.includes("herbal")}
-            onChange={handleWineTasteChange}
-          />
-          Herbal
-        </label>
-        <br />
-        <label>
-          <input
-            type="checkbox"
-            value="all"
-            checked={selectAll}
-            onChange={handleWineTasteChange}
-          />
-          Select all
-        </label>
-
-    <br />
-    <button type="submit">Search</button>
-  </form>
-</div>
-    );
+  )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const client = await clientPromise;
+  const db = await client.db('Wine1');
+
+  const page = context.query.page ? Number(context.query.page) : 1; // Get the current page number from the query parameters
+
+  const totalWines = await db.collection('wset').countDocuments(); // Get the total number of wines
+  const totalPages = Math.ceil(totalWines / ITEMS_PER_PAGE); // Calculate the total number of pages
+
+  const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of wines to skip
+
+  const sortOption = context.query.sort || 'asc'; // Get the sort option from the query parameters
+
+  let sortField;
+  switch (sortOption) {
+    case 'asc':
+      sortField = 'price';
+      break;
+    case 'desc':
+      sortField = 'price';
+      break;
+    case 'points_asc':
+      sortField = 'points';
+      break;
+    case 'points_desc':
+      sortField = 'points';
+      break;
+    default:
+      sortField = 'points';
+  }
+
+  const sortDirection = sortOption === 'asc' || sortOption === 'points_asc' ? 1 : -1;
+
+  const wines = await db
+    .collection('wset')
+    .find({})
+    .sort({ [sortField]: sortDirection }) // Sort the wines
+    .skip(skip)
+    .limit(ITEMS_PER_PAGE)
+    .toArray();
+
+  return {
+    props: {
+      wines: JSON.parse(JSON.stringify(wines)),
+      totalPages,
+      currentPage: page,
+    },
+  };
+};

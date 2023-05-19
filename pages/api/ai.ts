@@ -17,7 +17,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `List 3 wines that matches the following description: ${req.query.description}`,
+            prompt: `List 10 different wines that best fits this prompt: ${req.query.description}`,
             temperature: 0,
             max_tokens: 100,
         });
@@ -32,8 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         console.log('OpenAI: ', wines);
 
         const matches = wines.map(wine => {
-            const pattern = new RegExp(wine, 'i');
-            // regex query, specify it vvv
+            const pattern = new RegExp("\\b"+wine+"\\b", 'i');
             return {
                 $or: [
                     {
