@@ -16,10 +16,13 @@ export default function Home() {
 
   const { data: session } = useSession()
   return (
+    // background video
     <main>
+      
       <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic1.png">
          <source src="/bgloop.mp4" type="video/mp4" />
       </video>
+      
       <div className="grid justify-center">
         <div className="grid justify-center">
           <Image className="drop-shadow-xl grid justify-center mt-40" src="/logofaded.png" alt="WineWhisperer" width="175" height="175"></Image>
