@@ -106,7 +106,7 @@ export default function WinePage() {
           <p className="text-xl text-lightdijon mb-2 ">{wine.variety}</p>
           <p className="text-lg text-lightdijon mb-4">${wine.price}</p>
           <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-xl mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
-            <BookmarkBorderIcon />
+            
 
           <IconButton className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-xl mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55" onClick={saveWineId}>
             {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
