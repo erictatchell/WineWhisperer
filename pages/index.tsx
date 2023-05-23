@@ -19,7 +19,7 @@ export default function Home() {
     // background video
     <main>
       
-      <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic1.png">
+      <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic3.png">
          <source src="/bgloop.mp4" type="video/mp4" />
       </video>
       
