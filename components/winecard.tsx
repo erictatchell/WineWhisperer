@@ -55,7 +55,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-                    
+
                     if (res.ok) {
                         console.log('Wine unsaved successfully');
                         setIsSaved(false);
@@ -70,7 +70,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-    
+
                     if (res.ok) {
                         console.log('Wine saved successfully');
                         setIsSaved(true);
@@ -97,10 +97,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     body: JSON.stringify({ email: user.email }),
                 });
                 const { saveWines } = await res.json();
-    
+
                 // Log the savedWines
                 console.log("Saved Wines: ", saveWines);
-        
+
                 // Check if the current wine is in the saved wines list
                 if (saveWines.includes(wine._id)) {
                     console.log("Wine is saved: ", wine._id);
@@ -115,21 +115,21 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 }
             }
         }
-    
+
         // Check the state in local storage first
         const savedInLocalStorage = localStorage.getItem('WINE_SAVED_' + wine._id);
-        if(savedInLocalStorage) {
+        if (savedInLocalStorage) {
             setIsSaved(true);
         } else {
             // If not present in local storage, check in the database
             checkSaveWine();
         }
     }, [user, wine._id]);
-    
-    
-    
-    
-    
+
+
+
+
+
     if (path === topPicks) {
 
         return (
@@ -154,10 +154,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-    <ThemeProvider theme={theme}>
-        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
-    </ThemeProvider>
-</IconButton>
+                        <ThemeProvider theme={theme}>
+                            {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+                        </ThemeProvider>
+                    </IconButton>
 
 
                 </div>
@@ -183,10 +183,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-    <ThemeProvider theme={theme}>
-        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
-    </ThemeProvider>
-</IconButton>
+                        <ThemeProvider theme={theme}>
+                            {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+                        </ThemeProvider>
+                    </IconButton>
 
 
                 </div>
@@ -213,10 +213,10 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         </ThemeProvider>
                     </IconButton>
                     <IconButton onClick={() => saveWineId(wine)}>
-    <ThemeProvider theme={theme}>
-        {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
-    </ThemeProvider>
-</IconButton>
+                        <ThemeProvider theme={theme}>
+                            {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
+                        </ThemeProvider>
+                    </IconButton>
 
 
                 </div>
