@@ -3,6 +3,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import WineCard from '../../components/winecard'
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import clipboardCopy from 'clipboard-copy';
+import CopyButton from '../../components/copybutton';
 
 interface WinePageProps {
   wine: Wine;
@@ -28,18 +32,21 @@ export default function WinePage() {
     return <div>Loading...</div>;
   }
   return (
-    <div className="flex flex-col md:flex-row mx-8 items-center mb-12 justify-center">
-      <div className="md:w-1/2 flex justify-center">
-        <img src={wine.image} alt={wine.title} className="w-32 md:w-64" />
-      </div>
+    <div className="flex flex-col md:flex-row mx-8 items-center mb-12 mt-10 justify-center">
+
       <div className='bg-white/20 backdrop-blur-md py-3 rounded-xl'>
+        <div className="md:w-1/2 flex justify-center">
+          <img src={wine.image} alt={wine.title} className="w-32 md:w-64" />
+        </div>
         <div className="md:w-1/2 text-center md:text-left px-4">
           <h1 className="text-2xl text-lightdijon  font-bold mb-2">{wine.title}</h1>
           <p className="text-xl text-lightdijon mb-2 ">{wine.variety}</p>
           <p className="text-lg text-lightdijon mb-4">${wine.price}</p>
-          <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
-            Save - WIP
+          <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-xl mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
+            <BookmarkBorderIcon />
           </button>
+          <CopyButton/>
+
           <div className="w-100 text-gray-900 bg-lightdijon shadow-xl border border-brendan rounded-lg ">
             <div className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-brendan">
               <h1 className='mr-2 uppercase tracking-widest text-xs'>country:</h1>
