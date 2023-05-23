@@ -112,9 +112,9 @@ export default function WinePage() {
             {isSaved ? <BookmarkIcon /> : <BookmarkBorderIcon />}
           </IconButton>
           </button>
-          <button type="submit" className="px-3 uppercase tracking-widest justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-xl mb-6 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
+          
           <CopyButton/>
-          </button>
+          
           
           <div className="w-100 text-gray-900 bg-lightdijon shadow-xl border border-brendan rounded-lg ">
             <div className="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-brendan">
