@@ -14,25 +14,6 @@ export default function Profile({ userId }: ProfileProps) {
   const { data: session } = useSession()
   const user = session ? session.user : null;
 
-  console.log(user?.image);
-
-  //const [selectedImage, setSelectedImage] = useSession();
-
-
-  // const handleImageChange = (e) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     let img = e.target.files[0];
-  //     setSelectedImage(URL.createObjectURL(img));
-  //   }
-  // };
-
-
-  // const handleImageUpload = () => {
-  //   // here you would handle the actual upload to your server or cloud storage
-  //   // this might involve a fetch or axios POST request, for example
-  // };
-  
-
   return (
     // entire page
     <div className="mt-6 mx-8">
@@ -40,11 +21,7 @@ export default function Profile({ userId }: ProfileProps) {
       {/* top level grid */}
       <div className="flex items-start justify-between">
         {/* Profile pic */} 
-        {/* <div className="relative">
-          <input type='file' accept="image/*" name='image' onChange={handleImageChange} />
-          <input className="h-32 w-32 rounded-full" src={selectedImage} alt="Profile Picture" />
-          <button onClick={handleImageChange} className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
-        </div> */}
+
         <div className="relative">
           <img className="rounded-full" src={`${user ? user.image : '/logo.png'}`} alt="Profile" />
           <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">Change</button>
@@ -57,7 +34,7 @@ export default function Profile({ userId }: ProfileProps) {
       </div>
 
       {/* User info */}
-      <div className="mt-4">
+      <div className="mt-4 z-10">
         <h3 className="text-l font-bold text-white">Username</h3>
         <div className="flex items-top justify-between">
           <h1 className="text-m text-white">{user ? user.name : 'No name'}</h1>
@@ -65,7 +42,7 @@ export default function Profile({ userId }: ProfileProps) {
         </div>
       </div>
 
-      <div className="mt-0">
+      <div className="mt-0 z-10">
         <h3 className="text-l font-bold text-white">Email</h3>
         <div className="flex items-top justify-between">
         <h1 className="text-m text-white">{user ? user.email : 'No email'}</h1>
@@ -73,9 +50,8 @@ export default function Profile({ userId }: ProfileProps) {
         </div>
       </div>
 
-      <div className="mt-0">
+      <div className="mt-0 z-10">
         <h3 className="text-l font-bold text-white">User ID:</h3>
-        {/* WIP <h1 className="text-l">{user ? user._id.toString().slice(0, 8) : null}</h1> */}
         <h1 className="text-m text-white">{userId}</h1>
       </div>
 
