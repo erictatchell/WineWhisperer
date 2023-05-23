@@ -36,30 +36,27 @@ const teamMembers = [
 export default function aboutUs() {
   return (
     // Easter egg link
-<div className="mx-auto p-4 sm:p-6 lg:p-8">
-  <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
-    <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">About our project</p>
-    <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
-      Our team Code and Cork, is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers,
-      vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
-      wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines.
-      By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
-    </p>
-  </div>
-  
-  <Link href="/main/404" className='cursor-default'>
-    <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
-      <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
-      <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
-        Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
-        group from the British Columbia Institute of Technology. We share a passion for software development and aspire
-        to make a positive impact on society through our knowledge and hard work.
-      </p>
-    </div>
-  </Link>
+    <div className="mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
+        <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">About our project</p>
+        <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
+          Our team Code and Cork, is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers,
+          vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
+          wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines.
+          By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
+        </p>
+      </div>
 
-
-
+      <Link href="/main/404" className='cursor-default'>
+        <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
+          <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
+          <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
+            Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
+            group from the British Columbia Institute of Technology. We share a passion for software development and aspire
+            to make a positive impact on society through our knowledge and hard work.
+          </p>
+        </div>
+      </Link>
   <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
   {teamMembers.map((member, index) => (
     <div key={index} className="flex flex-col md:flex-row items-center bg-lightdijon shadow-2xl rounded-xl overflow-hidden max-w-xl sm:max-w-none">
@@ -83,9 +80,6 @@ export default function aboutUs() {
             </div>
       </div>
     </div>
-    ))}
-    </div>
-</div>
   )
 };
 
