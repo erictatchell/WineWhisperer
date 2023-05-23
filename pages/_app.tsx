@@ -28,13 +28,16 @@ const theme = createTheme({
 });
 
 export default function App({
-  Component, pageProps: { session, ...pageProps}
+  Component, pageProps: { session, ...pageProps }
 }: AppProps) {
   return (
     <SessionProvider session={session}>
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
+      <Layout>
+        <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic2.png">
+          <source src="/bgvid.mp4" type="video/mp4" />
+        </video>
+        <Component {...pageProps} />
+      </Layout>
     </SessionProvider>
   )
 }
