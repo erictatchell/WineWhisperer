@@ -84,30 +84,30 @@ export default function Profile({ userId }: ProfileProps) {
   );
 }
 
-// export async function getServerSideProps(context: any) {
-//   const session = await getSession(context);
-//   const userEmail = session && session.user ? session.user.email : null;
-//   if (userEmail) {
-//     const client = await clientPromise;
-//     const db = client.db();
-//     const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
-//     if (userExtra) {
-//       return {
-//         props: {
-//           userId: userExtra.id,
-//         },
-//       };
-//     }
-//   }
-//   if (!session) {
-//     return {
-//       redirect: {
-//         destination: '/',
-//         permanent: false,
-//       },
-//     };
-//   }
-//   return {
-//     props: {},
-//   };
-// }
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  const userEmail = session && session.user ? session.user.email : null;
+  if (userEmail) {
+    const client = await clientPromise;
+    const db = client.db();
+    const userExtra = await db.collection("userExtras").findOne({ email: userEmail });
+    if (userExtra) {
+      return {
+        props: {
+          userId: userExtra.id,
+        },
+      };
+    }
+  }
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+}

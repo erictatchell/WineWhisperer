@@ -97,7 +97,7 @@ export default function WinePage() {
 
   return (
     <div className="flex flex-col md:flex-row mx-8 items-center mb-12 mt-10 justify-center">
-      <div className='bg-white/20 backdrop-blur-md py-3 rounded-xl'>
+      <div className='bg-lightdijon/20 backdrop-blur-md py-3 rounded-xl'>
         <div className="md:w-1/2 flex justify-center">
           <img src={wine.image} alt={wine.title} className="w-32 md:w-64" />
         </div>
