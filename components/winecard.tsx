@@ -172,11 +172,15 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     </IconButton>
                     <IconButton onClick={() => { handleWineClick(wine) }}>
     <ThemeProvider theme={theme}>
-        {
-            wine.eco 
-                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-        }
+    {
+    wine.eco &&
+    <IconButton>
+        <ThemeProvider theme={theme}>
+            <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+        </ThemeProvider>
+    </IconButton>
+}
+
     </ThemeProvider>
 </IconButton>
 
@@ -209,11 +213,15 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     </IconButton>
                     <IconButton onClick={() => { handleWineClick(wine) }}>
     <ThemeProvider theme={theme}>
-        {
-            wine.eco 
-                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-        }
+    {
+    wine.eco &&
+    <IconButton>
+        <ThemeProvider theme={theme}>
+            <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+        </ThemeProvider>
+    </IconButton>
+}
+
     </ThemeProvider>
 </IconButton>
 
