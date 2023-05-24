@@ -11,7 +11,7 @@ export default function SignUp() {
     const handleInsta = () => {
         signIn("instagram");
     };
-    
+
     return (
         <main >
             <div className="grid justify-center">

@@ -13,6 +13,7 @@ export default function Login() {
         signIn("instagram");
     };
 
+
     return (
         <main>
             <div className="grid justify-center">

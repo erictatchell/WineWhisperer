@@ -57,6 +57,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     if (res.ok) {
                         console.log('Wine unsaved successfully');
                         setIsSaved(false);
+                        // If unsave successful, remove the entry from local storage
+                        localStorage.removeItem('WINE_SAVED_' + wine._id);
                     } else {
                         console.log('Failed to unsave wine');
                     }
@@ -71,6 +73,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     if (res.ok) {
                         console.log('Wine saved successfully');
                         setIsSaved(true);
+                        // If save successful, persist the state in local storage
+                        localStorage.setItem('WINE_SAVED_' + wine._id, 'true');
                     } else {
                         console.log('Failed to save wine');
                     }
@@ -83,37 +87,52 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
 
+    
     useEffect(() => {
         async function checkSaveWine() {
             if (user) {
-                // Fetch saved wines from your API
-                const res = await fetch('/api/wine/getsaveWines', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email: user.email }),
-                });
-
-                const { saveWines } = await res.json();
-                // Log the savedWines
-                console.log("Saved Wines: ", saveWines);
-
-                // Check if the current wine is in the saved wines list
-                if (saveWines.includes(wine._id)) {
-                    console.log("Wine is saved: ", wine._id);
-                    setIsSaved(true);
-                    // Persist the state in local storage
-                    localStorage.setItem('WINE_SAVED_' + wine._id, 'true');
-                } else {
-                    console.log("Wine is not saved: ", wine._id);
-                    setIsSaved(false);
-                    // If not saved, remove the entry from local storage
-                    localStorage.removeItem('WINE_SAVED_' + wine._id);
+                try {
+                    // Fetch saved wines from your API
+                    const res = await fetch('/api/wine/getsaveWine', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email: user.email }),
+                    });
+    
+                    if (!res.ok) {
+                        throw new Error('Failed to fetch saved wines');
+                    }
+    
+                    const data = await res.json();
+                    const saveWines = data.savedWines;
+    
+                    if (!Array.isArray(saveWines)) {
+                        throw new Error('Saved wines is not an array');
+                    }
+    
+                    // Log the savedWines
+                    console.log("Saved Wines: ", saveWines);
+    
+                    // Check if the current wine is in the saved wines list
+                    if (saveWines.includes(wine._id)) {
+                        console.log("Wine is saved: ", wine._id);
+                        setIsSaved(true);
+                        // Persist the state in local storage
+                        localStorage.setItem('WINE_SAVED_' + wine._id, 'true');
+                    } else {
+                        console.log("Wine is not saved: ", wine._id);
+                        setIsSaved(false);
+                        // If not saved, remove the entry from local storage
+                        localStorage.removeItem('WINE_SAVED_' + wine._id);
+                    }
+                } catch (error) {
+                    console.log('An error occurred while checking if the wine is saved', error);
                 }
             }
         }
-
+    
         // Check the state in local storage first
         const savedInLocalStorage = localStorage.getItem('WINE_SAVED_' + wine._id);
         if (savedInLocalStorage) {

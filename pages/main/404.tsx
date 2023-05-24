@@ -53,19 +53,18 @@ const NotFoundPage: React.FC = () => {
         `}
         </style>
         <Link href="/main/brazil" className='cursor-default'>
-            <h1 className="next-error-h1" 
-            style={{
-              display: 'inline-block',
-              margin: '0 20px 0 0',
-              paddingRight: '23px',
-              fontSize: '24px',
-              fontWeight: 500,
-              verticalAlign: 'top',
-              lineHeight: '49px'
-            }}
+          <h1 className="next-error-h1" style={{
+            display: 'inline-block',
+            margin: '0 20px 0 0',
+            paddingRight: '23px',
+            fontSize: '24px',
+            fontWeight: 500,
+            verticalAlign: 'top',
+            lineHeight: '49px'
+          }}
             onClick={handleClick}>
             404
-            </h1>
+          </h1>
         </Link>
         <div style={{ 
           display: 'inline-block', 

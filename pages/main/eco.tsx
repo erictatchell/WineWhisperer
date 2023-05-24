@@ -30,7 +30,7 @@ const theme = createTheme({
 // The main TopPicks component which receives an array of wine objects as a prop
 export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
-        const { data: session } = useSession();
+    const { data: session } = useSession();
     const user = session ? session.user : null;
 
     async function saveWineId(wine: Wine) {
