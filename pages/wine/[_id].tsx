@@ -137,9 +137,23 @@ export default function WinePage() {
             </h1>
             <div>
               <div className="relative inline-flex items-center w-full px-4 py-4 text-md font-medium border-b border-brendan">
-                {wine.eco ? wine.blurb : wine.description}
+                {wine.description}
               </div>
             </div>
+
+            <div>
+      { wine.eco && (
+        <div>
+          <h1 className='ml-4 mr-2 mt-3 font-bold uppercase tracking-widest text-sm'>
+            Sustainability:
+          </h1>
+          <div className="relative inline-flex items-center w-full px-4 py-4 text-md font-medium border-b border-brendan">
+            {wine.blurb}
+          </div>
+        </div>
+      )}
+    </div>
+
           </div>
         </div>
       </div>
