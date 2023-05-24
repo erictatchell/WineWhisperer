@@ -38,7 +38,7 @@ export default function WinePage() {
 
   async function checkSaveWine() {
     if (user) {
-      const res = await fetch('/api/wine/getsaveWines', {
+      const res = await fetch('/api/wine/getsaveWine', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
