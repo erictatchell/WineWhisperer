@@ -15,18 +15,29 @@ export default function Profile({ userId }: ProfileProps) {
 
   return (
     // entire page
-    <div className="mt-6 mx-8 bg-lightdijon/20 backdrop-blur-md py-3 rounded-xl px-6">
+    <div className="mt-6 mx-8 bg-lightdijon/20 backdrop-blur-md py-3 rounded-xl px-6 max-w-3xl">
       {/* top level grid */}
       <div className="flex items-start justify-between">
         {/* Profile pic */}
-        <div className="relative">
+        {/* <div className="relative">
           <img className="rounded-full" src={`${user ? user.image : '/logo.png'}`} alt="Profile" />
           <Link href="https://myaccount.google.com/">
             <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
               Change
             </button>
           </Link>
-        </div>
+        </div> */}
+        {user && user.image && (
+          <div className="relative">
+            <img className="rounded-full" src={user.image} alt="Profile" />
+            <Link href="https://myaccount.google.com/">
+              <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3 text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+                Change
+              </button>
+            </Link>
+          </div>
+        )}
+
         {/* Settings button */}
         <Link href="/main/settings">
           <button className="p-2 drop-shadow-xl text-l mt-3 text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
