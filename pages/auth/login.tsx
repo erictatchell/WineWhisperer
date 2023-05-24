@@ -6,7 +6,7 @@ import { FormEventHandler, useEffect, useState } from 'react';
 
 
 export default function Login() {
-    
+
     // social media providers
     const handleGoogle = () => {
         signIn("google", { callbackUrl: '/main/home' });
@@ -14,11 +14,11 @@ export default function Login() {
     const handleInsta = () => {
         signIn("instagram");
     };
-      
+
     return (
         <main>
             <div className="grid justify-center">
-                
+
                 <div className="grid justify-center">
                     <Image className="drop-shadow-xl grid justify-center mt-10" src="/purple_logo.png" alt="WineWhisperer" width="130" height="130"></Image>
                 </div>
