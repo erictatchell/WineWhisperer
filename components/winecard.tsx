@@ -41,6 +41,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
+    
+    
 
     async function saveWineId(wine: Wine) {
         try {
