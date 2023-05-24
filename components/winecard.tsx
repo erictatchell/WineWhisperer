@@ -29,7 +29,6 @@ interface WineCardProps {
 }
 
 
-
 export default function WineCard({ wine, index }: WineCardProps) {
     const router = useRouter();
     const path = router.pathname;
@@ -89,6 +88,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+
     
     useEffect(() => {
         async function checkSaveWine() {
@@ -146,10 +146,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     }, [user, wine._id]);
     
 
-
-
-
-
+    
     if (path === topPicks) {
 
         return (
