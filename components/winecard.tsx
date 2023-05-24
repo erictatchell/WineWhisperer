@@ -89,7 +89,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         async function checkSaveWine() {
             if (user) {
                 // Fetch saved wines from your API
-                const res = await fetch('/api/wine/getsaveWines', {
+                const res = await fetch('/api/wine/getsaveWine', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
