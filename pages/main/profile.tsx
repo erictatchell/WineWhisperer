@@ -26,7 +26,7 @@ export default function Profile({ userId }: ProfileProps) {
           <img className="rounded-full" src={`${user ? user.image : '/logo.png'}`} alt="Profile" />
           <Link href="https://myaccount.google.com/">
           <button className="absolute right-0 bottom-0 p-1 rounded-full text-xs drop-shadow-xl mt-3
-             text-black bg-dijon/70 hover:bg-lightdijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 
+             text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 
               font-small   text-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
                 Change</button>
           </Link>
@@ -34,7 +34,7 @@ export default function Profile({ userId }: ProfileProps) {
 
         {/* Settings button */}
         <Link href="/main/settings">
-          <button className="p-2 drop-shadow-xl text-l mt-3 text-black bg-dijon/70 hover:bg-lightdijon
+          <button className="p-2 drop-shadow-xl text-l mt-3 text-black bg-dijon/70 hover:bg-[#F8DE7F]
             focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg px-5 py-3.5  
             text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
               Settings</button>
@@ -47,7 +47,7 @@ export default function Profile({ userId }: ProfileProps) {
         <div className="flex items-top justify-between">
           <h1 className="text-m text-lightdijon">{user ? user.name : 'No name'}</h1>
           <Link href="https://myaccount.google.com/">
-          <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon/70 hover:bg-lightdijon 
+          <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon/70 hover:bg-[#F8DE7F]
             focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-1 py-1  
             text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
               Edit</button>
@@ -60,7 +60,7 @@ export default function Profile({ userId }: ProfileProps) {
         <div className="flex items-top justify-between">
         <h1 className="text-m text-lightdijon">{user ? user.email : 'No email'}</h1>
         <Link href="https://myaccount.google.com/">
-          <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon/70 hover:bg-lightdijon
+          <button className="p-2 drop-shadow-xl text-medium mt-0 text-black bg-dijon/70 hover:bg-[#F8DE7F]
             focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-1 py-1  text-center 
             inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
               Edit</button>
@@ -76,7 +76,7 @@ export default function Profile({ userId }: ProfileProps) {
       {/* Sign out button */}
       <div className="flex justify-end mt-4">
         <button onClick={() => (signOut())} className="p-2 drop-shadow-xl text-medium mt-3 text-black bg-dijon/70 
-          hover:bg-[#bb2b43] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 
+          hover:bg-[#b3112c] focus:ring-4 focus:outline-none focus:ring-[#bb2b43]/50 font-medium rounded-lg px-2 
           py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
             Sign Out</button>
       </div>
