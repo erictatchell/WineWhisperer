@@ -55,10 +55,12 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-
+    
                     if (res.ok) {
                         console.log('Wine unsaved successfully');
                         setIsSaved(false);
+                        // If unsave successful, remove the entry from local storage
+                        localStorage.removeItem('WINE_SAVED_' + wine._id);
                     } else {
                         console.log('Failed to unsave wine');
                     }
@@ -70,10 +72,12 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-
+    
                     if (res.ok) {
                         console.log('Wine saved successfully');
                         setIsSaved(true);
+                        // If save successful, persist the state in local storage
+                        localStorage.setItem('WINE_SAVED_' + wine._id, 'true');
                     } else {
                         console.log('Failed to save wine');
                     }
@@ -85,6 +89,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+    
     useEffect(() => {
         async function checkSaveWine() {
             if (user) {
