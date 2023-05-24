@@ -6,11 +6,8 @@ import { getSession } from 'next-auth/react';
 import { isAnyArrayBuffer } from 'util/types';
 //import clickSound from '/eastereggSound.mp3';
 
-
 const NotFoundPage: React.FC = () => {
-
   const [clickCount, setClickCount] = useState(0);
-
   const handleClick = (e: React.MouseEvent) => {
     setClickCount(clickCount + 1);
     const audio = new Audio('/eastereggSound.mp3');
@@ -53,22 +50,26 @@ const NotFoundPage: React.FC = () => {
               border-right: 1px solid rgba(255, 255, 255, .3);
             }
           }
-        `}</style>
+        `}
+        </style>
         <Link href="/main/brazil" className='cursor-default'>
-            <h1 className="next-error-h1" style={{
-            display: 'inline-block',
-            margin: '0 20px 0 0',
-            paddingRight: '23px',
-            fontSize: '24px',
-            fontWeight: 500,
-            verticalAlign: 'top',
-            lineHeight: '49px'
+            <h1 className="next-error-h1" 
+            style={{
+              display: 'inline-block',
+              margin: '0 20px 0 0',
+              paddingRight: '23px',
+              fontSize: '24px',
+              fontWeight: 500,
+              verticalAlign: 'top',
+              lineHeight: '49px'
             }}
             onClick={handleClick}>
             404
             </h1>
         </Link>
-        <div style={{ display: 'inline-block', textAlign: 'left' }}>
+        <div style={{ 
+          display: 'inline-block', 
+          textAlign: 'left' }}>
           <h2 style={{
             fontSize: '14px',
             fontWeight: 400,
@@ -82,7 +83,6 @@ const NotFoundPage: React.FC = () => {
     </div>
   );
 };
-
 
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);

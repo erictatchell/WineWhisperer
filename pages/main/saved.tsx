@@ -9,7 +9,6 @@ import { useSession } from 'next-auth/react';
 import { getSession } from 'next-auth/react';
 import { ObjectId } from 'mongodb';
 
-
 export default function Saved({ wines }: SavedProps) {
     const { data: session } = useSession();
 const user = session ? session.user : null;

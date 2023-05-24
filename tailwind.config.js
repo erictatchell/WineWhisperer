@@ -22,7 +22,7 @@ module.exports = {
         'vineyard': "url('/bg.png')",
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-          
+
       },
       colors: {
         transparent: 'transparent',
@@ -42,8 +42,8 @@ module.exports = {
       zIndex: {
         '-10': '-10',
 
+      },
     },
-  },
-  plugins: [],
-}
+    plugins: [],
+  }
 }

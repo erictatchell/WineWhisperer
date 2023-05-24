@@ -28,7 +28,6 @@ const theme = createTheme({
 });
 
 // The main TopPicks component which receives an array of wine objects as a prop
-/** TODO */
 export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
         const { data: session } = useSession();
@@ -57,10 +56,6 @@ export default function Eco({ ecowines }: EcoProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
-
-
-
-
     return (
         <div className="grid justify-center mt-5">
             {ecowines.map((wine: Wine, index: number) => (
@@ -75,7 +70,6 @@ export default function Eco({ ecowines }: EcoProps) {
 export const getServerSideProps: GetServerSideProps = async (context) => {
     const client = await clientPromise;
     const db = client.db('Wine1');
-
     const ecowines = await db
         .collection('wset')
         .find({ eco: "true" })    // Filter for eco wines
