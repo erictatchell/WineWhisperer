@@ -107,7 +107,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 console.log("Saved Wines: ", saveWines);
 
                 // Check if the current wine is in the saved wines list
-                if (saveWines.includes(wine._id)) {
+                if (saveWines && saveWines.includes(wine._id)) {
+
                     console.log("Wine is saved: ", wine._id);
                     setIsSaved(true);
                     // Persist the state in local storage
