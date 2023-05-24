@@ -9,7 +9,6 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 
-
 const theme = createTheme({
     palette: {
         primary: {
@@ -22,14 +21,12 @@ const theme = createTheme({
     },
 });
 
-
 interface WineCardProps {
     wine: Wine;
     index: number;
 }
 
-
-
+// Loads the wine card with the wine's image, name, and price
 export default function WineCard({ wine, index }: WineCardProps) {
     const router = useRouter();
     const path = router.pathname;
@@ -39,10 +36,12 @@ export default function WineCard({ wine, index }: WineCardProps) {
     const [isSaved, setIsSaved] = useState(false);
 
     let [wineimg, setWineImg] = useState('');
+
     function handleWineClick(wine: Wine) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
+
     async function saveWineId(wine: Wine) {
         try {
             if (user) {
@@ -55,7 +54,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-    
                     if (res.ok) {
                         console.log('Wine unsaved successfully');
                         setIsSaved(false);
@@ -72,7 +70,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ wineId: wine._id, email: user.email }),
                     });
-    
                     if (res.ok) {
                         console.log('Wine saved successfully');
                         setIsSaved(true);
@@ -89,6 +86,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             console.log('An error occurred while trying to save the wine', error);
         }
     }
+
     
     useEffect(() => {
         async function checkSaveWine() {
@@ -144,17 +142,11 @@ export default function WineCard({ wine, index }: WineCardProps) {
             checkSaveWine();
         }
     }, [user, wine._id]);
-    
-
-
-
-
 
     if (path === topPicks) {
-
         return (
             <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
-                ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
+                ${index + 1 > 3 ?  'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88]/70 from-10% via-[#F3EFB8]/90 via-30% to-[#D0C863]/50' : ''}
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2]/70 from-10% via-[#EAEAEA]/90 via-30% to-[#848484]/50' : ''}
                 ${index + 1 == 3 ? 'bg-gradient-to-r from-[#C97B49]/70 from-10% via-[#DB9E76]/90 via-30% to-[#946A4F]/50' : ''}`}>
@@ -178,8 +170,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-
-
                 </div>
             </div>
         )
@@ -207,8 +197,6 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-
-
                 </div>
             </div>
         )
@@ -237,11 +225,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-
-
                 </div>
             </div>
-
         )
     }
 }

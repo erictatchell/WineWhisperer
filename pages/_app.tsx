@@ -12,7 +12,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/router';
 import { SessionProvider } from "next-auth/react"
 
-
 const lora = Lora({ subsets: ['latin'] })
 
 const theme = createTheme({

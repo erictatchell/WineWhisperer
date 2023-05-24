@@ -20,9 +20,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     if (Array.isArray(id)) {
       id = id[0];
     }
-    
+
     const wine = await collection.findOne({ _id: new ObjectId(id) });
-    
+
     if (!wine) {
       return res.status(404).json({ error: 'Wine not found' });
     }

@@ -4,12 +4,9 @@ import clientPromise from '../../../lib/mongodb'
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         const { email } = req.body;
-
         const client = await clientPromise;
         const db = client.db();
-
         const userExtrasCollection = db.collection('userExtras');
-
         const user = await userExtrasCollection.findOne({ email });
 
         if (user && user.saved) {

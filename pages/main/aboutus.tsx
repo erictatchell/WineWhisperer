@@ -4,7 +4,6 @@ import clientPromise from '../../lib/mongodb';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-
 const teamMembers = [
   {
     name: "Eric Tatchell",
@@ -40,13 +39,13 @@ const teamMembers = [
   // add more team members as needed
 ];
 
-
 export default function aboutUs() {
   return (
-    // Easter egg link
     <div className="mx-auto z-50 p-4 sm:p-6 lg:p-8">
       <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
-        <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">About our project</p>
+        <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
+          About our project
+        </p>
         <p className="mt-4 max-w-2xl text-m text-gray-900 lg:mx-auto">
           Our team, Code and Cork, is proudly developing Wine Whisperer, an AI-driven platform designed to empower farmers,
           vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
@@ -54,10 +53,11 @@ export default function aboutUs() {
           By harnessing the power of AI, Wine Whisperer is changing the way we discover, enjoy, and share sustainable wines.
         </p>
       </div>
-
       <Link href="/main/404" className='cursor-default'>
         <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 divide-y">
-          <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
+          <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
+            Meet our amazing team
+          </p>
           <p className="mt-4 max-w-2xl text-m text-gray-900 lg:mx-auto">
             Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
             group from the British Columbia Institute of Technology. We share a passion for software development and aspire
@@ -69,7 +69,7 @@ export default function aboutUs() {
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col md:flex-row items-center bg-dijon/70 shadow-2xl rounded-xl overflow-hidden max-w-xl sm:max-w-none">
             <div className="md:w-1/3">
-              <img className="md:h-48 md:max-h-2/3 w-full object-cover md:w-48 rounded" src={member.image} alt={member.name} />
+              <img className="md:h-48 md:max-h-2/3 w-full object-cover md:w-48 rounded" src={member.image} alt={member.name}/>
             </div>
             <div className="mt-4 md:mt-0 md:w-2/3 p-4 divide-y">
               <h3 className="text-lg leading-6 font-bold ">

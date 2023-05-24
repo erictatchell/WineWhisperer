@@ -16,7 +16,6 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 const lora = Lora({ subsets: ['latin'] })
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,24 +31,25 @@ const theme = createTheme({
 interface Props {
   children: React.ReactNode;
 }
+
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
+
 const handleGoogle = () => {
   signIn("google", { callbackUrl: '/main/home' });
 };
 
+// Sets up the layout for the app, including the navigation bar, footer, background video
 export default function Layout({ children }: Props) {
   const router = useRouter();
   const path = router.pathname;
   const { data: session } = useSession()
   const user = session ? session.user : null;
-
   const isSpecialRoute = path === '/' || path === '/auth/login' || path === '/auth/signup';
-  if (!isSpecialRoute) {
 
+  if (!isSpecialRoute) {
     return (
-      // playsInline for iOS
       <div className={`pb-16 flex flex-col ${lora.className} min-h-screen`}>
         <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic2.png">
           <source src="/bgvid.mp4" type="video/mp4" />
@@ -156,28 +156,28 @@ export default function Layout({ children }: Props) {
             <Link href='/main/home' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <HomeIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <HomeIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/toppicks' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <LeaderboardIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <LeaderboardIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/search?sort=points_desc' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <LayersIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <LayersIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/saved' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <BookmarkIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <BookmarkIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
