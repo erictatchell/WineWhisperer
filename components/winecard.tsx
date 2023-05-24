@@ -162,29 +162,22 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
-                    <IconButton onClick={() => { handleWineClick(wine) }}>
-                        <ThemeProvider theme={theme}>
-                            <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-                        </ThemeProvider>
-                    </IconButton>
+                <IconButton onClick={() => { handleWineClick(wine) }}>
+    <ThemeProvider theme={theme}>
+        {
+            wine.eco 
+                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+        }
+    </ThemeProvider>
+</IconButton>
+
                     <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-                    <IconButton onClick={() => { handleWineClick(wine) }}>
-    <ThemeProvider theme={theme}>
-    {
-    wine.eco &&
-    <IconButton>
-        <ThemeProvider theme={theme}>
-            <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-        </ThemeProvider>
-    </IconButton>
-}
-
-    </ThemeProvider>
-</IconButton>
+   
 
                 </div>
             </div>
@@ -203,29 +196,22 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
-                    <IconButton onClick={() => { handleWineClick(wine) }}>
-                        <ThemeProvider theme={theme}>
-                            <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-                        </ThemeProvider>
-                    </IconButton>
+                <IconButton onClick={() => { handleWineClick(wine) }}>
+    <ThemeProvider theme={theme}>
+        {
+            wine.eco 
+                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+        }
+    </ThemeProvider>
+</IconButton>
+
                     <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-                    <IconButton onClick={() => { handleWineClick(wine) }}>
-    <ThemeProvider theme={theme}>
-    {
-    wine.eco &&
-    <IconButton>
-        <ThemeProvider theme={theme}>
-            <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-        </ThemeProvider>
-    </IconButton>
-}
-
-    </ThemeProvider>
-</IconButton>
+                
 
                 </div>
             </div>
