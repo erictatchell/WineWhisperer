@@ -11,7 +11,7 @@ import { useSession } from 'next-auth/react';
 /** TODO */
 export default function TopPicks({ wines }: TopPicksProps) {
     const { data: session } = useSession();
-const user = session ? session.user : null;
+    const user = session ? session.user : null;
 
     return (
         <div className="grid justify-center mt-5">

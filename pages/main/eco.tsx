@@ -31,7 +31,7 @@ const theme = createTheme({
 /** TODO */
 export default function Eco({ ecowines }: EcoProps) {
     const router = useRouter();
-        const { data: session } = useSession();
+    const { data: session } = useSession();
     const user = session ? session.user : null;
 
     async function saveWineId(wine: Wine) {
