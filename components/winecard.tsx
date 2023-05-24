@@ -170,6 +170,16 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
+                    <IconButton onClick={() => { handleWineClick(wine) }}>
+    <ThemeProvider theme={theme}>
+        {
+            wine.eco 
+                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+        }
+    </ThemeProvider>
+</IconButton>
+
                 </div>
             </div>
         )
@@ -197,6 +207,16 @@ export default function WineCard({ wine, index }: WineCardProps) {
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
+                    <IconButton onClick={() => { handleWineClick(wine) }}>
+    <ThemeProvider theme={theme}>
+        {
+            wine.eco 
+                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+        }
+    </ThemeProvider>
+</IconButton>
+
                 </div>
             </div>
         )
