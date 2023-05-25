@@ -87,6 +87,7 @@ export default function Profile({ userId }: ProfileProps) {
   );
 }
 
+// Verify user is logged in and get user ID, if not logged in, redirect to login page
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   const userEmail = session && session.user ? session.user.email : null;

@@ -4,6 +4,7 @@ import clientPromise from '../../lib/mongodb';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
+// Members of the team info that is displayed on the about us cards
 const teamMembers = [
   {
     name: "Eric Tatchell",
@@ -39,9 +40,11 @@ const teamMembers = [
   // add more team members as needed
 ];
 
+// About Us team information and members cards
 export default function aboutUs() {
   return (
     <div className="mx-auto z-50 p-4 sm:p-6 lg:p-8">
+      {/*About the project*/}
       <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
         <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
           About our project
@@ -53,6 +56,7 @@ export default function aboutUs() {
           By harnessing the power of AI, Wine Whisperer is changing the way we discover, enjoy, and share sustainable wines.
         </p>
       </div>
+      {/*About the team and button for the easter egg*/}
       <Link href="/main/404" className='cursor-default'>
         <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 divide-y">
           <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
@@ -65,6 +69,7 @@ export default function aboutUs() {
           </p>
         </div>
       </Link>
+      {/*About the team members, info is taken from teamMembers*/}
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {teamMembers.map((member, index) => (
           <div key={index} className="flex flex-col md:flex-row items-center bg-dijon/70 shadow-2xl rounded-xl overflow-hidden max-w-xl sm:max-w-none">

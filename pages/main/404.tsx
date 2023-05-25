@@ -4,8 +4,8 @@ import { useState } from 'react';
 import clientPromise from '../../lib/mongodb';
 import { getSession } from 'next-auth/react';
 import { isAnyArrayBuffer } from 'util/types';
-//import clickSound from '/eastereggSound.mp3';
 
+// Fake 404 page for the Easter Egg that redirects to the brazil.tsx after 4 clicks
 const NotFoundPage: React.FC = () => {
   const [clickCount, setClickCount] = useState(0);
   const handleClick = (e: React.MouseEvent) => {
@@ -28,7 +28,8 @@ const NotFoundPage: React.FC = () => {
       justifyContent: 'center'
     }}>
       <div>
-        <p>The thing you are looking for is not found.</p>
+        {/*Riddle for the Easter Egg*/}
+        <p>The thing you are looking for is not found on this page.</p>
         <style>{`
           body {
             color: #000;
@@ -52,6 +53,7 @@ const NotFoundPage: React.FC = () => {
           }
         `}
         </style>
+        {/*Hidden button on for the Easter Egg*/}
         <Link href="/main/brazil" className='cursor-default'>
           <h1 className="next-error-h1" style={{
             display: 'inline-block',
@@ -83,6 +85,7 @@ const NotFoundPage: React.FC = () => {
   );
 };
 
+// Verifying session and redirecting if not logged in
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   const userEmail = session && session.user ? session.user.email : null;
