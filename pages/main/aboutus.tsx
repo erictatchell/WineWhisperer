@@ -4,7 +4,6 @@ import clientPromise from '../../lib/mongodb';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
 
-
 const teamMembers = [
   {
     name: "Eric Tatchell",
@@ -17,7 +16,7 @@ const teamMembers = [
   {
     name: "Brendan Doyle",
     image: "/brendan1.jpg",
-    description: "Brendan is a passionate developer with a love for golf and travel. He is the front end developer",
+    description: "Brendan's interests lie in developing interesting and easy to use UX and UI. He loves to golf and travel. He is the front end developer",
     linkedIn: "https://www.linkedin.com/in/brendan-j-doyle",
     instagram: "https://www.instagram.com/brendoyle1/"
   },
@@ -25,7 +24,7 @@ const teamMembers = [
   {
     name: "Noor Sangha",
     image: "/noor1.jpg",
-    description: "Noor is a passionate developer with a love for cars and is our database designer.",
+    description: "Noor is a developer with an eye for details. She loves working on cars and is our database designer.",
     linkedIn: "https://www.linkedin.com/in/noor-sangha-277a32240/",
     instagram: "https://www.instagram.com/noorsangha/"
   },
@@ -33,32 +32,33 @@ const teamMembers = [
   {
     name: "Victor Vasconcellos",
     image: "/victor3.jpg",
-    description: "Victor is a passionate developer with a love for soccer. His nickname is Solar Panel because he loves the sun so much. Victor is the project manager.",
+    description: "Victor is an aspiring project manager with a love for soccer. His nickname is Solar Panel because he loves the sun so much.",
     linkedIn: "https://www.linkedin.com/in/victor-vasconcellos-4ab255262/",
     instagram: "https://www.instagram.com/victor.amaim/"
   }
   // add more team members as needed
 ];
 
-
 export default function aboutUs() {
   return (
-    // Easter egg link
     <div className="mx-auto z-50 p-4 sm:p-6 lg:p-8">
-      <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
-        <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">About our project</p>
-        <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
-          Our team Code and Cork, is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers,
+      <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 mb-10 divide-y">
+        <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
+          About our project
+        </p>
+        <p className="mt-4 max-w-2xl text-m text-gray-900 lg:mx-auto">
+          Our team, Code and Cork, is proudly developing Wine Whisperer, an AI-driven platform designed to empower farmers,
           vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
-          wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines.
-          By harnessing the power of AI, WineWhisperer is changing the way we discover, enjoy, and share sustainable wines.
+          wine enthusiasts with an diverse selection of environmentally friendly and delicious wines.
+          By harnessing the power of AI, Wine Whisperer is changing the way we discover, enjoy, and share sustainable wines.
         </p>
       </div>
-
       <Link href="/main/404" className='cursor-default'>
-        <div className="text-center bg-lightdijon shadow-md rounded-md overflow-hidden p-6 divide-y">
-          <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">Meet our amazing team</p>
-          <p className="mt-4 max-w-2xl text-m text-gray-500 lg:mx-auto">
+        <div className="text-center bg-dijon/70 shadow-md rounded-md overflow-hidden p-6 divide-y">
+          <p className="mt-2 text-xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-xl">
+            Meet our amazing team
+          </p>
+          <p className="mt-4 max-w-2xl text-m text-gray-900 lg:mx-auto">
             Brendan Doyle, Eric Tatchell, Noor Sangha, and Victor Vasconcellos, are a highly motivated and cohesive
             group from the British Columbia Institute of Technology. We share a passion for software development and aspire
             to make a positive impact on society through our knowledge and hard work.
@@ -67,9 +67,9 @@ export default function aboutUs() {
       </Link>
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {teamMembers.map((member, index) => (
-          <div key={index} className="flex flex-col md:flex-row items-center bg-lightdijon shadow-2xl rounded-xl overflow-hidden max-w-xl">
+          <div key={index} className="flex flex-col md:flex-row items-center bg-dijon/70 shadow-2xl rounded-xl overflow-hidden max-w-xl sm:max-w-none">
             <div className="md:w-1/3">
-              <img className="md:h-48 md:max-h-2/3 w-full object-cover md:w-48 rounded" src={member.image} alt={member.name} />
+              <img className="md:h-48 md:max-h-2/3 w-full object-cover md:w-48 rounded" src={member.image} alt={member.name}/>
             </div>
             <div className="mt-4 md:mt-0 md:w-2/3 p-4 divide-y">
               <h3 className="text-lg leading-6 font-bold ">

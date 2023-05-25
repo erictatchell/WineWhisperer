@@ -13,21 +13,21 @@ export default function Home() {
   const handleInsta = () => {
     signIn("instagram");
   };
-
   const { data: session } = useSession()
+
   return (
     // background video
     <main>
-      
       <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic3.png">
          <source src="/bgloop.mp4" type="video/mp4" />
       </video>
-      
       <div className="grid justify-center">
         <div className="grid justify-center">
           <Image className="drop-shadow-xl grid justify-center mt-40" src="/logofaded.png" alt="WineWhisperer" width="175" height="175"></Image>
         </div>
-        <h1 className="drop-shadow-xl text-xl mt-5 text-[#C5B79E] font-medium tracking-widest2 grid justify-center">WINE WHISPERER</h1>
+        <h1 className="drop-shadow-xl text-xl mt-5 text-[#C5B79E] font-medium tracking-widest2 grid justify-center">
+          WINE WHISPERER
+        </h1>
       </div>
       <div className='grid mt-10 justify-center'>
         <button onClick={handleGoogle} type="button" className="drop-shadow-xl justify-center text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-3 py-3 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2">
