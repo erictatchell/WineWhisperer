@@ -52,7 +52,7 @@ export default function aboutUs() {
         <p className="mt-4 max-w-2xl text-m text-gray-900 lg:mx-auto">
           Our team, Code and Cork, is proudly developing Wine Whisperer, an AI-driven platform designed to empower farmers,
           vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious
-          wine enthusiasts with an diverse selection of environmentally friendly and delicious wines.
+          wine enthusiasts with a diverse selection of environmentally friendly and delicious wines.
           By harnessing the power of AI, Wine Whisperer is changing the way we discover, enjoy, and share sustainable wines.
         </p>
       </div>
