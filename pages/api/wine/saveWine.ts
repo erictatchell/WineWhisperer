@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '../../../lib/mongodb'
 
+// Defines the API route that should be called by the client to get a response from the server
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         const { wineId, email } = req.body;
@@ -8,6 +9,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const db = client.db();
         const userExtrasCollection = db.collection('userExtras');
 
+        // Update the user document: add the specified wine to the 'saved' array
         await userExtrasCollection.updateOne(
             { email },
             { $push: { saved: wineId } }

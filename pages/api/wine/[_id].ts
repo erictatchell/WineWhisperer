@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import clientPromise from '../../../lib/mongodb';
 import { ObjectId } from "mongodb";
 
+// Defines the API route that should be called by the client to get a response from the server
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
     return res.status(405).end(); // Method Not Allowed
@@ -17,6 +18,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const client = await clientPromise;
     const db = client.db();
     const collection = db.collection('wset');
+     // Check if the id is an array (it could be due to how Next.js parses query parameters) if so, take the first element as the id
     if (Array.isArray(id)) {
       id = id[0];
     }
