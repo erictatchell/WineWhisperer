@@ -104,17 +104,19 @@ export default function Home() {
             </div>
           </div>
         )}
-        {!loading && wines.length != 0 ?
-          <div className='flex flex-col items-center text-center'>
-            <div className='text-5xl mt-2 text-lightdijon '>“”</div>
-            <div className='mb-5 font-medium text-lightdijon mx-20'>{pageDesc}</div>
-          </div>
-          : <div></div>}
-        {!loading ?
-          wines.map((wine: Wine, index: number) => (
-            <WineCard key={index} wine={wine} index={index} />
-          ))
-          : <ThinkingDots></ThinkingDots>}
+        <div className="flex flex-col items-center mx-5">
+          {!loading && wines.length != 0 ? (
+            <>
+              <div className='text-5xl mt-2 text-lightdijon '>“”</div>
+              <div className='mb-5 font-medium text-lightdijon '>{pageDesc}</div>
+            </>
+          ) : null}
+          {!loading ? (
+            wines.map((wine: Wine, index: number) => (
+              <WineCard key={index} wine={wine} index={index} />
+            ))
+          ) : <ThinkingDots />}
+        </div>
         <div className="fixed bottom-0 left-0 z-50 w-full">
           <div className="max-w-lg mx-auto p-4 mb-16 bg-black/10 backdrop-blur-md">
             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4">
