@@ -26,6 +26,7 @@ const theme = createTheme({
   },
 });
 
+// Default component for the custom _app.js in Next.js. Wraps the entire application in a SessionProvider and a layout component
 export default function App({
   Component, pageProps: { session, ...pageProps}
 }: AppProps) {

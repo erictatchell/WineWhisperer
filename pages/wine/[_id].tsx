@@ -9,6 +9,7 @@ import { GetServerSideProps } from 'next';
 import CopyButton from '../../components/copybutton';
 import clipboardCopy from 'clipboard-copy';
 
+// The properties our WinePage component expects to receive
 interface WinePageProps {
   wine: Wine;
 }
@@ -20,6 +21,7 @@ export default function WinePage() {
   const [isSaved, setIsSaved] = useState(false);
   const [wine, setWine] = useState<Wine | null>(null);
 
+  // useEffect hook to run side-effects in function components, in this case we're reading the wine and its status from local storage
   useEffect(() => {
     if (router.isReady) {
       const storedWine = localStorage.getItem('WINE' + router.query._id);
@@ -37,6 +39,7 @@ export default function WinePage() {
     }
   }, [router.isReady, router.query._id]);
 
+  // Function to check if the current wine is saved by the user on the server
   async function checkSaveWine() {
     if (user) {
       const res = await fetch('/api/wine/getsaveWine', {
@@ -59,6 +62,7 @@ export default function WinePage() {
     }
   }
 
+  // Function to save or un-save the current wine to the server
   async function saveWineId() {
     try {
       if (user && wine) {
@@ -74,6 +78,7 @@ export default function WinePage() {
             setIsSaved(false);
           }
         } else {
+          // If the wine is not saved, we save it to the server
           const res = await fetch('/api/wine/saveWine', {
             method: 'POST',
             headers: {
@@ -90,9 +95,11 @@ export default function WinePage() {
       console.log('An error occurred while trying to save the wine', error);
     }
   }
+  // If the wine is not loaded yet, we show a loading message
   if (!wine) {
     return <div>Loading...</div>;
   }
+  // Renders the information about the wine
   return (
     <div className="flex flex-col md:flex-row mx-8 items-center mb-12 mt-10 justify-center">
       <div className='bg-lightdijon/20 backdrop-blur-md py-3 rounded-xl'>
@@ -161,6 +168,7 @@ export default function WinePage() {
   );
 }
 
+// Function to get the wine details server-side before rendering the page
 export const getServerSideProps: GetServerSideProps = async (context) => {
   if (!context.params) {
     return {
