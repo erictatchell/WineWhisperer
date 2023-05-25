@@ -105,16 +105,14 @@ export default function Home() {
           </div>
         )}
         {!loading && wines.length != 0 ?
-          <div className='text-center'>
+          <div className='flex flex-col items-center text-center'>
             <div className='text-5xl mt-2 text-lightdijon '>“”</div>
             <div className='mb-5 font-medium text-lightdijon mx-20'>{pageDesc}</div>
           </div>
           : <div></div>}
         {!loading ?
           wines.map((wine: Wine, index: number) => (
-            <div className='flex flex-col items-center'>
-              <WineCard key={index} wine={wine} index={index} />
-            </div>
+            <WineCard key={index} wine={wine} index={index} />
           ))
           : <ThinkingDots></ThinkingDots>}
         <div className="fixed bottom-0 left-0 z-50 w-full">
