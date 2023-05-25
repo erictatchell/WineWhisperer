@@ -3,18 +3,21 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import { Configuration, OpenAIApi } from 'openai';
 import clientPromise from '../../lib/mongodb';
 
+// Creates an instance of the OpenAI client class
 const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY
 });
 
 const openai = new OpenAIApi(configuration);
 
+// Defines the API route that should be called by the client to get a response from the server
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== 'GET') {
         return res.status(405).end(); // Method Not Allowed
     }
     console.log("DESCRIPTION: ", req.query.description);
     try {
+        // Call the OpenAI API and get the response to generate a list of wine suggestions
         const response = await openai.createCompletion({
             model: "text-davinci-003",
             prompt: `List 10 DISTINCT wines that best fits this prompt: ${req.query.description}`,
@@ -31,6 +34,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const wines = result ? result.split('\n').map(wine => wine.replace(/^\d+\.\s*/, '').trim()) : [];
         console.log('OpenAI: ', wines);
 
+        // Query the MongoDB database to get the wine suggestions
         const matches = wines.map(wine => {
             const pattern = new RegExp("\\b" + wine + "\\b", 'i');
             return {

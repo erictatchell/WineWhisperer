@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { FormEventHandler, useEffect, useState } from 'react';
 
+// Handles the login with Google and Instagram
 export default function Login() {
-    // social media providers
     const handleGoogle = () => {
         signIn("google", { callbackUrl: '/main/home' });
     };

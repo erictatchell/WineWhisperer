@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link'
 import { FormEventHandler, ChangeEvent, useState } from 'react';
 
+// Handles the sign up with Google and Instagram
 export default function SignUp() {
     const handleSignInClick = () => {
         signIn("google", { callbackUrl: '/main/home' });
