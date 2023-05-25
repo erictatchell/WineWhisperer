@@ -1,5 +1,6 @@
 import wineFacts from './facts';
 
+// Randomly select a fact from the array to display on the loading screen
 function getFact() {
     const i = Math.floor(Math.random() * wineFacts.length);
     return wineFacts[i];
@@ -7,7 +8,6 @@ function getFact() {
 
 const Loading = () => {
     const fact = getFact();
-
     return (
         <div className='grid mx-6 text-center'>
             <h1 className='text-3xl text-dijon font-bold'>Browsing our shelves...</h1>

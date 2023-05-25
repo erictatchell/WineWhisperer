@@ -1,5 +1,6 @@
 import { FC } from 'react';
 
+// Define the types for the props this component will accept
 type CardProps = {
   title: string;
   icon: JSX.Element;
@@ -7,6 +8,7 @@ type CardProps = {
   toggleSwitch: () => void;
 };
 
+// Define the Card functional component. This component accepts props of type CardProps.
 const Card: FC<CardProps> = ({ title, icon, isOn, toggleSwitch }) => {
   return (
     <div className="space-y-8 p-2 drop-shadow-xl text-xl mb-8 mt-0 text-black bg-dijon/70 focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-4 py-1 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2">
