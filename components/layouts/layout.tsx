@@ -93,7 +93,6 @@ export default function Layout({ children }: Props) {
                     <ChevronDownIcon className=" h-5 w-5 text-brendan font-bold" aria-hidden="true" />
                   </Menu.Button>
                 </div>
-
                 <Transition
                   as={Fragment}
                   enter="transition ease-out duration-100"
