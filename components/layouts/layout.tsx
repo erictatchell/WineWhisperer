@@ -32,6 +32,7 @@ interface Props {
   children: React.ReactNode;
 }
 
+// utility function that concatenates multiple class names into a single string, filtering out falsy values.
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
@@ -49,6 +50,7 @@ export default function Layout({ children }: Props) {
   const isSpecialRoute = path === '/' || path === '/auth/login' || path === '/auth/signup';
 
   if (!isSpecialRoute) {
+    // Renders the header, navigation bar, background video and footer
     return (
       <div className={`pb-16 flex flex-col ${lora.className} min-h-screen`}>
         <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic2.png">
@@ -60,7 +62,6 @@ export default function Layout({ children }: Props) {
               <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </Link>
-
             <div className='text-dijon/80 text-2xl font-semibold tracking-widest uppercase'>
               -
               {path == '/main/home' ? ' Home ' : ''}
@@ -142,15 +143,12 @@ export default function Layout({ children }: Props) {
                   </Menu.Items>
                 </Transition>
               </Menu>
-
             }
           </div>
-
         </nav>
         <main className='${lora.className}' style={{ zIndex: 10 }}>
           {children}
         </main>
-
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-vineyard bg-cover bg-brendan ">
           <div className="grid max-w-md grid-cols-4 mx-auto font-medium">
             <Link href='/main/home' className="flex items-center justify-center px-5 group">

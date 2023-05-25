@@ -4,6 +4,7 @@ import InstagramProvider from "next-auth/providers/instagram";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import clientPromise from "../../../lib/mongodb"
 
+// Generate a random string to use as the 'id' property in the 'userExtras' collection
 function generateRandomString() {
   let pattern = 'W';
   const min = 0;
@@ -31,6 +32,7 @@ const authOptions = {
     }),
   ],
   callbacks: {
+     // On sign-in, create a new document in the userExtras collection if it doesn't exist 
     async signIn({ user, account, profile, email, credentials }) {
       const client = await clientPromise;
       const db = client.db();

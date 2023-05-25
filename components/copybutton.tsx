@@ -3,6 +3,7 @@ import IosShareIcon from '@mui/icons-material/IosShare';
 import { useState } from 'react';
 import CheckIcon from '@mui/icons-material/Check';
 
+// Define the CopyButton component. This is a Functional Component that displays a button to copy the current URL to the clipboard.
 const CopyButton = () => {
     const [isCopied, setIsCopied] = useState(false);
 

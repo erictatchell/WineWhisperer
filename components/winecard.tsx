@@ -21,6 +21,7 @@ const theme = createTheme({
     },
 });
 
+// Defines the type for the wine object that is passed in as a prop
 interface WineCardProps {
     wine: Wine;
     index: number;
@@ -42,8 +43,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         router.push(`/wine/${wine._id}`);
     }
 
-
-
+    // Function to save the wine to the user's saved wines list based on the current state
     async function saveWineId(wine: Wine) {
         try {
             if (user) {
@@ -89,7 +89,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
 
-
+    // Check if the wine is saved in the user's saved wines list
     useEffect(() => {
         async function checkSaveWine() {
             if (user) {
@@ -146,6 +146,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     }, [user, wine._id]);
 
     if (path === topPicks) {
+        // Render the wine card for the top picks page
         return (
             <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
                 ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
@@ -183,8 +184,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
             </div>
         )
     } else if (path != '/main/eco') {
+        // Render the wine card for the non-eco wines
         return (
-
             <div key={index} className='bg-gradient-to-t from-dijon to-dijon/50 relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4'>
                 <div className="flex-shrink-0">
                     <img src={wine.image} alt="Wine image" width='50' height='50' />
@@ -217,6 +218,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
             </div>
         )
     } else {
+        // render the wine card for the eco wines
         return (
             <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
                 ${index + 1 > 1 ? 'bg-gradient-to-r from-[#68a678] to-dijon/60' : ''}
