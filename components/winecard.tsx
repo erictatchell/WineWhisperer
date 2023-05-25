@@ -153,7 +153,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2]/70 from-10% via-[#EAEAEA]/90 via-30% to-[#848484]/50' : ''}
                 ${index + 1 == 3 ? 'bg-gradient-to-r from-[#C97B49]/70 from-10% via-[#DB9E76]/90 via-30% to-[#946A4F]/50' : ''}`}>
                 <div className="flex-shrink-0">
-                    <img src={wine.image} alt="Wine image" width='50' height='50' />
+                    <img src={wine.image ? wine.image : '/cabernet-sauvignon.png'} alt="Wine image" width='50' height='50' />
                 </div>
                 <div>
                     <div className="text-md font-semibold text-black">{wine.title}</div>
@@ -192,7 +192,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 <div>
                     <div className="text-md font-semibold text-black">{wine.title}</div>
                     <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
-                    <p className="text-sm text-black tracking-widest">${wine.price ? wine.price : 'No price listed'}</p>
+                    <p className="text-sm text-black tracking-widest">${wine.price ? wine.price : '20'}</p>
                     <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
