@@ -5,6 +5,7 @@ export default function Brazil() {
   const { data: session } = useSession()
   const user = session ? session.user : null;
 
+  // Easter Egg pictures of Victor
   return (
     <div className="mt-6 mx-8">
       <div className="flex items-start justify-between">

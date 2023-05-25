@@ -34,6 +34,7 @@ const theme = createTheme({
   },
 });
 
+// Renders the cellar page components, filters, pagination, and wine cards
 export default function Search({ wines, totalPages, currentPage }: SearchProps) {
   const router = useRouter();
   const [page, setPage] = useState(currentPage);
@@ -117,6 +118,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
     return buttons;
   };
 
+  // Formatting for the filter dropdown menu and the eco-friendly button
   return (
     <div className="grid justify-center mt-5 mb-14">
       <div className='mb-4 text-center grid grid-cols-2'> {/* Add gap-4 for space between Select and Button */}
@@ -146,6 +148,7 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   )
 }
 
+// Connects to the database and retrieves the wines to be displayed on the page based on the query parameters
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const client = await clientPromise;
   const db = await client.db('Wine1');

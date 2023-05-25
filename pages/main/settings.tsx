@@ -15,6 +15,7 @@ export default function Settings() {
   const [isLocationOn, setLocation] = useState(false);
   const [isDarkModeOn, setDarkMode] = useState(false);
 
+  // Switch buttons for toggling notifications, location, and dark mode
   return (
     <div className="mt-10 flex flex-col items-center">
       <div className='grid'>
@@ -36,6 +37,7 @@ export default function Settings() {
           toggleSwitch={() => setDarkMode(!isDarkModeOn)}
           isOn={isDarkModeOn}
         />
+        {/*About us button*/}
         <div className="flex justify-center items-center">
           <Link href="/main/aboutus">
             <button className="p-2 drop-shadow-xl text-medium mt-10 text-black bg-dijon/70 hover:bg-[#F8DE7F] focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-small rounded-lg px-3 py-2 text-center inline-flex items- dark:focus:ring-[#3b5998]/55 mr-2 mb-2"><InfoOutlinedIcon />
@@ -48,6 +50,7 @@ export default function Settings() {
   );
 };
 
+// Verifies the user is logged in and gets the user's id, redirects to login page if not logged in
 export async function getServerSideProps(context: any) {
   const session = await getSession(context);
   const userEmail = session && session.user ? session.user.email : null;

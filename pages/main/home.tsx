@@ -7,6 +7,7 @@ import { IconButton, ThemeProvider, createTheme, } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import WineCard from '../../components/winecard';
 
+// Sets the primary and secondary colors for the theme of the page
 const theme = createTheme({
   palette: {
     primary: {
@@ -19,6 +20,7 @@ const theme = createTheme({
   },
 });
 
+// Renders the home page components and handles the API calls
 export default function Home() {
   const [selection, setSelection] = useState('list');
   const [description, setDescription] = useState('');
@@ -36,6 +38,7 @@ export default function Home() {
     setLoading(true);
     setShowExamples(false);  // hide the example divs
     setPageDesc(description);
+    // API call to get the wines
     try {
       const response = await fetch(`/api/ai?selection=${selection}&description=${description}&numWines=3`);
       if (!response.ok) {
@@ -50,6 +53,7 @@ export default function Home() {
     }
   };
 
+  // Renders the page components for searching for wines and the wine cards
   return (
     <div className="mt-5">
       <div className="grid justify-center mb-40">
