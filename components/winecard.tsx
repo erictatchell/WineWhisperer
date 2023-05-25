@@ -41,8 +41,8 @@ export default function WineCard({ wine, index }: WineCardProps) {
         localStorage.setItem('WINE' + wine._id, JSON.stringify(wine));
         router.push(`/wine/${wine._id}`);
     }
-    
-    
+
+
 
     async function saveWineId(wine: Wine) {
         try {
@@ -89,7 +89,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
         }
     }
 
-    
+
     useEffect(() => {
         async function checkSaveWine() {
             if (user) {
@@ -102,21 +102,21 @@ export default function WineCard({ wine, index }: WineCardProps) {
                         },
                         body: JSON.stringify({ email: user.email }),
                     });
-    
+
                     if (!res.ok) {
                         throw new Error('Failed to fetch saved wines');
                     }
-    
+
                     const data = await res.json();
                     const saveWines = data.savedWines;
-    
+
                     if (!Array.isArray(saveWines)) {
                         throw new Error('Saved wines is not an array');
                     }
-    
+
                     // Log the savedWines
                     console.log("Saved Wines: ", saveWines);
-    
+
                     // Check if the current wine is in the saved wines list
                     if (saveWines.includes(wine._id)) {
                         console.log("Wine is saved: ", wine._id);
@@ -134,7 +134,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 }
             }
         }
-    
+
         // Check the state in local storage first
         const savedInLocalStorage = localStorage.getItem('WINE_SAVED_' + wine._id);
         if (savedInLocalStorage) {
@@ -148,7 +148,7 @@ export default function WineCard({ wine, index }: WineCardProps) {
     if (path === topPicks) {
         return (
             <div key={index} className={`relative p-5 mb-4 max-w-sm mx-5 rounded-xl shadow-xl flex items-center space-x-4
-                ${index + 1 > 3 ?  'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
+                ${index + 1 > 3 ? 'bg-gradient-to-t from-dijon/80 to-dijon/50' : ''}
                 ${index + 1 == 1 ? 'bg-gradient-to-r from-[#F4EC88]/70 from-10% via-[#F3EFB8]/90 via-30% to-[#D0C863]/50' : ''}
                 ${index + 1 == 2 ? 'bg-gradient-to-r from-[#C2C2C2]/70 from-10% via-[#EAEAEA]/90 via-30% to-[#848484]/50' : ''}
                 ${index + 1 == 3 ? 'bg-gradient-to-r from-[#C97B49]/70 from-10% via-[#DB9E76]/90 via-30% to-[#946A4F]/50' : ''}`}>
@@ -162,22 +162,22 @@ export default function WineCard({ wine, index }: WineCardProps) {
                     <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
-                <IconButton onClick={() => { handleWineClick(wine) }}>
-    <ThemeProvider theme={theme}>
-        {
-            wine.eco 
-                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-        }
-    </ThemeProvider>
-</IconButton>
+                    <IconButton onClick={() => { handleWineClick(wine) }}>
+                        <ThemeProvider theme={theme}>
+                            {
+                                wine.eco
+                                    ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                                    : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+                            }
+                        </ThemeProvider>
+                    </IconButton>
 
                     <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-   
+
 
                 </div>
             </div>
@@ -192,26 +192,26 @@ export default function WineCard({ wine, index }: WineCardProps) {
                 <div>
                     <div className="text-md font-semibold text-black">{wine.title}</div>
                     <p className="text-sm uppercase tracking-widest font-medium text-gray">{wine.variety}</p>
-                    <p className="text-sm text-black tracking-widest">${wine.price ? wine.price : '20'}</p>
+                    <p className="text-sm text-black tracking-widest">${wine.price ? wine.price : '39'}</p>
                     <p className="text-md uppercase tracking-widest font-bold text-green">{wine.points} / 100</p>
                 </div>
                 <div className="absolute bottom-0 right-3 mb-4">
-                <IconButton onClick={() => { handleWineClick(wine) }}>
-    <ThemeProvider theme={theme}>
-        {
-            wine.eco 
-                ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
-                : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
-        }
-    </ThemeProvider>
-</IconButton>
+                    <IconButton onClick={() => { handleWineClick(wine) }}>
+                        <ThemeProvider theme={theme}>
+                            {
+                                wine.eco
+                                    ? <FaLeaf size="1.5em" opacity='0.7' color="darkgreen" />
+                                    : <ArrowCircleRightIcon fontSize="large" opacity='0.7' color="primary" />
+                            }
+                        </ThemeProvider>
+                    </IconButton>
 
                     <IconButton onClick={() => saveWineId(wine)}>
                         <ThemeProvider theme={theme}>
                             {isSaved ? <BookmarkIcon fontSize="large" opacity='0.7' color='primary' /> : <BookmarkBorderIcon fontSize="large" opacity='0.7' color='primary' />}
                         </ThemeProvider>
                     </IconButton>
-                
+
 
                 </div>
             </div>
