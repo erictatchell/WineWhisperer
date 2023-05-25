@@ -67,7 +67,7 @@ export default function aboutUs() {
       </Link>
       <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {teamMembers.map((member, index) => (
-          <div key={index} className="flex flex-col md:flex-row items-center bg-lightdijon shadow-2xl rounded-xl overflow-hidden max-w-xl sm:max-w-none">
+          <div key={index} className="flex flex-col md:flex-row items-center bg-lightdijon shadow-2xl rounded-xl overflow-hidden max-w-xl">
             <div className="md:w-1/3">
               <img className="md:h-48 md:max-h-2/3 w-full object-cover md:w-48 rounded" src={member.image} alt={member.name} />
             </div>

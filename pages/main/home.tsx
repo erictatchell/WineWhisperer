@@ -58,7 +58,7 @@ export default function Home() {
             <div className='grid justify-center mb-6 text-dijon/95'>
               <h1>What wine are you looking for?</h1>
             </div>
-            <div onClick={() => { setPageDesc('A wine that tastes good'); setDescription('A wine that tastes good'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 font-semibold text-dijon/95 max-w-sm ml- mr- mb-6 border border-dijon/95 rounded-lg backdrop-blur-sm shadow bg-brendan/50 sm:max-w-full">
+            <div onClick={() => { setPageDesc('A wine that tastes good'); setDescription('A wine that tastes good'); handleSubmit; }} onChange={handleDescriptionChange} className="grid grid-cols-4 p-2 font-semibold text-dijon/95 max-w-sm ml- mr- mb-6 border border-dijon/95 rounded-lg backdrop-blur-md shadow bg-brendan/50 sm:max-w-full">
               <button className="col-span-3">A wine that tastes good</button>
               <div className="justify-center grid">
                 <button>
