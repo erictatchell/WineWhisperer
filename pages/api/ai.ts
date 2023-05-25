@@ -17,9 +17,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `List 10 different wines that best fits this prompt: ${req.query.description}`,
-            temperature: 0,
-            max_tokens: 100,
+            prompt: `List 10 DISTINCT wines that best fits this prompt: ${req.query.description}`,
+            temperature: 0.5,
+            max_tokens: 300,
         });
 
         const client = await clientPromise;
