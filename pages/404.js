@@ -1,7 +1,9 @@
+// Define a functional component for a custom 404 page
 export default function Custom404() {
   const goBack = () => {
     window.history.back()
   }
+  // The component returns a 404 page with a message and two buttons for navigating back or to the home page
   return (
     <div className="grid mx-5 justify-center mt-10">
       <h1 className="text-xl text-lightdijon font-semibold">

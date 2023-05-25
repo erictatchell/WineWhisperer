@@ -7,17 +7,20 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
 
+  // Function to handle Google sign-in, when signed in, redirects to home page
   const handleGoogle = () => {
     signIn("google", { callbackUrl: '/main/home' });
   };
+  // WIP
   const handleInsta = () => {
     signIn("instagram");
   };
   const { data: session } = useSession()
 
+  // Renders the login page with 2 options to sign in, and a background video
   return (
-    // background video
     <main>
+      {/* playsInLine for ios devices*/}
       <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic3.png">
          <source src="/bgloop.mp4" type="video/mp4" />
       </video>
