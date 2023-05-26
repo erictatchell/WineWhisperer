@@ -12,7 +12,6 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useRouter } from 'next/router';
 import { SessionProvider } from "next-auth/react"
 
-
 const lora = Lora({ subsets: ['latin'] })
 
 const theme = createTheme({
@@ -27,6 +26,7 @@ const theme = createTheme({
   },
 });
 
+// Default component for the custom _app.js in Next.js. Wraps the entire application in a SessionProvider and a layout component
 export default function App({
   Component, pageProps: { session, ...pageProps}
 }: AppProps) {

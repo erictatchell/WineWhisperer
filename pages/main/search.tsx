@@ -34,11 +34,10 @@ const theme = createTheme({
   },
 });
 
+// Renders the cellar page components, filters, pagination, and wine cards
 export default function Search({ wines, totalPages, currentPage }: SearchProps) {
   const router = useRouter();
-
   const [page, setPage] = useState(currentPage);
-
   const [sortOption, setSortOption] = useState('points_desc');
 
   useEffect(() => {
@@ -75,10 +74,8 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
 
   };
 
-
   const renderPaginationButtons = () => {
     const buttons = [];
-
     const startPage = Math.max(1, currentPage - Math.floor(MAX_BUTTONS / 2));
     const endPage = Math.min(totalPages, startPage + MAX_BUTTONS - 1);
 
@@ -118,10 +115,10 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
         </button>
       );
     }
-
     return buttons;
   };
 
+  // Formatting for the filter dropdown menu and the eco-friendly button
   return (
     <div className="grid justify-center mt-5 mb-14">
       <div className='mb-4 text-center grid grid-cols-2'> {/* Add gap-4 for space between Select and Button */}
@@ -151,17 +148,14 @@ export default function Search({ wines, totalPages, currentPage }: SearchProps) 
   )
 }
 
+// Connects to the database and retrieves the wines to be displayed on the page based on the query parameters
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const client = await clientPromise;
   const db = await client.db('Wine1');
-
   const page = context.query.page ? Number(context.query.page) : 1; // Get the current page number from the query parameters
-
   const totalWines = await db.collection('wset').countDocuments(); // Get the total number of wines
   const totalPages = Math.ceil(totalWines / ITEMS_PER_PAGE); // Calculate the total number of pages
-
   const skip = (page - 1) * ITEMS_PER_PAGE; // Calculate the number of wines to skip
-
   const sortOption = context.query.sort || 'asc'; // Get the sort option from the query parameters
 
   let sortField;
@@ -183,7 +177,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   }
 
   const sortDirection = sortOption === 'asc' || sortOption === 'points_asc' ? 1 : -1;
-
   const wines = await db
     .collection('wset')
     .find({})

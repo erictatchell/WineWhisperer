@@ -9,10 +9,10 @@ import { useSession } from 'next-auth/react';
 import { getSession } from 'next-auth/react';
 import { ObjectId } from 'mongodb';
 
-
+// Checks the user id and loads the users saved wines
 export default function Saved({ wines }: SavedProps) {
     const { data: session } = useSession();
-const user = session ? session.user : null;
+    const user = session ? session.user : null;
 
     return (
         <div className="grid justify-center mt-5">

@@ -16,7 +16,6 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import { useSession, signIn, signOut } from 'next-auth/react'
 
 const lora = Lora({ subsets: ['latin'] })
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -32,24 +31,27 @@ const theme = createTheme({
 interface Props {
   children: React.ReactNode;
 }
+
+// utility function that concatenates multiple class names into a single string, filtering out falsy values.
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
+
 const handleGoogle = () => {
   signIn("google", { callbackUrl: '/main/home' });
 };
 
+// Sets up the layout for the app, including the navigation bar, footer, background video
 export default function Layout({ children }: Props) {
   const router = useRouter();
   const path = router.pathname;
   const { data: session } = useSession()
   const user = session ? session.user : null;
-
   const isSpecialRoute = path === '/' || path === '/auth/login' || path === '/auth/signup';
-  if (!isSpecialRoute) {
 
+  if (!isSpecialRoute) {
+    // Renders the header, navigation bar, background video and footer
     return (
-      // playsInline for iOS
       <div className={`pb-16 flex flex-col ${lora.className} min-h-screen`}>
         <video autoPlay muted loop playsInline id="myVideo" className="fixed w-full h-full object-cover" poster="/bgpic2.png">
           <source src="/bgvid.mp4" type="video/mp4" />
@@ -60,7 +62,6 @@ export default function Layout({ children }: Props) {
               <Image src="/logo.png" className="mr-3" alt="WW Logo" width='47' height='100' />
               <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"></span>
             </Link>
-
             <div className='text-dijon/80 text-2xl font-semibold tracking-widest uppercase'>
               -
               {path == '/main/home' ? ' Home ' : ''}
@@ -92,7 +93,6 @@ export default function Layout({ children }: Props) {
                     <ChevronDownIcon className=" h-5 w-5 text-brendan font-bold" aria-hidden="true" />
                   </Menu.Button>
                 </div>
-
                 <Transition
                   as={Fragment}
                   enter="transition ease-out duration-100"
@@ -142,42 +142,39 @@ export default function Layout({ children }: Props) {
                   </Menu.Items>
                 </Transition>
               </Menu>
-
             }
           </div>
-
         </nav>
         <main className='${lora.className}' style={{ zIndex: 10 }}>
           {children}
         </main>
-
         <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-vineyard bg-cover bg-brendan ">
           <div className="grid max-w-md grid-cols-4 mx-auto font-medium">
             <Link href='/main/home' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <HomeIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <HomeIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/toppicks' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <LeaderboardIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <LeaderboardIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/search?sort=points_desc' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <LayersIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <LayersIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>
             <Link href='/main/saved' className="flex items-center justify-center px-5 group">
               <IconButton>
                 <ThemeProvider theme={theme}>
-                  <BookmarkIcon fontSize="large" color="primary" opacity='0.8'/>
+                  <BookmarkIcon fontSize="large" color="primary" opacity='0.8' />
                 </ThemeProvider>
               </IconButton>
             </Link>

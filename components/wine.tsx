@@ -1,7 +1,7 @@
 interface TopPicksProps {
     wines: Wine[];
 }
-interface SavedProps{
+interface SavedProps {
     wines: Wine[];
 }
 
