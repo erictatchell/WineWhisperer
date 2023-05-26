@@ -1,36 +1,161 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WineWhisperer
+We're Code & Cork, and together we've created WineWhisperer, an AI powered wine recommendation app that aims to make finding your next favourite wine easy.
 
-## Getting Started
+## Technology
+### Frontend
+* Tailwind CSS
+* NextJS 13.4
+* MaterialUI
 
-First, run the development server:
+### Backend
+* TypeScript
+* JavaScript
+* NextAuth.js
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+### Extra Tools
+* MongoDB
+* OpenAI API
+* Hosted on Vercel
+
+## Folder Structure
+```
+|   .gitignore
+|   next.config.js
+|   package.json
+|   postcss.config.js
+|   README.md
+|   tailwind.config.js
+|   tsconfig.json
+|
++---pages
+|   |   404.js                     
+|   |   index.tsx                  # Landing page
+|   |   _app.tsx                   # App layout
+|   |   _document.tsx              # Outer HTML layout, don't edit
+|   |   
+|   +---api
+|   |   |   ai.ts
+|   |   |   
+|   |   +---auth
+|   |   |       [...nextauth].js
+|   |   |       
+|   |   \---wine
+|   |           getsaveWine.ts
+|   |           saveWine.ts
+|   |           unsaveWine.ts
+|   |           [_id].ts            # Wine fetching API dependent on Wine ID
+|   |             
+|   +---main
+|   |       page.tsx                # All of the sites pages are in /pages/main
+|   |       
+|   \---wine
+|           [_id].tsx                # Wine page depending on Wine ID
+|           
++---public
+|          images.png               # Every image, audio and gif is in /public
+|       
+\---styles
+    globals.css
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Prerequisites
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### MongoDB
+1. [Create a MongoDB account](https://account.mongodb.com/account/login)
+2. Install [Studio3T](https://studio3t.com/download/) (optional but recommended)
+3. Create a wine database called **'Wine1'** with a collection named **'wset'**
+4. Download the [Wine Tasting dataset](https://www.kaggle.com/datasets/mysarahmadbhat/wine-tasting) from Kaggle and fill your wset collection with the contents
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+### Google OAuth 
+5. Go to [Google Developer Console](console.google.com) and obtain the following:
+  * Client ID API Key
+  * Secret API Key
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### OpenAI
+6. Go to [OpenAI's Developer Platform](platform.openai.com) and obtain an API key
 
-## Learn More
+### Last but not least...
+7. Go to [a GUID generator](https://guidgenerator.com/) and obtain ***TWO*** API keys
+* Save one under **JWT_SECRET**, and the other under **SECRET**
 
-To learn more about Next.js, take a look at the following resources:
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Clone the repo with
+```git clone https://github.com/erictatchell/2800-202310-BBY29```
+2. In the project root, create a ***.env*** file with the following structure:
+```
+GOOGLE_CLIENT_SECRET=
+GOOGLE_CLIENT_ID=
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+NEXTAUTH_URL=https://2800-202310-bby-29.vercel.app/
 
-## Deploy on Vercel
+SECRET=
+JWT_SECRET=
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+OPENAI_API_KEY=
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+MONGODB_URI=
+MONGODB_HOST=
+MONGODB_USER=
+MONGODB_PASSWORD=
+MONGODB_DATABASE=Wine1
+```
+3. Insert your obtained API keys and MongoDB data in the fields and save.
+
+4. Open your terminal and run ```npm install``` to fetch the latest dependencies.
+
+## You're done! To run, enter ```npm run dev``` in your terminal.
+### [Testing Log](https://docs.google.com/spreadsheets/d/13nMZhT907nleudMOk-nwra6mgmaMXCsCr6rPnq2MMR0/edit#gid=394496370)
+
+# Using WineWhisperer
+### You can continue as a guest or sign in with Google. If you are a guest, you cannot save wines.
+
+### Home page
+1. On the home page, enter any wine you want in the textbox! We have 3 sample options listed.
+2. Click **Discover** to see your recommended options. (and learn a fact about wine!)
+3. When the wines show up, you can click the arrow to learn more or save them!
+
+### Top Picks (the top 10)
+#### Gold, Silver and Bronze are our top 3 wines as sorted on a 100 point scale.
+
+### Cellar
+#### This is every single wine in our dataset. You can sort by price and points by clicking the dropdown, or view all eco friendy wines!
+
+### Saved
+#### This is where you can see all of your saved wines. You can unsave them or click to learn more.
+
+# Credits/Referneces 
+* OpenAI API
+* MaterialUI icons
+* Wine Tasting dataset from MYSAR AHMAD BHAT
+* Bordeaux image from WineXpert
+* Background video was mashup of [this](https://www.pexels.com/video/pouring-wine-in-glass-1003928/), [this](https://www.pexels.com/video/a-person-poring-red-wine-on-a-wineglass-3197862/) and [this](https://www.pexels.com/video/a-person-pouring-wine-on-a-row-of-wine-glasses-3188887/)
+
+# Using OpenAI API
+* We used GPT 4.0 to aid in the autocompletion of code blocks. We provided logic, it provided a solution. It was tremendously helpful as we were using brand new technologies that none of us have used prior.
+* We had kind of struck gold with our Wine Tasting dataset so we didn't need to alter it with AI.
+* Our app uses OpenAI's GPT3 text-davinci-003 model to read and analyze the users entered wine preference. On the backend, we provide the model this prompt: 'List 10 DISTINCT wines that best fits this prompt:' with the users prompt filled at the end. GPT3 returns a list of 10 wines in json format, which are then queried against our wine dataset. For every word, it first searches each document's title to find a match. If there's no match, it moves to the description where it does the same thing. Aside from a few random responses from the model, the success rate is almost 100%. The DB then returns 3 of the select 10. Moving forward, we would like to refine this logic and allow the user to customize the amount of options they have.
+* We are not able to train GPT3 on our wine dataset. We solved this by adding the DB query in the middle. If we were to train the model, it would cut out the Mongo middleman and provide a faster, more accurate query.
+
+# Contact Info
+## Eric Tatchell
+* erictatch@gmail.com
+* [GitHub](https://github.com/erictatchell)
+* [LinkedIn](https://www.linkedin.com/in/eftatchell)
+
+## Noor Sangha
+* noorsangh@gmail.com
+* [GitHub](https://github.com/noorksangha)
+* [LinkedIn](https://www.linkedin.com/in/noor-sangha-277a32240)
+
+## Brendan Doyle
+* brendan-doyle@hotmail.com
+* [GitHub](https://github.com/Brendan-Doy1e)
+* [LinkedIn](https://www.linkedin.com/in/brendan-j-doyle)
+
+## Victor Vasconcellos
+* victor.amaim@gmail.com
+* [GitHub](https://github.com/victoramaim)
+* [LinkedIn](https://www.linkedin.com/in/victor-vasconcellos-4ab255262)
+
+
