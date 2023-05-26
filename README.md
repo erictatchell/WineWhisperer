@@ -1,3 +1,9 @@
+## WineWhisperer
+Our innovative team at BBY29 is proudly developing WineWhisperer, an AI-driven platform designed to empower farmers, vintners, and small businesses in the pursuit of sustainable wine making. Our mission is to connect eco-conscious wine enthusiasts with an exquisite selection of environmentally friendly and delectable wines. By harnessing the power of AI, WineWhisperer is revolutionizing the way we discover, enjoy, and share sustainable wines.
+
+## Technologies used:
+For WineWhisperer the technologies we chose were, Next13 which is a React framework, TypeScript and Javascript, Tailwind which is a CSS framework, NextAuth for secure user authentication and MongoDB for storing user data and our wine dataset.
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
