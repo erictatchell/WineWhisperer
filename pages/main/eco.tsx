@@ -1,14 +1,9 @@
 import { GetServerSideProps } from 'next';
-import { getSession } from "next-auth/react";
 import clientPromise from '../../lib/mongodb';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import Image from 'next/image'
-import { IconButton, ThemeProvider, createTheme } from '@mui/material';
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import { FaLeaf } from 'react-icons/fa';
+import {useRouter} from 'next/router';
 import WineCard from '../../components/winecard';
 import { useSession } from 'next-auth/react';
+import { createTheme } from '@mui/material';
 
 // Defining a TypeScript interface for the props that the TopPicks component will receive
 interface EcoProps {

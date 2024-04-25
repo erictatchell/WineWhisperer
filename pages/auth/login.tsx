@@ -1,7 +1,6 @@
-import { signIn, useSession } from 'next-auth/react';
+import { signIn } from 'next-auth/react';
 import Image from 'next/image'
 import Link from 'next/link'
-import { FormEventHandler, useEffect, useState } from 'react';
 
 // Handles the login with Google and Instagram
 export default function Login() {

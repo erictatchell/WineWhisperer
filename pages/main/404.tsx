@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useState } from 'react';
 import clientPromise from '../../lib/mongodb';
 import { getSession } from 'next-auth/react';
-import { isAnyArrayBuffer } from 'util/types';
 
 // Fake 404 page for the Easter Egg that redirects to the brazil.tsx after 4 clicks
 const NotFoundPage: React.FC = () => {

@@ -1,8 +1,6 @@
-import useRouter from 'next/router';
+import {useRouter} from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
-import WineCard from '../../components/winecard'
-import { IconButton } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { GetServerSideProps } from 'next';
