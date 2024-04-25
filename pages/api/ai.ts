@@ -12,7 +12,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.log("DESCRIPTION: ", req.query.description);
     try {
         const completion = await openai.chat.completions.create({
-            messages: [{ role: "system", content: `List 10 DISTINCT wines that best fits this prompt: ${req.query.description}` }],
+            messages: [{ role: "system", content: `List 10 DISTINCT common wines that best fits this prompt: ${req.query.description}` }],
             model: "gpt-3.5-turbo",
             max_tokens: 300,
             temperature: 0.5

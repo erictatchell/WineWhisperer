@@ -125,7 +125,7 @@ export default function Home() {
                 <input
                   required value={description}
                   onChange={handleDescriptionChange}
-                  className="text-sm block w-full border-dijon/95 rounded-lg bg-transparent border p-2.5 text-lightdijon hover:bg-black focus:bg-transparent mt-2 md:mt-0 md:ml-2" id="wine-description" type="text" placeholder='Briefly describe your desired wine' />
+                  className="text-sm block w-full border-dijon/95 rounded-lg bg-transparent border p-2.5 text-lightdijon hover:bg-black focus:bg-transparent mt-2 md:mt-0" id="wine-description" type="text" placeholder='Briefly describe your desired wine' />
               </div>
               <button type="submit" className="md:col-start-1 md:col-end-3 uppercase tracking-widest grid justify-center text-center inline-flex items-center drop-shadow-xl text-xl text-black bg-dijon hover:bg-dijon focus:ring-4 focus:outline-none focus:ring-[#F8DE7F]/50 font-medium rounded-lg mt-2 py-2  text-center inline-flex items-center dark:focus:ring-[#3b5998]/55">
                 Discover
