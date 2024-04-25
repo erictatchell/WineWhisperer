@@ -1,4 +1,4 @@
-import { useRouter } from 'next/router';
+import useRouter from 'next/router';
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import WineCard from '../../components/winecard'
@@ -7,7 +7,6 @@ import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import { GetServerSideProps } from 'next';
 import CopyButton from '../../components/copybutton';
-import clipboardCopy from 'clipboard-copy';
 
 // The properties our WinePage component expects to receive
 interface WinePageProps {

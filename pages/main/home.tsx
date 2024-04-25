@@ -1,9 +1,6 @@
-import Link from 'next/link';
-import Image from 'next/image'
-import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import ThinkingDots from '../../components/loading';
-import { IconButton, ThemeProvider, createTheme, } from '@mui/material';
+import { ThemeProvider, createTheme, } from '@mui/material';
 import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
 import WineCard from '../../components/winecard';
 
