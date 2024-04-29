@@ -1,4 +1,4 @@
-![WW](https://github.com/erictatchell/portfolio-website/blob/master/public/img/ww-splash.jpg)
+[![WW](https://github.com/erictatchell/portfolio-website/blob/master/public/img/ww-splash.jpg)](https://github.com/erictatchell/WineWhisperer)
 # WineWhisperer
 We're Code & Cork, and together we've created WineWhisperer, an AI powered wine recommendation app that aims to make finding your next favourite wine easy.
 
